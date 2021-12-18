@@ -12,9 +12,9 @@ router.post(
     if (loginFailed) {
       res.render('./account/login', { loginFailed });
     } else {
-      const user_id = req.user.userId;
+      const id = req.user.id;
       const name = req.user.name;
-      const user = { user_id, name };
+      const user = { id, name };
       setUserToken(res, user);
       res.redirect('/');
     }

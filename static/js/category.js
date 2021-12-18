@@ -1,4 +1,5 @@
 const items = document.querySelectorAll('main .item');
+const body = document.querySelector('body');
 
 items.forEach(item => {
   item.addEventListener('click', () => {
@@ -6,6 +7,9 @@ items.forEach(item => {
 
     console.log(category);
 
-    // location.href = 'search/category/:category';
+    axios.post(`search/category/${category}`).then(res => {
+      console.log(res);
+      body.innerHTML += res.data.posts[0].content;
+    });
   });
 });

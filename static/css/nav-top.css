@@ -63,7 +63,7 @@ header .search .btn-list li {
   cursor: pointer;
 }
 
-header .search form input {
+header .search input {
   width: 300px;
   height: 32px;
   margin-left: 30px;
