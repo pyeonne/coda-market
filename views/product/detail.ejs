@@ -26,7 +26,7 @@
     </div>
     
     <div class="menu2">
-      <li><a href="/product/postedit">수정</a></i></li>
+      <li><a href="/posts/edit">수정</a></i></li>
       <li><a href="#">삭제</a></i></li>
       
         <!-- <button id="modal_btn"><i class="fas fa-ellipsis-v"></button></i> -->
@@ -47,14 +47,12 @@
         <div class="detail-info">
           <a href="/mypage"><img src="/img/user.jpg"></a>
           <div class="info-my">
-            <span>Nick_name</span>
+            <span><%- mypost.author.name %></span>
             <span>경기도</span>
           </div>
         </div>
         
-        <div class="product-check check1">
-            판매중
-        </div>
+       
         <!-- <div class="imfo-box">
           <div class="like">
             <i class="far fa-thumbs-up"></i>
@@ -72,10 +70,24 @@
     
     <div class="defailt-content">
       <div class="content-top">
-        <h1>맥북 프로 2021</h1>
+        <div class='title-top'>
+          <h1>맥북 프로 2021</h1>
+          <% if(mypost.isSoldOut == false) { %>
+            <div class="product-check check1">
+                판매중
+            </div>
+            <% } else { %>
+              <div class="product-check check2">
+                판매완료
+            </div>
+            <% } %>
+        </div>
         <div class="content-info">
           <a href="/">카테고리</a> · <span> 끌올 3일 전</span>
         </div>
+
+
+
       </div>
 
       <div class="content-mid">

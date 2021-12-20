@@ -270,3 +270,12 @@ li {
   color: #f75e6a;
 }
 
+.title-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-check {
+  position: relative;
+  bottom: 8px;
+}

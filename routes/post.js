@@ -39,6 +39,7 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
+  console.log(req.body)
   // if (!files) {
   //   const err = new Error('선택된 파일이 없습니다.');
   //   return next(err);
@@ -59,9 +60,9 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
   });
 
   // console.log(post.author._id);
-
+  console.log(post)
   // res.status(200).json({ post });
-  res.render('./product/detail');
+  res.render('./product/detail', { mypost : post });
 });
 
 //게시물 삭제
