@@ -45,6 +45,7 @@ app.use(express.static(__dirname + '/static'));
 app.use(passport.initialize());
 app.use(getUserFromJwt);
 
+app.get('/welcome', (req, res) => res.render('./first'));
 app.get('/login', (req, res) => res.render('./account/login'));
 app.get('/mypage', (req, res) => res.render('./mypage'));
 app.get('/product/post', (req, res) => res.render('./product/post'));
@@ -52,7 +53,6 @@ app.get('/product/postedit', (req, res) => res.render('./product/postedit'));
 app.get('/product/detail', (req, res) => res.render('./product/detail'));
 app.get('/chat', (req, res) => res.render('./chat-list'));
 app.get('/profile', (req, res) => res.render('./profile'));
-app.get('/first', (req, res) => res.render('./first'));
 app.get('/category', (req, res) => res.render('./category'));
 
 app.use('/conversation', conversationRouter);
@@ -114,9 +114,8 @@ const start = async () => {
       // 업로드될 파일을 저장할 폴더 생성
       const dir = './uploadedFiles';
 
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir); 
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
       console.log(`Example app listening on port ${process.env.PORT}!`);
-
     });
   } catch (error) {
     console.log(error);

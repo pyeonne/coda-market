@@ -58,7 +58,7 @@
         <div class="histories__container container grid">
           <div>
             <!-- Sales History -->
-            <div class="histories__content">
+            <div class="histories__content transaction-list">
               <div class="histories__header">
                 <i class="fas fa-receipt histories__icon"></i>
                 <div>
@@ -113,7 +113,7 @@
             </div>
 
             <!-- Purchase History -->
-            <div class="histories__content">
+            <div class="histories__content purchased-list">
               <div class="histories__header">
                 <i class="fas fa-shopping-bag histories__icon"></i>
                 <div>
@@ -168,7 +168,7 @@
             </div>
 
             <!-- Like History -->
-            <div class="histories__content">
+            <div class="histories__content cart-list">
               <div class="histories__header">
                 <i class="fas fa-heart histories__icon"></i>
                 <div>
@@ -228,6 +228,12 @@
     <%- include("./layout/nav-bottom") %>
 
     <!-- JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script src="/js/mypage.js"></script>
   </body>
 </html>
