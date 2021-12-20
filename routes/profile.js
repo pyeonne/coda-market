@@ -15,14 +15,16 @@ router.get('/edit', async (req, res) => {
 });
 
 router.post('/edit', async (req, res) => {
-  const { name, location } = req.body;
-  const user = await User.updateOne(
+  const { imgURL, name, location } = req.body;
+  const user = await User.findOneAndUpdate(
     { id: req.user.id },
     {
+      imgURL,
       name,
       location,
     },
   );
+  console.log(req.body);
   res.render('./mypage', { name: user.name });
 });
 
