@@ -47,7 +47,7 @@ app.use(getUserFromJwt);
 
 app.get('/login', (req, res) => res.render('./account/login'));
 app.get('/mypage', (req, res) => res.render('./mypage'));
-app.get('/posts', (req, res) => res.render('./product/post'));
+app.get('/posts/new', (req, res) => res.render('./product/post'));
 app.get('/posts/edit', (req, res) => res.render('./product/postedit'));
 app.get('/detail', (req, res) => res.render('./product/detail'));
 app.get('/chat', (req, res) => res.render('./chat-list'));

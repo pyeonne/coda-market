@@ -1,3 +1,4 @@
+import { render } from 'ejs';
 import express from 'express';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
@@ -30,8 +31,8 @@ router.get('/category', async (req, res) => {
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ id: post_id }).populate('author');
-
-  res.status(200).json({ post });
+  console.log(post)
+  res.render('./product/detail', { mypost : post })
 });
 
 //게시물 생성
@@ -60,7 +61,6 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
   });
 
   // console.log(post.author._id);
-  console.log(post)
   // res.status(200).json({ post });
   res.render('./product/detail', { mypost : post });
 });

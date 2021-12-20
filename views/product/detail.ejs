@@ -47,7 +47,7 @@
         <div class="detail-info">
           <a href="/mypage"><img src="/img/user.jpg"></a>
           <div class="info-my">
-            <span><%- mypost.author.name %></span>
+            <span><%= mypost.author.name %></span>
             <span>경기도</span>
           </div>
         </div>
@@ -71,7 +71,8 @@
     <div class="defailt-content">
       <div class="content-top">
         <div class='title-top'>
-          <h1>맥북 프로 2021</h1>
+          <h1><%= mypost.title %></h1>
+
           <% if(mypost.isSoldOut == false) { %>
             <div class="product-check check1">
                 판매중
@@ -91,9 +92,9 @@
       </div>
 
       <div class="content-mid">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quam laborum iste quibusdam tempora doloremque temporibus libero, dolorum nobis quae</p>
+          <p><%= mypost.content %></p>
       </div>
-
+      
       <div class="content-bottom">
         <p>관심 10 · 조회 269</p>
       </div>
@@ -264,7 +265,7 @@
             <button onclick="save_cart()"><i class="far fa-heart"></i></i></button>
             <div class="re"></div>
             <div class ="dscription">
-              <span id="ds-pice">100,000원</span>
+              <span id="ds-pice"><%= mypost.price %>원</span>
               <span id="ds-option">가격 제안 불가</span>
             </div>
           </div>
