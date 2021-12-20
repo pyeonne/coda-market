@@ -22,7 +22,6 @@ document.getElementById('submit').addEventListener('click', e => {
   let profileData = {
     method: 'POST',
     body: JSON.stringify({
-      imgURL,
       name,
       location,
     }),
@@ -31,14 +30,9 @@ document.getElementById('submit').addEventListener('click', e => {
     },
   };
 
-  fetch(`profile/edit`, profileData)
-    .then(response => response.json())
-    .then(response => {
-      if (response) form.submit(); // 기본 폼 동작 풀기
-    })
-    .catch(err => {
-      alert('에러');
-    });
+  fetch(`profile/edit`, profileData).catch(err => {
+    alert('에러');
+  });
 });
 
 // $(function () {

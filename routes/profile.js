@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import Post from '../models/Post.js';
+import store from '../passport/middlewares/multer.js';
 
 const router = express.Router();
 
@@ -14,17 +15,18 @@ router.get('/edit', async (req, res) => {
   res.render('./profile', { name: req.user.name, location: user.location });
 });
 
-router.post('/edit', async (req, res) => {
-  const { imgURL, name, location } = req.body;
+router.post('/edit', store.single('image'), async (req, res) => {
+  const { name, location } = req.body;
+  console.log(req);
+  console.log(req.body);
   const user = await User.findOneAndUpdate(
     { id: req.user.id },
     {
-      imgURL,
       name,
       location,
     },
   );
-  console.log(req.body);
+
   res.render('./mypage', { name: user.name });
 });
 

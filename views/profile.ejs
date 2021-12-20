@@ -25,15 +25,13 @@
     <!-- MAIN -->
     <main role="main" class="main">
       <!-- Profile -->
-      <form class="profile section" id="profile">
+      <form class="profile section" id="profile form" method="post" enctype="multipart/form-data" action="/profile/edit">
         <div class="profile__container container grid profile" method="post" action="/profile/edit">
           <div class="profile__content grid">
             <div class="profile__img" id="target_img">
               <img src="/img/profile.png" alt="" class="img-profile">
             </div>
-            <form id="form" method="post" enctype="multipart/form-data" action="/profile/edit" >
-              <input type="file" id="file" name="attachments" accept="image/*" onchange="loadFile(this)" >
-            </form>
+            <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(this)" >
           </div>
           <input type="text" class="profile__rename">
           <p class="profile__alt">프로필 사진과 닉네임을 입력해주세요.</p>
