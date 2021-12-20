@@ -8,8 +8,8 @@ const cartValidate = (filteredCart, cart) => {
   return filteredCart.length === cart.length;
 };
 
-router.post('/:postId', async (req, res) => {
-  const post = await Post.findOne({ id: req.params.postId });
+router.post('/:post_id', async (req, res) => {
+  const post = await Post.findOne({ id: req.params.post_id });
   let cart = await Cart.findOne({ user_id: req.user.id }).populate('posts');
   const filteredCart = cart.posts.filter(item => item.id !== post.id);
   const isClick = cartValidate(filteredCart, cart.posts);
@@ -36,7 +36,7 @@ router.post('/:postId', async (req, res) => {
     },
   );
 
-  res.render('./product/detail.ejs', { isClick });
+  res.status(200).json({ isClick });
 });
 
 // 찜 목록 리스트

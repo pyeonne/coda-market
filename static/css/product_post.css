@@ -62,6 +62,7 @@
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .post_category select {
@@ -154,4 +155,9 @@ textarea::placeholder {
 
 .img_count_text, .post_img  i {
   cursor: pointer;
+}
+
+.post_category > p {
+  font-size: 16px;
+
 }
