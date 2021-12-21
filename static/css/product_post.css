@@ -177,6 +177,10 @@ textarea::placeholder {
   cursor: pointer;
 }
 
+.post_category {
+  position: relative;
+  right: 10px;
+}
 .post_category > p {
   font-size: 16px;
 }
