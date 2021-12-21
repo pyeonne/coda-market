@@ -3,7 +3,6 @@ const profileImg = document.querySelector('.img-profile');
 
 targetImg.addEventListener('click', function (e) {
   document.querySelector('#file').click();
-  console.log(e);
 });
 
 function loadFile(input) {
@@ -13,24 +12,14 @@ function loadFile(input) {
   newImage.src = URL.createObjectURL(file);
 }
 
-document.getElementById('submit').addEventListener('click', e => {
-  let file = document.querySelector('#file').files[0];
-  let imgURL = URL.createObjectURL(file);
-  let name = document.querySelector('.profile__rename').value;
-  let location = document.querySelector('#addressDo2').value;
+function setThumbnail(e) {
+  const reader = new FileReader();
 
-  let profileData = {
-    method: 'POST',
-    body: JSON.stringify({
-      name,
-      location,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  reader.onload = e => {
+    profileImg.src = e.target.result;
   };
 
   fetch(profile / edit, profileData).catch(err => {
     alert('에러');
   });
-});
+}

@@ -121,7 +121,7 @@ router.post('/:post_id/edit', async (req, res) => {
       },
     );
   }
-  res.redirect(`/posts/${post.shortId}`);
+  res.redirect(`/posts/${post.id}`);
 });
 
 //판매완료 후 게시물 업데이트

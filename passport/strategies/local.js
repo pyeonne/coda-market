@@ -9,6 +9,7 @@ const config = {
 };
 
 const local = new LocalStrategy(config, async (id, password, done) => {
+  console.log(id, password);
   const user = await User.findOne({ shortId: id });
   let loginFailed = false;
 

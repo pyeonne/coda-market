@@ -9,7 +9,7 @@ router.post(
   passport.authenticate('local', { session: false }),
   (req, res) => {
     const loginFailed = req.user.loginFailed;
-    console.log(req.user);
+
     if (loginFailed) {
       res.render('./account/login', { loginFailed });
     } else {

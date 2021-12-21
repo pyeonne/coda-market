@@ -3,18 +3,28 @@ import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import Post from '../models/Post.js';
 import store from '../passport/middlewares/multer.js';
+import passport from 'passport';
+import hashingPassword from '../utils/hash-password.js';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  console.log(req.user.name);
-  console.log('hello');
   res.render('./profile', { name: req.user.name });
 });
 
 router.get('/edit', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   res.render('./profile-edit');
+});
+
+router.post('/password-check', async (req, res) => {
+  const user = await User({ name: req.user.name });
+
+  if (user.password === hashingPassword(req.body.password)) {
+    res.json({ passwordCheck: true });
+  } else {
+    res.json({ passwordCheck: false });
+  }
 });
 
 router.post('/edit', store.single('image'), async (req, res) => {
