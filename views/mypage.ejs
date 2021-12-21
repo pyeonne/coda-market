@@ -9,9 +9,9 @@
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/mypage.css" />
-    <link rel="stylesheet" href="css/nav-bottom.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
+    <link rel="stylesheet" href="/css/nav-bottom.css" />
     <title>mypage</title>
   </head>
   <body>
@@ -21,7 +21,7 @@
         <a href="javascript:void(0)" class="nav__logo">나의 코다</a>
         <div class="nav__btns">
           <div class="nav__toggle" id="nav-toggle">
-            <i class="fas fa-cog nav__icon"></i>
+            <a href="javascript:void(0)">로그아웃</a>
           </div>
         </div>
       </nav>
@@ -34,7 +34,7 @@
         <div class="mypage__container container grid">
           <div class="mypage__content grid">
             <div class="mypage__img">
-              <img src="img/profile.png" alt="" />
+              <img src="/img/profile.png" alt="" />
             </div>
             <div class="mypage__data">
               <h3 class="mypage__name">이름</h3>
@@ -48,7 +48,30 @@
             </div>
           </div>
           <div class="mypage__fix">
-            <a href="./profile" class="button">프로필 수정 </a>
+            <a id="edit__button" class="button">프로필 수정 </a>
+            <form
+              class="services__modal"
+              id="pwd__form"
+              method="post"
+              enctype="multipart/form-data"
+              action="http://localhost:3000/profile/password-check"
+            >
+              <div class="services__modal-content">
+                <h4 class="services__modal-title">비밀번호를 입력해주세요</h4>
+                <i class="fas fa-times services__modal-close"></i>
+
+                <div>
+                  <input type="password" class="pwd" name="password" />
+                  <button
+                    type="submit"
+                    id="submit"
+                    class="button btn-primary done__btn"
+                  >
+                    완료
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </section>
@@ -58,7 +81,7 @@
         <div class="histories__container container grid">
           <div>
             <!-- Sales History -->
-            <div class="histories__content">
+            <div class="histories__content transaction-list">
               <div class="histories__header">
                 <i class="fas fa-receipt histories__icon"></i>
                 <div>
@@ -70,7 +93,7 @@
                 <a href="./detail" class="histories__data">
                   <div class="histories__titles">
                     <img
-                      src="img/histories1.jpg"
+                      src="/img/histories1.jpg"
                       alt=""
                       class="histories__img"
                     />
@@ -91,7 +114,7 @@
                 <a href="./detail" class="histories__data">
                   <div class="histories__titles">
                     <img
-                      src="img/iphone12-mini.jpg"
+                      src="/img/iphone12-mini.jpg"
                       alt=""
                       class="histories__img"
                     />
@@ -113,7 +136,7 @@
             </div>
 
             <!-- Purchase History -->
-            <div class="histories__content">
+            <div class="histories__content purchased-list">
               <div class="histories__header">
                 <i class="fas fa-shopping-bag histories__icon"></i>
                 <div>
@@ -125,7 +148,7 @@
                 <a href="./detail" class="histories__data">
                   <div class="histories__titles">
                     <img
-                      src="img/histories1.jpg"
+                      src="/img/histories1.jpg"
                       alt=""
                       class="histories__img"
                     />
@@ -146,7 +169,7 @@
                 <a href="./detail" class="histories__data">
                   <div class="histories__titles">
                     <img
-                      src="img/iphone12-mini.jpg"
+                      src="/img/iphone12-mini.jpg"
                       alt=""
                       class="histories__img"
                     />
@@ -168,7 +191,7 @@
             </div>
 
             <!-- Like History -->
-            <div class="histories__content">
+            <div class="histories__content cart-list">
               <div class="histories__header">
                 <i class="fas fa-heart histories__icon"></i>
                 <div>
@@ -180,7 +203,7 @@
                 <a href="./detail" class="histories__data">
                   <div class="histories__titles">
                     <img
-                      src="img/histories1.jpg"
+                      src="/img/histories1.jpg"
                       alt=""
                       class="histories__img"
                     />
@@ -201,7 +224,7 @@
                 <a href="detail" class="histories__data">
                   <div class="histories__titles">
                     <img
-                      src="img/iphone12-mini.jpg"
+                      src="/img/iphone12-mini.jpg"
                       alt=""
                       class="histories__img"
                     />
@@ -228,6 +251,12 @@
     <%- include("./layout/nav-bottom") %>
 
     <!-- JS -->
-    <script src="js/mypage.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/js/mypage.js"></script>
   </body>
 </html>

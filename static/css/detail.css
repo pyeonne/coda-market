@@ -156,6 +156,7 @@ li {
   max-width: 1800px;
   margin-bottom: 15px;
   justify-content: space-between;
+  
 }
 
 .container .product-item {
@@ -171,12 +172,17 @@ li {
 
 .container .product-item img {
   width: 250px;
-
   border-radius: 10%;
 }
 
 .container .product-info {
   margin-bottom: 10px;
+
+}
+
+.container .product-info a {
+  font-size: 18px;
+  font-weight: bold;
 
 }
 
@@ -244,3 +250,23 @@ li {
 .save-cart {
   color: red;
 }
+
+
+.product-check {
+  display: flex;
+  align-items: center;
+  margin: 15px 0 0 0;
+  padding: 0.3rem 0.5rem;
+  margin-right: var(--mb-0-25);
+  font-size: 14px
+}
+
+
+.check1 {
+  color: #207e81;
+}
+
+.check2 {
+  color: #f75e6a;
+}
+

@@ -14,5 +14,6 @@ const opts = {
 };
 
 export default new JwtStrategy(opts, (user, done) => {
+  console.log(user);
   done(null, user);
 });

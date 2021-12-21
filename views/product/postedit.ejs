@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="">
   <head>
     <%- include("../layout/head") %>
-
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data: fonts.gstatic.com;">
+  <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico">
   <link
     rel="stylesheet"
     href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -20,12 +21,12 @@
   
 </head>
 <body>
-  <form action="/posts/new" method="post" enctype="multipart/form-data">
+  <form action="/post/new" method="post" >
     <div class="post_nav">
       <ul class="post_menu">
         <li><a href="/"><i class="fas fa-times"></a></i></li>
         <li><h4>코다마켓 글쓰기</h4></li>
-        <li><input type="submit" value="완료"></li>
+        <li><input id ="submit" type="submit" value="완료"></li>
       </ul>
     </div>
     <hr style="border: solid 1px #E5E5E5">
@@ -36,24 +37,40 @@
         <button type="button" class="post_img_btn" onchange="change_btn()">
             <div class="post_img">
               <label className="input-file-button" for="input-file">
-                <i class="fas fa-camera post_img_icon"></i>
-                <span class="img_count_text">0/5</span>
+                <div>
+                  <i class="fas fa-camera post_img_icon"></i>
+                </div>
+                <div>
+                  <span class="img_count_text">0/5</span>
+                </div>
+                
               </label>
-              <input class="file_input" id="input-file" type="file" name="images" style="display: none;" multiple>
+              <input class="file_input" id="input-file" type="file" name="image" style="display: none;" multiple onchange="loadFile(this)">
             </div>
         </button>
-          
-        </div>
+         
+      </div>
         <hr style="border: solid 1px #E5E5E5;">    
 
       <div class="post_title">
-         <input type="text" name="title" placeholder="상품 이름">
+         <input id="product-name" type="text" name="title" placeholder="상품 이름">
         </div>
         <hr style="border: solid 1px #E5E5E5;">
 
         <div class="post_category">
+          <p>판매물품 상태</p>
+          <select name="isSoldOut" class="category_btn" style="color: black;">
+            <option value="1" selected="selected">상품상태</option>
+            <option value="true" style="color: blue;">판매중</option> 
+            <option value="false" style="color: red;">판매완료</option> 
+        </select>
+  
+       </div>
+
+       
+        <div class="post_category">
         <p>카테고리 선택</p>
-        <select name="category" class="category_btn">
+        <select name="category" id="category" class="category_btn">
           <option value="1" selected="selected">카테고리</option>
           <option value="usedCar">중고차</option> 
           <option value="digitalDevice">디지털기기</option> 
@@ -78,7 +95,7 @@
      <hr style="border: solid 1px #E5E5E5;">
 
     <div class='post_price'>
-        <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);" onfocus="getfocus(this);" placeholder="판매금액">
+        <input id="price" type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);" onfocus="getfocus(this);" placeholder="판매금액">
       <div class="post_option">
         <button class="price_btn" type="button">
           <i class="fas fa-check-circle"></i>

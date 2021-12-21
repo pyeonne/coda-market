@@ -4,8 +4,8 @@
 <head>
   <%- include("../layout/head") %>
 
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/login.css" />
     <title>Login</title>
 </head>
 
@@ -29,11 +29,20 @@
     <% if (locals.loginFailed) { %>
       <div class="loginFailed-message">
         <span>아이디 또는 비밀번호가 잘못 입력 되었습니다:(</span>
-        <span><strong>아이디</strong>와 <strong>비밀번호</strong>를 정확히 입력해 주세요!</span>
+        <span><strong>아이디</strong>와 <strong>비밀번호</strong>를 정확히 입력해
+          주세요!</span>
       </div>
       <% } %>
-
+        <p>
+          <a href="#"><span class="first__login forget-login">아이디 찾기</span></a>
+          <a href="./pwd"><span class="first__login">비밀번호 찾기</span></a>
+        </p>
         <button type="submit" form="form" class="login-btn">로그인</button>
+
+        <p>
+          아직 회원이 아니신가요?
+          <a href="./signup"><span class="first__login">가입하기</span></a>
+        </p>
   </div>
 </body>
 
