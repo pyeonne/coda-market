@@ -4,13 +4,12 @@ import connectDB from './db/connectDB.js';
 import cookieParser from 'cookie-parser';
 import signupRouter from './routes/signup.js';
 import authRouter from './routes/auth.js';
-import postRouter from './routes/post.js';
+import postRouter from './routes/posts.js';
 import cartRouter from './routes/cart.js';
 import homeRouter from './routes/home.js';
 import conversationRouter from './routes/conversation.js';
 import profileRouter from './routes/profile.js';
 import messagesRouter from './routes/messages.js';
-// import mainRouter from './routes/main.js';
 import passport from 'passport';
 import passportInit from './passport/index.js';
 import getUserFromJwt from './passport/middlewares/get-user-from-jwt.js';
@@ -45,15 +44,9 @@ app.use(express.static(__dirname + '/static'));
 app.use(passport.initialize());
 app.use(getUserFromJwt);
 
-app.get('/login', (req, res) => res.render('./account/login'));
-app.get('/mypage', (req, res) => res.render('./mypage'));
 app.get('/product/post', (req, res) => res.render('./product/post'));
 app.get('/product/postedit', (req, res) => res.render('./product/postedit'));
 app.get('/product/detail', (req, res) => res.render('./product/detail'));
-app.get('/chat', (req, res) => res.render('./chat-list'));
-app.get('/profile', (req, res) => res.render('./profile'));
-app.get('/first', (req, res) => res.render('./first'));
-app.get('/category', (req, res) => res.render('./category'));
 
 app.use('/conversation', conversationRouter);
 app.use('/', homeRouter);
@@ -106,17 +99,16 @@ io.on('connection', socket => {
 //////////////
 
 /* server */
-const start = async () => {
+const start = () => {
   try {
     /* DB */
-    await connectDB(process.env.MONGODB);
-    server.listen(3000, () => {
+    connectDB(process.env.MONGODB);
+    server.listen(process.env.PORT || 3000, () => {
       // 업로드될 파일을 저장할 폴더 생성
       const dir = './uploadedFiles';
 
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir); 
-      console.log(`Example app listening on port ${process.env.PORT}!`);
-
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+      console.log(`Example app listening on port ${process.env.PORT || 3000}!`);
     });
   } catch (error) {
     console.log(error);

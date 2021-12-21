@@ -43,7 +43,7 @@ function changeValue(obj) {
 }
 */
 
-function setThumnail(e) {
+function setThumbnail(e) {
   const reader = new FileReader();
 
   reader.onload = e => {

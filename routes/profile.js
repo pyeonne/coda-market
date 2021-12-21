@@ -6,17 +6,15 @@ import store from '../passport/middlewares/multer.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-  res.render('./mypage', { name: req.user.name });
+router.get('/', (req, res) => {
+  console.log(req.user.name);
+  console.log('hello');
+  res.render('./profile', { name: req.user.name });
 });
 
 router.get('/edit', async (req, res) => {
-  const user = await User.findOne({ id: req.user.id });
-  res.render('./profile', {
-    name: req.user.name,
-    location: user.location,
-    user_thumbnail: user.user_thumbnail,
-  });
+  const user = await User.findOne({ shortId: req.user.id });
+  res.render('./profile-edit');
 });
 
 router.post('/edit', store.single('image'), async (req, res) => {
@@ -24,7 +22,7 @@ router.post('/edit', store.single('image'), async (req, res) => {
   const user_thumbnail = req.file.path;
 
   const user = await User.findOneAndUpdate(
-    { id: req.user.id },
+    { shortId: req.user.id },
     {
       name,
       pwd,
@@ -36,25 +34,22 @@ router.post('/edit', store.single('image'), async (req, res) => {
   res.render('./mypage', { name: user.name });
 });
 
-router.get('/logout', (req, res) => {
-  res.cookie('token', null, { maxAge: 0 }).render('./first');
-});
-
-router.get('/tranaction-list', async (req, res) => {
-  const user = await User.findOne({ id: req.user.id });
+router.get('/tranactions', async (req, res) => {
+  const user = await User.findOne({ shortId: req.user.id });
   const posts = await Post.find({ author: user }).populate('author');
 
-  res.status(200).json({ list: posts });
+  res.json({ list: posts });
 });
 
-router.get('/purchased-list', async (req, res) => {
-  const posts = await Post.find({ purchased_user: req.user.id });
-  res.status(200).json({ list: posts });
+router.get('/purchases', async (req, res) => {
+  const user = req.user.id;
+  const posts = await Post.find({ purchased_user: user });
+  res.json({ list: posts });
 });
 
-router.get('/cart-list', async (req, res) => {
-  const cart = await Cart.find({ user_id: req.user.id }).populate('posts');
-  res.status(200).json({ list: cart.posts });
+router.get('/carts', async (req, res) => {
+  const cart = await Cart.find({ user: req.user.id }).populate('posts');
+  res.json({ list: cart.posts });
 });
 
 router.get('/:nickname', (req, res) => {
