@@ -57,7 +57,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     category,
     price: price.replace(' 원', '').replace(' ,', ''),
     author: user,
-    post_thumnail: imageArray[0],
+    post_thumbnail: imageArray[0],
   });
 
   res.render('./product/detail', post);

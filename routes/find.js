@@ -1,6 +1,7 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
 import User from '../models/User.js';
+import { nanoid } from 'nanoid';
 
 const router = express.Router();
 
@@ -12,7 +13,6 @@ router.post('/id', async (req, res) => {
     email: receiverEmail,
   });
 
-  console.log(user);
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
@@ -30,7 +30,7 @@ router.post('/id', async (req, res) => {
     to: 'clsrns1111@gmail.com',
     subject: '코다마켓 - 아이디찾기 결과',
     text: 'test1123',
-    html: `<b>코다마켓에서 보낸 이메일입니다.</b><p>아이디는 ${user.name} 입니다. </p>`,
+    html: `<b>코다마켓에서 보낸 이메일입니다.</b><p>아이디는 ${user.name} 입니다.</p>`,
   });
 
   console.log('Message sent: %s', info.messageId);
@@ -46,17 +46,18 @@ router.post('/id', async (req, res) => {
 router.post('/password', async (req, res) => {
   let receiverEmail = req.body.email;
   let receiveruserId = req.body.id;
-  console.log(receiverEmail);
-  const user = await User.findOne({
-    $and: [{ email: receiverEmail }, { id: receiveruserId }],
-  });
 
-  const userPwd = user.pwd;
-  const decipher = crypto.createDecipher('aes-256-cbc', '열쇠');
+  const newPwd = nanoid();
 
-  let result2 = decipher.update(userPwd, 'base64', 'utf8');
-  result2 += decipher.final('utf8');
-  console.log(result2);
+  await User.findOneAndUpdate(
+    {
+      $and: [{ email: receiverEmail }, { id: receiveruserId }],
+    },
+    {
+      pwd: newPwd,
+    },
+    { new: true },
+  );
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -75,7 +76,9 @@ router.post('/password', async (req, res) => {
     to: 'clsrns1111@gmail.com',
     subject: '코다마켓 - 비밀번호찾기 결과',
     text: 'test1123',
-    html: `<b>코다마켓에서 보낸 이메일입니다.</b><p>비밀번호는 ${user.pwd} 입니다. </p>`,
+    html: `<b>(주)코다마켓에서 보낸 이메일입니다.</b><p>비밀번호는 ${newPwd} 입니다. </p>
+    <a href='http://localhost:3000'> ▶ 코다마켓으로 바로가기 </a>
+    `,
   });
 
   console.log('Message sent: %s', info.messageId);

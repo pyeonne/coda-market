@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   name: { type: String, required: true, trim: true },
   email: { type: String, required: true, trim: true },
   posts: { type: [Schema.Types.ObjectId] },
-  user_thumnail: { type: String },
+  user_thumbnail: { type: String },
   location: { type: String, required: true },
 });
 
