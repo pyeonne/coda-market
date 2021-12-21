@@ -4,6 +4,7 @@ import Cart from '../models/Cart.js';
 import Post from '../models/Post.js';
 import store from '../passport/middlewares/multer.js';
 import passport from 'passport';
+import hashingPassword from '../utils/hash-password.js';
 
 const router = express.Router();
 
@@ -16,11 +17,15 @@ router.get('/edit', async (req, res) => {
   res.render('./profile-edit');
 });
 
-router.post(
-  '/password-check',
-  passport.authenticate('local', { session: false }),
-  async (req, res) => {},
-);
+router.post('/password-check', async (req, res) => {
+  const user = await User({ name: req.user.name });
+
+  if (user.password === hashingPassword(req.body.password)) {
+    res.json({ passwordCheck: true });
+  } else {
+    res.json({ passwordCheck: false });
+  }
+});
 
 router.post('/edit', store.single('image'), async (req, res) => {
   const { name, pwd, location } = req.body;

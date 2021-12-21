@@ -42,6 +42,7 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
+
   if (!files) {
     const err = new Error('선택된 파일이 없습니다.');
     return next(err);
@@ -60,11 +61,14 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     thumbnail: imageArray[0],
   });
   res.render('./product/detail', post);
+  // console.log(post.author._id);
+
+  // res.status(200).json({ post });
 });
 
 //게시물 삭제
 //localhost:3000/post/:postId - delete
-router.delete('/:post_id', async (req, res) => {
+router.delete('/:post_id/delete', async (req, res) => {
   //게시물 아이디
   const { post_id } = req.params;
   //작성자인지 인증 필요
@@ -94,7 +98,7 @@ router.post('/:post_id', async (req, res) => {
 });
 
 //판매완료 후 게시물 업데이트
-router.patch('/:post_id/soldout', async (req, res) => {
+router.patch('/:post_id/soldout?state', async (req, res) => {
   const {
     params: { post_id },
     query: { state },
