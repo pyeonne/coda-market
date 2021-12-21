@@ -20,7 +20,8 @@ router.post(
       location,
       email,
     });
-    res.json({ user });
+
+    res.render('./account/login');
   }),
 );
 

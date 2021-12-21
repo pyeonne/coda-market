@@ -17,7 +17,7 @@ router.post(
       const name = req.user.name;
       const user = { id, name };
       setUserToken(res, user);
-      res.redirect('/');
+      res.redirect('/posts');
     }
   },
 );

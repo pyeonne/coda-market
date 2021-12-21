@@ -5,13 +5,17 @@ import { nanoid } from 'nanoid';
 
 const router = express.Router();
 
-// localhost:3000/user/find/id
+router.get('/id', (req, res) => res.render('./account/setId'));
+
+// localhost:3000/find/id
 router.post('/id', async (req, res) => {
   let receiverEmail = req.body.email;
 
   const user = await User.findOne({
     email: receiverEmail,
   });
+
+  console.log(user);
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',

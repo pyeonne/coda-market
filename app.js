@@ -44,10 +44,6 @@ app.use(express.static(__dirname + '/static'));
 app.use(passport.initialize());
 app.use(getUserFromJwt);
 
-app.get('/product/post', (req, res) => res.render('./product/post'));
-app.get('/product/postedit', (req, res) => res.render('./product/postedit'));
-app.get('/product/detail', (req, res) => res.render('./product/detail'));
-
 app.use('/conversation', conversationRouter);
 app.use('/', homeRouter);
 app.use('/profile', profileRouter);
@@ -55,7 +51,7 @@ app.use('/signup', signupRouter);
 app.use('/posts', postRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
-app.use('/user/find/', findRouter);
+app.use('/find/', findRouter);
 app.use('/messages', messagesRouter);
 // app.use('/main', mainRouter);
 

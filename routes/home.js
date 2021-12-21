@@ -17,18 +17,15 @@ router.post('/', async (req, res) => {
 });
 
 //loaclhost:3000 - get
-router.get('/', async (req, res) => {
-  const posts = await Post.find({}).sort({ updatedAt: 'desc' }).exec();
-  res.render('./home', { posts });
-});
+router.get('/detail', (req, res) => res.render('./product/detail'));
 
 router.get('/login', (req, res) => res.render('./account/login'));
 
-router.get('/mypage', (req, res) => res.render('./mypage'));
+router.get('/mypage', (req, res) => res.render('./profile'));
 
 router.get('/chat', (req, res) => res.render('./chat-list'));
 
-router.get('/first', (req, res) => {
+router.get('/', (req, res) => {
   res.render('./first');
 });
 
@@ -39,10 +36,18 @@ router.get('/logout', (req, res) => {
 router.get('/category', (req, res) => res.render('./category'));
 
 router.get('/search', async (req, res) => {
-  const { input } = req.query;
+  const { input, location } = req.query;
+
+  if (input !== undefined) {
+    const posts = await Post.find({ title: { $regex: input, $options: 'gi' } });
+  }
+
   const posts = await Post.find({ title: { $regex: input, $options: 'gi' } });
 
-  res.render('./home', { posts });
+  console.log(input);
+  console.log(location);
+
+  res.status(200).json({ posts });
 });
 
 export default router;
