@@ -5,17 +5,21 @@ const { Schema, model } = mongoose;
 
 const PostSchema = new Schema(
   {
-    id: { type: String, default: nanoid() },
+    shortId: { type: String, default: nanoid() },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     title: { type: String, required: true },
-    location: { type: Array, required: true },
-    image: { type: [String] },
+    location: { type: String, required: true },
+    images: { type: [String] },
     content: { type: String, required: true },
-    category: { type: Array, required: true },
+    category: { type: String, required: true },
     price: { type: Number, required: true },
-    purchased_user: { type: String, default: false },
+    purchased_user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
     isSoldOut: { type: Boolean, default: false },
-    post_thumnail: { type: String },
+    thumbnail: { type: String },
+    current_status: { type: String, default: 'posted' },
   },
   { timestamps: true },
 );

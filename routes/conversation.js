@@ -9,11 +9,11 @@ router.get('/:user_id', async (req, res) => {
   const { user_id } = req.params;
 
   const seller = await User.findOne({
-    id: user_id,
+    shortId: user_id,
   });
 
   const buyer = await User.findOne({
-    id: '123',
+    shortId: '123',
   });
 
   try {
@@ -33,7 +33,7 @@ router.get('/:user_id', async (req, res) => {
       members: [seller, buyer],
     });
 
-    res.status(200).json({ newConversation });
+    res.json({ newConversation });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -43,7 +43,7 @@ router.get('/:user_id', async (req, res) => {
 // 생성된 모든 대화창 데이터 가져오기
 router.get('/1', async (req, res) => {
   try {
-    const user = await User.find({ id: '123' });
+    const user = await User.find({ shortId: '123' });
     const conversation = await Conversation.find({
       members: { $in: user },
     }).populate('members');
