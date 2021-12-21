@@ -67,7 +67,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 
 //게시물 삭제
 //localhost:3000/post/:postId - delete
-router.delete('/:post_id', async (req, res) => {
+router.get('/:post_id/delete', async (req, res) => {
   //게시물 아이디
   const { post_id } = req.params;
   //작성자인지 인증 필요
@@ -80,7 +80,7 @@ router.delete('/:post_id', async (req, res) => {
 
 //게시물 업데이트
 //localhost:3000/post/:postId - patch
-router.patch('/:post_id', async (req, res) => {
+router.get('/:post_id/edit', async (req, res) => {
   const { post_id } = req.params;
 
   const post = await Post.findOneAndUpdate({ id: post_id }, req.body, {
@@ -89,7 +89,7 @@ router.patch('/:post_id', async (req, res) => {
     timestamps: { createdAt: false, updatedAt: true },
   });
 
-  res.redirect(`/${post_id}`);
+  res.render('./product/postedit', { mypost : post });
 });
 
 //판매완료 후 게시물 업데이트

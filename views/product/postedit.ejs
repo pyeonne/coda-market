@@ -47,7 +47,7 @@
         <hr style="border: solid 1px #E5E5E5;">    
 
       <div class="post_title">
-         <input type="text" name="title" placeholder="상품 이름">
+         <input type="text" name="title" value="<%- mypost.title %>" placeholder="상품 이름">
         </div>
         <hr style="border: solid 1px #E5E5E5;">
 
@@ -89,7 +89,7 @@
      <hr style="border: solid 1px #E5E5E5;">
 
     <div class='post_price'>
-        <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);" onfocus="getfocus(this);" placeholder="판매금액">
+        <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);" onfocus="getfocus(this);" value="<%- mypost.price %>" placeholder="판매금액">
       <div class="post_option">
         <button class="price_btn" type="button">
           <i class="fas fa-check-circle"></i>
@@ -100,7 +100,7 @@
     <hr style="border: solid 1px #E5E5E5;">
 
     <div class="post_content">
-      <textarea class="area_text" name="content" id="" cols="50" rows="10" placeholder="안녕하세요 코다마켓 입니다. 상품 게시글의 내용을 작성해주세요. (가품 및 판매금지 품목은 게시가 제한될 수 있어요.)"></textarea>
+      <textarea class="area_text" name="content" id="" cols="50" rows="10" placeholder="안녕하세요 코다마켓 입니다. 상품 게시글의 내용을 작성해주세요. (가품 및 판매금지 품목은 게시가 제한될 수 있어요.)"><%- mypost.content %></textarea>
     </div>
     <hr style="border: solid 1px #E5E5E5;">
 
@@ -108,6 +108,6 @@
 </form>
 
   <%- include("../layout/nav-bottom") %>
-  <script src="/js/post.js"></script>
+  <script src="/js/postedit.js"></script>
 </body>
 </html>
