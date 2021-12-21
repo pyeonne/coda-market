@@ -1,9 +1,11 @@
 const initHeader = document.querySelector('header .init');
 const searchHeader = document.querySelector('header .search');
+const locaSelectBox = document.querySelector('header .init .loca-select');
 const searchBtn = document.querySelector('header .init .btn-list .search-btn');
 const backBtn = document.querySelector('header .search .btn-list .back-btn');
 const searchInput = document.querySelector('header .search input');
 const postList = document.querySelector('body main ul');
+const noResultMsg = document.querySelector('.no-result-message');
 
 searchBtn.addEventListener('click', () => {
   initHeader.classList.toggle('none');
@@ -13,99 +15,171 @@ searchBtn.addEventListener('click', () => {
 backBtn.addEventListener('click', () => {
   initHeader.classList.toggle('none');
   searchHeader.classList.toggle('none');
+
+  searchInput.value = '';
+
+  selectLocation();
 });
 
+// 지역 설정 selectBox에서 특정 지역 선택 시, 해당 지역의 post들을 가져오는 함수
+function selectLocation() {
+  reqResHandler('search/category', locaSelectBox.value);
+}
+
+// 검색 input에서 특정 검색어 검색 시, 해당 검색어에 해당하는 post들을 가져오는 함수
 function enterkey() {
   if (window.event.keyCode == 13) {
-    const searchWord = searchInput.value;
-
-    axios.post(`search/category/${searchWord}`).then(res => {
-      makeList(
-        post.id,
-        post.title,
-        post.location,
-        post.updatedAt,
-        post.price,
-        3, // post.chat_num
-        post.like_num,
-      );
-    });
+    reqResHandler('search/category', searchInput.value);
   }
 }
 
-function makeList(link, thumnail, title, loca, date, price, chatNum, likeNum) {
-  let posts = res.data.posts;
+function reqResHandler(url, value) {
+  axios.post(`${url}/${value}`).then(res => {
+    const posts = res.data.posts;
 
+    removePostList();
+
+    if (posts.length > 0) {
+      makePostList(posts);
+    } else {
+      noResultMsg.classList.remove('none');
+    }
+  });
+}
+
+// 현재 홈 화면에 띄워진 post들을 모두 지워주는 함수
+function removePostList() {
+  while (postList.hasChildNodes()) {
+    postList.removeChild(postList.firstChild);
+  }
+}
+
+// DB에서 받아온 post들을 홈 화면에 띄워주는 함수
+function makePostList(posts) {
   posts.forEach(post => {
-    let anchor = document.createElement('a');
-    anchor.setAttribute('href', `posts/${link}`);
-    postList.appendChild(anchor);
+    const li = document.createElement('li');
+    postList.appendChild(li);
 
-    let postInfo = document.createElement('div');
+    const anchor = document.createElement('a');
+    anchor.setAttribute('href', `posts/${post.id}`);
+    li.appendChild(anchor);
+
+    const postInfo = document.createElement('div');
     postInfo.setAttribute('class', 'post-info');
     anchor.appendChild(postInfo);
 
-    let postImg = document.createElement('img');
-    postImg.setAttribute('src', `post.${thumnail}`);
+    const postImg = document.createElement('img');
+    postImg.setAttribute('src', `post.${post.thumbnail}`);
     postImg.setAttribute('alt', 'post-image');
     postInfo.appendChild(postImg);
 
-    let description = document.createElement('div');
+    const description = document.createElement('div');
     description.setAttribute('class', 'description');
     postInfo.appendChild(description);
 
-    let title = document.createElement('h3');
+    const title = document.createElement('h3');
     title.setAttribute('class', 'title');
-    title.innerText(post.title);
+    title.innerText = post.title;
     description.appendChild(title);
 
-    let locaAndDate = document.createElement('div');
+    const locaAndDate = document.createElement('div');
     locaAndDate.setAttribute('class', 'loca-and-date');
     description.appendChild(locaAndDate);
 
-    let loca = document.createElement('span');
+    const loca = document.createElement('span');
     loca.setAttribute('class', 'loca');
-    loca.innerText(post.location);
+    loca.innerText = '서울특별시 · ';
+    // loca.innerText = `${post.location} · `; => DB 수정 후 윗줄 삭제 및 주석 제거
     locaAndDate.appendChild(loca);
 
-    let date = document.createElement('span');
+    const date = document.createElement('span');
     date.setAttribute('class', 'date');
-    loca.innerText(post.updatedAt);
+    date.innerText = `${getTimeDiff(toDate(post.updatedAt))} 전`;
     locaAndDate.appendChild(date);
 
-    let price = document.createElement('span');
+    const price = document.createElement('span');
     price.setAttribute('class', 'price');
-    price.innerText(post.price);
+    price.innerText = `${post.price}원`;
     description.appendChild(price);
 
-    let chatAndLike = document.createElement('div');
+    const chatAndLike = document.createElement('div');
     chatAndLike.setAttribute('class', 'chat-and-like');
     anchor.appendChild(chatAndLike);
 
-    let chatNum = document.createElement('div');
+    const chatNum = document.createElement('div');
     chatNum.setAttribute('class', 'chat-num');
     chatAndLike.appendChild(chatNum);
 
-    let chatIcon = document.createElement('i');
+    const chatIcon = document.createElement('i');
     chatIcon.setAttribute('class', 'far fa-comment-dots');
     chatNum.appendChild(chatIcon);
 
-    let chatSpan = document.createElement('span');
-    chatSpan.innerText(post.chat_num);
+    const chatSpan = document.createElement('span');
+    chatSpan.innerText = 3;
+    // chatSpan.innerText = post.chat_num; => DB 수정 후 윗줄 삭제 및 주석 제거
     chatNum.appendChild(chatSpan);
 
-    let likeNum = document.createElement('div');
+    const likeNum = document.createElement('div');
     likeNum.setAttribute('class', 'like-num');
     chatAndLike.appendChild(likeNum);
 
-    let likeIcon = document.createElement('i');
+    const likeIcon = document.createElement('i');
     likeIcon.setAttribute('class', 'far fa-heart');
     likeNum.appendChild(likeIcon);
 
-    let likeSpan = document.createElement('span');
-    likeSpan.innerText(post.like_num);
+    const likeSpan = document.createElement('span');
+    likeSpan.innerText = post.like_num;
     likeNum.appendChild(likeSpan);
-
-    console.log(post);
   });
+}
+
+// String 타입의 Date를 Date 타입의 Date로 변환해주는 함수
+function toDate(date_str) {
+  const yyyyMMddhhmmss = String(date_str);
+
+  const sYear = yyyyMMddhhmmss.substring(0, 4);
+  const sMonth = yyyyMMddhhmmss.substring(5, 7);
+  const sDate = yyyyMMddhhmmss.substring(8, 10);
+  const sHour = yyyyMMddhhmmss.substring(11, 13);
+  const sMinute = yyyyMMddhhmmss.substring(14, 16);
+  const sSecond = yyyyMMddhhmmss.substring(17, 19);
+
+  return new Date(
+    Number(sYear),
+    Number(sMonth) - 1,
+    Number(sDate),
+    Number(sHour),
+    Number(sMinute),
+    Number(sSecond),
+  );
+}
+
+// (현재 시간 - Post의 마지막 업데이트 시간)을 리턴해주는 함수
+// 년, 월, 일, 시, 분, 초 중 하나를 리턴
+function getTimeDiff(updatedTime) {
+  const currTime = new Date();
+
+  if (currTime.getFullYear() !== updatedTime.getFullYear()) {
+    return `${currTime.getFullYear() - updatedTime.getFullYear()}년`;
+  }
+
+  if (currTime.getMonth() !== updatedTime.getMonth()) {
+    return `${currTime.getMonth() - updatedTime.getMonth()}개월`;
+  }
+
+  if (currTime.getDate() !== updatedTime.getDate()) {
+    return `${currTime.getDate() - updatedTime.getDate()}일`;
+  }
+
+  if (currTime.getHours() !== updatedTime.getHours()) {
+    return `${currTime.getHours() - updatedTime.getHours()}시간`;
+  }
+
+  if (currTime.getMinutes() !== updatedTime.getMinutes()) {
+    return `${currTime.getMinutes() - updatedTime.getMinutes()}분`;
+  }
+
+  if (currTime.getSeconds() !== updatedTime.getSeconds()) {
+    return `${currTime.getSeconds() - updatedTime.getSeconds()}초`;
+  }
 }

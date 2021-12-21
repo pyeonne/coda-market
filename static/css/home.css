@@ -68,8 +68,19 @@ main ul li a .chat-and-like .like-num span {
   margin-bottom: 4px;
 }
 
+.no-result-message {
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+  font-size: 22px;
+}
+
 .post-btn {
   position: fixed;
   bottom: 80px;
   right: 12px;
+}
+
+.none {
+  display: none;
 }
