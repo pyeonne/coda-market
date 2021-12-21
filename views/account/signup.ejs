@@ -44,9 +44,7 @@
           <div class="form_group">
             <input name="id" type="text" class="form_control" required  autocomplete="off" onkeyup="id_check(this.value)">
 
-           
-
-            <span>아이디</span>
+            <span>아이디 <button class='overBtn'>중복체크</button></span>
             <span class="border"></span>
 
             <span class="idCheck">
@@ -65,7 +63,7 @@
           </div>
 
           <div class="form_group">
-            <input name="pwd" type="password" class="form_control" autocomplete="new-password" onkeyup="pw1_check(this.value)" required >
+            <input name="pwd" type="password" class="form_control" autocomplete="new-password" onblur="pw1_check(this.value)" required >
             <span>패스워드</span>
             <span class="border"></span>
 
