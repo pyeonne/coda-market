@@ -4,32 +4,42 @@
     <%- include("../layout/head") %>
 
     <link rel="stylesheet" href="/css/base.css" />
-    <link rel="stylesheet" href="/css/login.css" />
-    <title>Login</title>
+    <link rel="stylesheet" href="/css/setid.css" />
+    <title>set id</title>
 
-</head>
+  </head>
 
 <body>
-  <div class="container">
-    <div class="logo">아이디찾기</div>
-
-    <form id="form" method="post" action="/auth" class="login-form">
-      <input type="text" name="id" placeholder="아이디" class="loginbox" required /><br />
-      <input type="password" name="password" placeholder="비밀번호" class="loginbox" required />
-    </form>
-
-
-      <% if (locals.loginFailed) { %>
-      <div class="loginFailed-message">
-        <span>아이디 또는 비밀번호가 잘못 입력 되었습니다:(</span>
-        <span
-          ><strong>아이디</strong>와 <strong>비밀번호</strong>를 정확히 입력해
-          주세요!</span
-        >
-      </div>
-      <% } %>
-
-      <button type="submit" form="form" class="login-btn">아이디 찾기</button>
+  <div class="id-set-box">
+    <div class="logo-top">
+      코다 마켓
     </div>
-  </body>
+    <hr>
+
+    <div class="p-input">
+      <p>이메일 주소를 입력해주세요</p>
+      <form action="" method="post">
+        <input type="text" placeholder="이메일 주소" >
+      </form>
+    </div>
+
+    <div class="help-box">
+
+      <form action="" method="POST">
+        
+        <div class="input-btn">
+          <input type="submit" value="아이디 찾기">
+        </div>
+        </form>
+      <div class="login-signup">
+        <a href="/login"><span>로그인</span></a>
+        <span>|</span>
+        <a href="/signup"><span>회원가입</span></a>
+      </div>
+    </div>
+
+  </div>  
+
+
+</body>
 </html>
