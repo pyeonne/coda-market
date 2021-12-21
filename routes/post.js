@@ -10,7 +10,8 @@ router.get('/search', async (req, res) => {
   const { title } = req.query;
 
   const posts = await Post.find({
-    $and: [{ location: req.user.location }, { title }],
+    location: req.user.location,
+    title,
   });
   res.render('./home.ejs', { posts });
 });
@@ -31,9 +32,9 @@ router.get('/category', async (req, res) => {
 // localhost:3000/posts/:postId
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
-  const post = await Post.findOne({ id: post_id }).populate('author');
+  const post = await Post.findOne({ shortId: post_id }).populate('author');
 
-  res.status(200).json({ post });
+  res.json({ post });
 });
 
 //게시물 생성
@@ -47,7 +48,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
   }
 
   const imageArray = files.map(file => file.path);
-  const user = await User.findOne({ id: req.user.id });
+  const user = await User.findOne({ shortId: req.user.id });
 
   const post = await Post.create({
     image: imageArray,
@@ -55,9 +56,9 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     content,
     location: user.location,
     category,
-    price: price.replace(' 원', '').replace(' ,', ''),
+    price: Number(price),
     author: user,
-    post_thumnail: imageArray[0],
+    thumbnail: imageArray[0],
   });
 
   res.render('./product/detail', post);
@@ -70,9 +71,14 @@ router.delete('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   //작성자인지 인증 필요
 
-  const post = await Post.findOneAndDelete({ id: post_id });
+  const post = await Post.updateOne(
+    { shortId: post_id },
+    {
+      current_status: 'deleted',
+    },
+  );
 
-  res.status(200).json({ post });
+  res.json({ post });
   res.redirect('http://localhost:3000/');
 });
 
@@ -81,7 +87,7 @@ router.delete('/:post_id', async (req, res) => {
 router.post('/:post_id', async (req, res) => {
   const { post_id } = req.params;
 
-  const post = await Post.findOneAndUpdate({ id: post_id }, req.body, {
+  const post = await Post.findOneAndUpdate({ shortId: post_id }, req.body, {
     new: true,
     upsert: true,
     timestamps: { createdAt: false, updatedAt: true },
@@ -98,7 +104,7 @@ router.patch('/:post_id/soldout', async (req, res) => {
   } = req;
 
   const post = await Post.findOneAndUpdate(
-    { id: post_id },
+    { shortId: post_id },
     { isSoldOut: !Boolean(state) },
     {
       new: true,
@@ -107,7 +113,7 @@ router.patch('/:post_id/soldout', async (req, res) => {
     },
   );
 
-  res.status(200).json({ post });
+  res.json({ post });
 });
 
 export default router;

@@ -27,7 +27,7 @@ router.post('/id', async (req, res) => {
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: `"CODA Team" <${'clsrns1111@gmail.com'}>`,
-    to: 'clsrns1111@gmail.com',
+    to: user.email,
     subject: '코다마켓 - 아이디찾기 결과',
     text: 'test1123',
     html: `<b>코다마켓에서 보낸 이메일입니다.</b><p>아이디는 ${user.name} 입니다. </p>`,
@@ -36,7 +36,7 @@ router.post('/id', async (req, res) => {
   console.log('Message sent: %s', info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  res.status(200).json({
+  res.json({
     status: 'Success',
     code: 200,
     message: 'Sent Auth Email',
@@ -48,7 +48,8 @@ router.post('/password', async (req, res) => {
   let receiveruserId = req.body.id;
   console.log(receiverEmail);
   const user = await User.findOne({
-    $and: [{ email: receiverEmail }, { id: receiveruserId }],
+    email: receiverEmail,
+    shortId: receiveruserId,
   });
 
   const userPwd = user.pwd;
@@ -81,7 +82,7 @@ router.post('/password', async (req, res) => {
   console.log('Message sent: %s', info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  res.status(200).json({
+  res.json({
     status: 'Success',
     code: 200,
     message: 'Sent Auth Email',

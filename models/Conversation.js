@@ -5,8 +5,10 @@ const { model, Schema } = mongoose;
 
 const ConversationShema = new Schema(
   {
-    id: { type: String, default: nanoid() },
+    shortId: { type: String, default: nanoid() },
     members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    // seller: { type: Schema.Types.ObjectId, ref: 'User' },
+    // buyer: { type: Schema.Types.ObjectId, ref: 'User' },
     lastSentence: { type: String, ref: 'Message' },
   },
   { timestamps: true },

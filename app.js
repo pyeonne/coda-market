@@ -106,17 +106,16 @@ io.on('connection', socket => {
 //////////////
 
 /* server */
-const start = async () => {
+const start = () => {
   try {
     /* DB */
-    await connectDB(process.env.MONGODB);
-    server.listen(3000, () => {
+    connectDB(process.env.MONGODB);
+    server.listen(process.env.PORT || 3000, () => {
       // 업로드될 파일을 저장할 폴더 생성
       const dir = './uploadedFiles';
 
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir); 
-      console.log(`Example app listening on port ${process.env.PORT}!`);
-
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+      console.log(`Example app listening on port ${process.env.PORT || 3000}!`);
     });
   } catch (error) {
     console.log(error);

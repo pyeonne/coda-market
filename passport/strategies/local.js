@@ -9,9 +9,9 @@ const config = {
 };
 
 const local = new LocalStrategy(config, async (id, password, done) => {
-  const user = await User.findOne({ id });
+  const user = await User.findOne({ shortId: id });
 
-  let loginFailed = false
+  let loginFailed = false;
 
   if (!user) {
     done(null, {
@@ -22,7 +22,7 @@ const local = new LocalStrategy(config, async (id, password, done) => {
       loginFailed = true;
     }
     done(null, {
-      id: id,
+      id,
       name: user.name,
       loginFailed,
     });
