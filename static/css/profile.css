@@ -66,7 +66,8 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.profile__rename {
+.profile__rename,
+.profile__pwd {
   width: 100%;
   padding: var(--mb-0-75);
   border: 1px solid var(--first-color);
@@ -77,6 +78,7 @@
 
 .profile__alt {
   text-align: center;
+  margin-bottom: var(--mb-0-5);
 }
 
 .done__btn {

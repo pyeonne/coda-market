@@ -3,16 +3,40 @@ import Post from '../models/Post.js';
 
 const router = express.Router();
 
-//홈화면에서 updateAt 순으로 게시물 나열
+//홈화면에서 updatedAt 순으로 게시물 나열
+router.post('/', async (req, res) => {
+  const { input } = req.body;
+
+  const posts = await Post.find({
+    $and: [
+      // { location: req.user.location },
+      { title: { $regex: `${input}`, $options: 'i' } },
+    ],
+  });
+  res.status(200).json({ posts });
+});
+
 //loaclhost:3000 - get
 router.get('/', async (req, res) => {
   const posts = await Post.find({}).sort({ updatedAt: 'desc' }).exec();
   res.render('./home', { posts });
 });
 
+router.get('/login', (req, res) => res.render('./account/login'));
+
+router.get('/mypage', (req, res) => res.render('./mypage'));
+
+router.get('/chat', (req, res) => res.render('./chat-list'));
+
 router.get('/first', (req, res) => {
   res.render('./first');
 });
+
+router.get('/logout', (req, res) => {
+  res.cookie('token', null, { maxAge: 0 }).render('./first');
+});
+
+router.get('/category', (req, res) => res.render('./category'));
 
 router.get('/search', async (req, res) => {
   const { input } = req.query;

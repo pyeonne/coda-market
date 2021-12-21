@@ -29,13 +29,22 @@ function getfocus(n) {
 /* 업로드 펑션 */
 function change_btn() {
   let data = document.querySelector('.img_count_text');
+  let input = document.querySelector('.file_input');
   let fileName = document.querySelector('.file_input').files;
   let files = document.querySelector('.file_input').files.length;
-  let file = document.querySelector('.file_input');
+  let img = document.createElement('img');
+  let postImg = document.querySelector('.post_img_line');
 
-  for (let i = 0; i < files; i++) {
-    console.log(fileName[i].name);
+  if (files <= 5) {
+    for (let i = 0; i < files; i++) {
+      let img = document.createElement('img');
+      console.log(input.files[i]);
+      img.src = URL.createObjectURL(input.files[i]);
+      postImg.appendChild(img);
+      console.log(URL.createObjectURL(input.files[i]));
+    }
+    data.innerText = `${files}/5`;
+  } else {
+    alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
-
-  data.innerText = `${files}/10`;
 }

@@ -14,13 +14,13 @@ router.post(
   asyncHandler(async (req, res) => {
     const { location, id, pwd, name, email } = req.body;
     const user = await User.create({
-      id,
-      pwd: getHash(pwd),
+      shortId: id,
+      password: getHash(pwd),
       name,
       location,
       email,
     });
-    res.status(200).json({ user });
+    res.json({ user });
   }),
 );
 

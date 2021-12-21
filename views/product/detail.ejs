@@ -4,9 +4,8 @@
   <%- include("../layout/head") %>
 
   <title>Document</title>
-  <link
-  rel="stylesheet"
-  href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+  <link rel="stylesheet"
+href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
   integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
   crossorigin="anonymous"
   />
@@ -26,8 +25,8 @@
     </div>
     
     <div class="menu2">
-      <li><a href="/product/postedit">수정</a></i></li>
-      <li><a href="#">삭제</a></i></li>
+      <li><a href="/posts/<%= mypost.id %>/edit">수정</a></i></li>
+      <li><a href="/posts/<%= mypost.id %>/delete">삭제</a></i></li>
       
         <!-- <button id="modal_btn"><i class="fas fa-ellipsis-v"></button></i> -->
     </div>
@@ -47,14 +46,12 @@
         <div class="detail-info">
           <a href="/mypage"><img src="/img/user.jpg"></a>
           <div class="info-my">
-            <span>Nick_name</span>
-            <span>경기도</span>
+            <span><%= mypost.author.name %></span>
+            <span><%= mypost.author.location %></span>
           </div>
         </div>
         
-        <div class="product-check check1">
-            판매중
-        </div>
+       
         <!-- <div class="imfo-box">
           <div class="like">
             <i class="far fa-thumbs-up"></i>
@@ -72,16 +69,31 @@
     
     <div class="defailt-content">
       <div class="content-top">
-        <h1>맥북 프로 2021</h1>
-        <div class="content-info">
-          <a href="/">카테고리</a> · <span> 끌올 3일 전</span>
+        <div class='title-top'>
+          <h2><%= mypost.title %></h2>
+
+          <% if(mypost.isSoldOut == false) { %>
+            <div class="product-check check1">
+                판매중
+            </div>
+          <% } else { %>
+              <div class="product-check check2">
+                판매완료
+            </div>
+          <% } %>
         </div>
+        <div class="content-info">
+          <a href="/"><%= mypost.category %></a> · <span> 끌올 3일 전</span>
+        </div>
+
+
+
       </div>
 
       <div class="content-mid">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque quam laborum iste quibusdam tempora doloremque temporibus libero, dolorum nobis quae</p>
+          <p><%= mypost.content %></p>
       </div>
-
+      
       <div class="content-bottom">
         <p>관심 10 · 조회 269</p>
       </div>
@@ -90,7 +102,7 @@
 
     
     <div class="now-product-list">
-      <h4>Nick_name님의 판매 상품</h4>
+      <h4><%= mypost.author.name %>님의 판매 상품</h4>
       <a href="">모두보기</a>
     </div>
     <hr style="border: solid 1px #f3eeee">
@@ -252,7 +264,7 @@
             <button onclick="save_cart()"><i class="far fa-heart"></i></i></button>
             <div class="re"></div>
             <div class ="dscription">
-              <span id="ds-pice">100,000원</span>
+              <span id="ds-pice"><%= mypost.price %>원</span>
               <span id="ds-option">가격 제안 불가</span>
             </div>
           </div>
@@ -264,7 +276,9 @@
   </div>
 
   <script>
-  
+    let num = document.querySelector("#ds-pice")
+    num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
     let save_cart = (value) => {
       let data = document.querySelector(".menu1-item > button > i")
       data.classList.toggle("save-cart")

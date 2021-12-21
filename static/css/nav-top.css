@@ -3,6 +3,7 @@ header .init {
   position: fixed;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 70px;
   padding: 0 16px 0 12px;
@@ -12,8 +13,22 @@ header .init {
   color: black;
 }
 
-header .init .logo-img {
-  height: 100%;
+header .init .loca-select {
+  width: 140px;
+  padding: 10px 8px;
+  background: url(/img/chevron-down-solid.png) no-repeat 92% 55%;
+  border: none;
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 600;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+header .init .loca-select:focus {
+  outline: none;
 }
 
 header .init .btn-list {
@@ -63,7 +78,7 @@ header .search .btn-list li {
   cursor: pointer;
 }
 
-header .search form input {
+header .search input {
   width: 300px;
   height: 32px;
   margin-left: 30px;

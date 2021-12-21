@@ -71,6 +71,7 @@ p {
   background: none;
   margin-left: 5px;
 }
+
 .form_control:focus, .form_control:valid {
   border-bottom: 1px solid #584646;
 }
@@ -83,9 +84,7 @@ p {
   transform: scaleX(1);
 }
 
-textarea.form_control {
-  padding: 13px 1px;
-}
+
 
 .signup_btn {
   text-align: center;
@@ -145,6 +144,12 @@ textarea.form_control {
 
 .pw2CheckNo {
   display: none;
+}
+
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #524FA1 inset;
+  -webkit-text-fill-color: #fff;
 }
 
 
