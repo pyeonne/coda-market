@@ -41,3 +41,7 @@ body {
   color: var(--first-color-second);
   cursor: pointer;
 }
+
+.forget-login {
+  margin-right: var(--mb-0-75);
+}
