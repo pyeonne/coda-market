@@ -54,6 +54,9 @@ app.get('/chat', (req, res) => res.render('./chat-list'));
 app.get('/profile', (req, res) => res.render('./profile'));
 app.get('/first', (req, res) => res.render('./first'));
 app.get('/category', (req, res) => res.render('./category'));
+app.get("/setid", (req, res) => {
+  res.render("./account/setid")
+})
 
 app.use('/conversation', conversationRouter);
 app.use('/', homeRouter);

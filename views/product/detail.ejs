@@ -276,7 +276,9 @@ href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
   </div>
 
   <script>
-  
+    let num = document.querySelector("#ds-pice")
+    num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+
     let save_cart = (value) => {
       let data = document.querySelector(".menu1-item > button > i")
       data.classList.toggle("save-cart")

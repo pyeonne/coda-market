@@ -55,7 +55,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     content,
     location,
     category,
-    price: price.replace(' 원', '').replace(' ,', ''),
+    price: price.replace(' 원', '').replaceAll(',', ''),
     author: user,
     // post_thumnail: imageArray[0],
   });
@@ -110,7 +110,7 @@ router.post("/:post_id/edit", async (req, res) => {
       location: req.body.location,
       category: req.body.category,
       isSoldOut: req.body.isSoldOut,
-      price: req.body.price.replace(' 원', '').replace(' ,', ''),
+      price: req.body.price.replace(' 원', '').replaceAll(',', ''),
       timestamps: { createdAt: false, updatedAt: true },
     })
 
