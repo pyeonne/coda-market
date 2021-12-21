@@ -18,12 +18,18 @@ router.get('/edit', async (req, res) => {
 });
 
 router.post('/password-check', async (req, res) => {
-  const user = await User({ name: req.user.name });
+  const user = await User.findOne({ name: req.user.name });
+
+  console.log('==============================================');
+  console.log(user);
+  console.log(user.password);
+  console.log(req.body.password);
 
   if (user.password === hashingPassword(req.body.password)) {
-    res.json({ passwordCheck: true });
+    console.log('확인');
+    res.redirect('/profile/edit');
   } else {
-    res.json({ passwordCheck: false });
+    // alert('비밀번호를 다시 입력해주세요.');
   }
 });
 
@@ -41,7 +47,7 @@ router.post('/edit', store.single('image'), async (req, res) => {
     },
   );
 
-  res.render('./mypage', { name: user.name });
+  res.render('./profile', { name: user.name });
 });
 
 router.get('/tranactions', async (req, res) => {
@@ -64,9 +70,9 @@ router.get('/carts', async (req, res) => {
 
 router.get('/:nickname', (req, res) => {
   if (req.user.name !== req.params.nickname) {
-    res.render('./mypage', { isOwner: false });
+    res.render('./profile', { isOwner: false });
   } else {
-    res.render('./mypage');
+    res.render('./profile');
   }
 });
 

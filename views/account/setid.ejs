@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include("../layout/head") %>
+
+<head>
+  <%- include("../layout/head") %>
 
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/setid.css" />
     <title>set id</title>
 
-  </head>
+</head>
 
 <body>
   <div class="id-set-box">
@@ -18,19 +19,15 @@
 
     <div class="p-input">
       <p>이메일 주소를 입력해주세요</p>
-      <form action="" method="post">
-        <input type="text" placeholder="이메일 주소" >
+      <form id='form' action="/find/id" method="post">
+        <input type="text" name='email' placeholder="이메일 주소">
       </form>
     </div>
 
     <div class="help-box">
-
-      <form action="" method="POST">
-        
-        <div class="input-btn">
-          <input type="submit" value="아이디 찾기">
-        </div>
-        </form>
+      <div class="input-btn">
+        <input type="submit" form='form' value="아이디 찾기">
+      </div>
       <div class="login-signup">
         <a href="/login"><span>로그인</span></a>
         <span>|</span>
@@ -38,8 +35,9 @@
       </div>
     </div>
 
-  </div>  
+  </div>
 
 
 </body>
+
 </html>

@@ -23,7 +23,7 @@
         <input type="checkbox" name="xxx" value="yyy" checked />
         <a href="#">로그인 유지</a>
       </div>
-      <a href="#">아이디/비밀번호 찾기</a>
+      <a href="/find/id">아이디/비밀번호 찾기</a>
     </div>
 
     <% if (locals.loginFailed) { %>
@@ -33,10 +33,6 @@
           주세요!</span>
       </div>
       <% } %>
-        <p>
-          <a href="#"><span class="first__login forget-login">아이디 찾기</span></a>
-          <a href="./pwd"><span class="first__login">비밀번호 찾기</span></a>
-        </p>
         <button type="submit" form="form" class="login-btn">로그인</button>
 
         <p>

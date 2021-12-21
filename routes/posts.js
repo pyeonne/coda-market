@@ -6,6 +6,11 @@ import store from '../passport/middlewares/multer.js';
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+  const posts = await Post.find({}).sort({ updatedAt: 'desc' }).exec();
+  res.render('./home', { posts });
+});
+
 //localhost:3000/posts/search?title=
 router.get('/search', async (req, res) => {
   const { title } = req.query;
@@ -29,13 +34,18 @@ router.get('/category', async (req, res) => {
   res.render('./home.ejs', { posts });
 });
 
+router.get('/new', (req, res) => res.render('./product/post'));
+router.get('/edit', (req, res) => res.render('./product/postedit'));
+
 //등록된 게시물 가져오기 (detail)
 // localhost:3000/posts/:postId
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
 
-  res.json({ post });
+  console.log(post);
+
+  res.render('./product/detail', { post: post });
 });
 
 //게시물 생성
@@ -62,7 +72,9 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     thumbnail: imageArray[0],
   });
 
-  res.redirect(`/posts/${post.id}`);
+  console.log(post);
+
+  res.redirect(`/posts/${post.shortId}`);
 });
 
 //게시물 삭제
@@ -108,7 +120,7 @@ router.post('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
   if (req.body) {
-    await Post.updateOne(
+    await Post.findOneAndUpdate(
       { shortId: req.params.post_id },
       {
         title: req.body.title,
@@ -121,7 +133,7 @@ router.post('/:post_id/edit', async (req, res) => {
       },
     );
   }
-  res.redirect(`/posts/${post.id}`);
+  res.redirect(`/posts/${post.shortId}`);
 });
 
 //판매완료 후 게시물 업데이트

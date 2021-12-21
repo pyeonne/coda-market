@@ -23,18 +23,18 @@ backBtn.addEventListener('click', () => {
 
 // 지역 설정 selectBox에서 특정 지역 선택 시, 해당 지역의 post들을 가져오는 함수
 function selectLocation() {
-  reqResHandler('search/category', locaSelectBox.value);
+  reqResHandler(`search?location=${locaSelectBox.value}`);
 }
 
 // 검색 input에서 특정 검색어 검색 시, 해당 검색어에 해당하는 post들을 가져오는 함수
 function enterkey() {
   if (window.event.keyCode == 13) {
-    reqResHandler('search/category', searchInput.value);
+    reqResHandler(`search?input=${searchInput.value}`);
   }
 }
 
-function reqResHandler(url, value) {
-  axios.post(`${url}/${value}`).then(res => {
+function reqResHandler(url) {
+  axios.get(url).then(res => {
     const posts = res.data.posts;
 
     removePostList();
@@ -61,7 +61,7 @@ function makePostList(posts) {
     postList.appendChild(li);
 
     const anchor = document.createElement('a');
-    anchor.setAttribute('href', `posts/${post.id}`);
+    anchor.setAttribute('href', `posts/${post.shortId}`);
     li.appendChild(anchor);
 
     const postInfo = document.createElement('div');
@@ -69,9 +69,11 @@ function makePostList(posts) {
     anchor.appendChild(postInfo);
 
     const postImg = document.createElement('img');
-    postImg.setAttribute('src', `post.${post.thumbnail}`);
+    postImg.setAttribute('src', `${post.thumbnail}`);
     postImg.setAttribute('alt', 'post-image');
     postInfo.appendChild(postImg);
+
+    console.log(post.thumbnail);
 
     const description = document.createElement('div');
     description.setAttribute('class', 'description');
@@ -88,8 +90,7 @@ function makePostList(posts) {
 
     const loca = document.createElement('span');
     loca.setAttribute('class', 'loca');
-    loca.innerText = '서울특별시 · ';
-    // loca.innerText = `${post.location} · `; => DB 수정 후 윗줄 삭제 및 주석 제거
+    loca.innerText = `${post.location} · `;
     locaAndDate.appendChild(loca);
 
     const date = document.createElement('span');
@@ -128,7 +129,8 @@ function makePostList(posts) {
     likeNum.appendChild(likeIcon);
 
     const likeSpan = document.createElement('span');
-    likeSpan.innerText = post.like_num;
+    likeSpan.innerText = 3;
+    // likeSpan.innerText = post.like_num; => DB 수정 후 윗줄 삭제 및 주석 제거
     likeNum.appendChild(likeSpan);
   });
 }
