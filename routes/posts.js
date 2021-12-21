@@ -49,18 +49,16 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 
   const imageArray = files.map(file => file.path);
   const user = await User.findOne({ shortId: req.user.id });
-
   const post = await Post.create({
     image: imageArray,
     title,
     content,
     location: user.location,
     category,
-    price: Number(price),
+    price,
     author: user,
     thumbnail: imageArray[0],
   });
-
   res.render('./product/detail', post);
 });
 

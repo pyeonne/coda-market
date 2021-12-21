@@ -11,12 +11,11 @@ const PostSchema = new Schema(
     location: { type: String, required: true },
     image: { type: [String] },
     content: { type: String, required: true },
-    category: { type: Array, required: true },
+    category: { type: String, required: true },
     price: { type: Number, required: true },
     purchased_user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      default: false,
     },
     isSoldOut: { type: Boolean, default: false },
     thumbnail: { type: String },

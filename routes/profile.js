@@ -31,10 +31,6 @@ router.post('/edit', store.single('image'), async (req, res) => {
   res.render('./mypage', { name: user.name });
 });
 
-router.get('/logout', (req, res) => {
-  res.cookie('token', null, { maxAge: 0 }).render('./first');
-});
-
 router.get('/tranactions', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const posts = await Post.find({ author: user }).populate('author');

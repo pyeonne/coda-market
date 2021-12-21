@@ -20,6 +20,10 @@ router.get('/first', (req, res) => {
   res.render('./first');
 });
 
+router.get('/logout', (req, res) => {
+  res.cookie('token', null, { maxAge: 0 }).render('./first');
+});
+
 router.get('/category', (req, res) => res.render('./category'));
 
 router.get('/search', async (req, res) => {

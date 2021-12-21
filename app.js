@@ -10,7 +10,6 @@ import homeRouter from './routes/home.js';
 import conversationRouter from './routes/conversation.js';
 import profileRouter from './routes/profile.js';
 import messagesRouter from './routes/messages.js';
-// import mainRouter from './routes/main.js';
 import passport from 'passport';
 import passportInit from './passport/index.js';
 import getUserFromJwt from './passport/middlewares/get-user-from-jwt.js';
