@@ -39,21 +39,20 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
-  console.log(req.files);
+  console.log(files);
   const user = await User.findOne({ id: req.user.id });
-  const imageArray = files.map(file => file.path);
 
   const post = await Post.create({
-    image: imageArray,
+    // image: imageArray,
     title,
     content,
     location,
     category,
     price: price.replace(' 원', '').replace(' ,', ''),
     author: user,
-    post_thumnail: imageArray[0],
+    // post_thumnail: imageArray[0],
   });
-  console.log(post);
+
   // console.log(post.author._id);
 
   // res.status(200).json({ post });

@@ -48,7 +48,30 @@
             </div>
           </div>
           <div class="mypage__fix">
-            <a href="./profile" class="button">프로필 수정 </a>
+            <a id="edit__button" class="button">프로필 수정 </a>
+            <form
+              class="services__modal"
+              id="pwd__form"
+              method="post"
+              enctype="multipart/form-data"
+              action="http://localhost:3000/profile/password-check"
+            >
+              <div class="services__modal-content">
+                <h4 class="services__modal-title">비밀번호를 입력해주세요</h4>
+                <i class="fas fa-times services__modal-close"></i>
+
+                <div>
+                  <input type="password" class="pwd" />
+                  <button
+                    type="submit"
+                    id="submit"
+                    class="button btn-primary done__btn"
+                  >
+                    완료
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </section>
