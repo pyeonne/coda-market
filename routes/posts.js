@@ -76,7 +76,6 @@ router.delete('/:post_id', async (req, res) => {
     },
   );
 
-  res.json({ post });
   res.redirect('http://localhost:3000/');
 });
 
