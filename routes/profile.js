@@ -6,15 +6,15 @@ import store from '../passport/middlewares/multer.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
   console.log(req.user.name);
   console.log('hello');
-  res.render('./mypage', { name: req.user.name });
+  res.render('./profile', { name: req.user.name });
 });
 
 router.get('/edit', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
-  res.render('./profile', { name: req.user.name, location: user.location });
+  res.render('./profile-edit');
 });
 
 router.post('/edit', store.single('image'), async (req, res) => {

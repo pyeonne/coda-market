@@ -1,78 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include("./layout/head") %>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="/css/base.css" />
-    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/mypage.css" />
     <link rel="stylesheet" href="/css/nav-bottom.css" />
-
-    <title>Profile</title>
+    <title>mypage</title>
   </head>
   <body>
     <!-- HEADER -->
-    <header class="header profile__header" id="header">
+    <header class="header mypage__header" id="header">
       <nav class="nav container">
+        <a href="javascript:void(0)" class="nav__logo">나의 코다</a>
         <div class="nav__btns">
-          <a href="./mypage" class="nav__toggle" id="nav-toggle">
-            <i class="fas fa-times nav__icon"></i>
-          </a>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="fas fa-cog nav__icon"></i>
+          </div>
         </div>
-        <a href="javascript:void(0)" class="nav__logo">프로필 수정</a>
       </nav>
     </header>
 
     <!-- MAIN -->
     <main role="main" class="main">
       <!-- Profile -->
-      <form class="profile section" id="profile form" method="post" enctype="multipart/form-data" action="/profile/edit">
-        <div class="profile__container container grid profile" method="post" action="/profile/edit">
-          <div class="profile__content grid">
-            <div class="profile__img" id="target_img">
-              <img src="/img/profile.png" alt="" class="img-profile">
+      <section class="mypage section" id="mypage">
+        <div class="mypage__container container grid">
+          <div class="mypage__content grid">
+            <div class="mypage__img">
+              <img id="mypage_img_thumbnail" src="/img/profile.png" alt="" />
             </div>
-            <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(this)" >
+            <div class="mypage__data">
+              <h3 class="mypage__name">이름</h3>
+              <div>
+                <i class="fas fa-star mypage__icon-star"></i>
+                <i class="fas fa-star mypage__icon-star"></i>
+                <i class="fas fa-star mypage__icon-star"></i>
+                <i class="fas fa-star mypage__icon-star"></i>
+                <i class="fas fa-star mypage__icon-star"></i>
+              </div>
+            </div>
           </div>
-          <input id="name" type="text" class="profile__rename">
-          <p class="profile__alt">프로필 사진과 닉네임을 입력해주세요.</p>
-
-          <div class="selectbox">
-            <!-- <select name="addressRegion" id="addressRegion2"></select> -->
-            <select name="location" id="addressDo2">
-              <option value='전체'>지역 선택</option>
-              <option value='서울'>서울특별시</option>
-              <option value='부산'>부산광역시</option>
-              <option value='대구'>대구광역시</option>
-              <option value='인천'>인천광역시</option>
-              <option value='광주'>광주광역시</option>
-              <option value='대전'>대전광역시</option>
-              <option value='울산'>울산광역시</option>
-              <option value='경기'>경기도</option>
-              <option value='강원'>강원도</option>
-              <option value='충북'>충청북도</option>
-              <option value='충남'>충청남도</option>
-              <option value='전북'>전라북도</option>
-              <option value='전남'>전라남도</option>
-              <option value='경북'>경상북도</option>
-              <option value='경남'>경상남도</option>
-              <option value='제주'>제주도</option>
-            </select>
-            <!-- <select name="addressSiGunGu" id="addressSiGunGu2"></select> -->
+          <div class="mypage__fix">
+            <a href="./profile/edit" class="button">프로필 수정 </a>
           </div>
-          <p class="profile__alt">살고 있는 지역을 선택해주세요.</p>
-          <div>
-            <button type="submit" id="submit" class="btn btn-primary done__btn">완료</button>
-          </div>
-          
         </div>
-      </form>
+      </section>
 
-   
+      <!-- Histories -->
+      <section class="histories section" id="history">
+        <div class="histories__container container grid">
+          <div>
+            <!-- Sales History -->
+            <div class="histories__content">
+              <div class="histories__header">
+                <i class="fas fa-receipt histories__icon"></i>
+                <div>
+                  <h1 class="histories__title">거래내역</h1>
+                </div>
+                <i class="fas fa-chevron-down histories__arrow"></i>
+              </div>
+              <div class="histories__list grid">
+                <a href="./detail" class="histories__data">
+                  <div class="histories__titles">
+                    <img
+                      src="/img/histories1.jpg"
+                      alt=""
+                      class="histories__img"
+                    />
+                    <div>
+                      <h3 class="histories__name">
+                        RAZER 한손 키보드 판매합니다.
+                      </h3>
+                      <span class="histories__time">대구광역시 · 1일전</span>
+                      <div class="histories__info">
+                        <div class="button histories__status progress">
+                          판매중
+                        </div>
+                        <h3 class="histories__price">140,000원</h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a href="./detail" class="histories__data">
+                  <div class="histories__titles">
+                    <img
+                      src="/img/iphone12-mini.jpg"
+                      alt=""
+                      class="histories__img"
+                    />
+                    <div>
+                      <h3 class="histories__name">
+                        아이폰 12 미니 판매합니다.
+                      </h3>
+                      <span class="histories__time">서울특별시 · 3분전</span>
+                      <div class="histories__info">
+                        <div class="button histories__status done">
+                          거래완료
+                        </div>
+                        <h3 class="histories__price">140,000원</h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
 
-      <!-- JS -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="./js/profile.js"></script>
+            <!-- Purchase History -->
+            <div class="histories__content">
+              <div class="histories__header">
+                <i class="fas fa-shopping-bag histories__icon"></i>
+                <div>
+                  <h1 class="histories__title">구매내역</h1>
+                </div>
+                <i class="fas fa-chevron-down histories__arrow"></i>
+              </div>
+              <div class="histories__list grid">
+                <a href="./detail" class="histories__data">
+                  <div class="histories__titles">
+                    <img
+                      src="/img/histories1.jpg"
+                      alt=""
+                      class="histories__img"
+                    />
+                    <div>
+                      <h3 class="histories__name">
+                        RAZER 한손 키보드 판매합니다.
+                      </h3>
+                      <span class="histories__time">대구광역시 · 1일전</span>
+                      <div class="histories__info">
+                        <div class="button histories__status progress">
+                          판매중
+                        </div>
+                        <h3 class="histories__price">140,000원</h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a href="./detail" class="histories__data">
+                  <div class="histories__titles">
+                    <img
+                      src="/img/iphone12-mini.jpg"
+                      alt=""
+                      class="histories__img"
+                    />
+                    <div>
+                      <h3 class="histories__name">
+                        아이폰 12 미니 판매합니다.
+                      </h3>
+                      <span class="histories__time">서울특별시 · 3분전</span>
+                      <div class="histories__info">
+                        <div class="button histories__status done">
+                          거래완료
+                        </div>
+                        <h3 class="histories__price">140,000원</h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
 
-      
+            <!-- Like History -->
+            <div class="histories__content">
+              <div class="histories__header">
+                <i class="fas fa-heart histories__icon"></i>
+                <div>
+                  <h1 class="histories__title">관심목록</h1>
+                </div>
+                <i class="fas fa-chevron-down histories__arrow"></i>
+              </div>
+              <div class="histories__list grid">
+                <a href="./detail" class="histories__data">
+                  <div class="histories__titles">
+                    <img
+                      src="/img/histories1.jpg"
+                      alt=""
+                      class="histories__img"
+                    />
+                    <div>
+                      <h3 class="histories__name">
+                        RAZER 한손 키보드 판매합니다.
+                      </h3>
+                      <span class="histories__time">대구광역시 · 1일전</span>
+                      <div class="histories__info">
+                        <div class="button histories__status progress">
+                          판매중
+                        </div>
+                        <h3 class="histories__price">140,000원</h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a href="detail" class="histories__data">
+                  <div class="histories__titles">
+                    <img
+                      src="/img/iphone12-mini.jpg"
+                      alt=""
+                      class="histories__img"
+                    />
+                    <div>
+                      <h3 class="histories__name">
+                        아이폰 12 미니 판매합니다.
+                      </h3>
+                      <span class="histories__time">서울특별시 · 3분전</span>
+                      <div class="histories__info">
+                        <div class="button histories__status done">
+                          거래완료
+                        </div>
+                        <h3 class="histories__price">140,000원</h3>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <%- include("./layout/nav-bottom") %>
+
+    <!-- JS -->
+    <script src="/js/mypage.js"></script>
   </body>
 </html>

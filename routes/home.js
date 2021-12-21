@@ -10,9 +10,17 @@ router.get('/', async (req, res) => {
   res.render('./home', { posts });
 });
 
+router.get('/login', (req, res) => res.render('./account/login'));
+
+router.get('/mypage', (req, res) => res.render('./mypage'));
+
+router.get('/chat', (req, res) => res.render('./chat-list'));
+
 router.get('/first', (req, res) => {
   res.render('./first');
 });
+
+router.get('/category', (req, res) => res.render('./category'));
 
 router.get('/search', async (req, res) => {
   const { input } = req.query;
