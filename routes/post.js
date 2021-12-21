@@ -104,7 +104,6 @@ router.post("/:post_id/edit", async (req, res) => {
   const post = await Post.findOne({ id : req.params.post_id})
   
   if(req.body) {
-    console.log("요기", req.body)
     await Post.updateOne({ id : req.params.post_id }, { 
       title: req.body.title,
       content: req.body.content,
@@ -112,6 +111,7 @@ router.post("/:post_id/edit", async (req, res) => {
       category: req.body.category,
       isSoldOut: req.body.isSoldOut,
       price: req.body.price.replace(' 원', '').replace(' ,', ''),
+      timestamps: { createdAt: false, updatedAt: true },
     })
 
   } 

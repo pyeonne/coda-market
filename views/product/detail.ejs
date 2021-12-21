@@ -47,7 +47,7 @@ href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
           <a href="/mypage"><img src="/img/user.jpg"></a>
           <div class="info-my">
             <span><%= mypost.author.name %></span>
-            <span>경기도</span>
+            <span><%= mypost.author.location %></span>
           </div>
         </div>
         
@@ -70,7 +70,7 @@ href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
     <div class="defailt-content">
       <div class="content-top">
         <div class='title-top'>
-          <h1><%= mypost.title %></h1>
+          <h2><%= mypost.title %></h2>
 
           <% if(mypost.isSoldOut == false) { %>
             <div class="product-check check1">
@@ -83,7 +83,7 @@ href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
           <% } %>
         </div>
         <div class="content-info">
-          <a href="/">카테고리</a> · <span> 끌올 3일 전</span>
+          <a href="/"><%= mypost.category %></a> · <span> 끌올 3일 전</span>
         </div>
 
 
