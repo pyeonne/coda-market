@@ -13,7 +13,6 @@ function loadFile(input) {
 }
 
 document.getElementById('submit').addEventListener('click', e => {
-  e.preventDefault();
   let file = document.querySelector('#file').files[0];
   let imgURL = URL.createObjectURL(file);
   let name = document.querySelector('.profile__rename').value;

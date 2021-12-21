@@ -17,7 +17,7 @@ router.get('/edit', async (req, res) => {
 
 router.post('/edit', store.single('image'), async (req, res) => {
   const { name, location } = req.body;
-  console.log(req);
+
   console.log(req.body);
   const user = await User.findOneAndUpdate(
     { id: req.user.id },
@@ -26,7 +26,7 @@ router.post('/edit', store.single('image'), async (req, res) => {
       location,
     },
   );
-
+  console.log(req.file);
   res.render('./mypage', { name: user.name });
 });
 
