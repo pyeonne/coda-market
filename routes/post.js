@@ -62,7 +62,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 
   // console.log(post.author._id);
   // res.status(200).json({ post });
-  res.render('./product/detail', { mypost : post });
+  res.redirect(`/posts/${post.id}`);
 });
 
 //게시물 삭제
@@ -80,17 +80,43 @@ router.get('/:post_id/delete', async (req, res) => {
 
 //게시물 업데이트
 //localhost:3000/post/:postId - patch
-router.get('/:post_id/edit', async (req, res) => {
-  const { post_id } = req.params;
 
-  const post = await Post.findOneAndUpdate({ id: post_id }, req.body, {
-    new: true,
-    upsert: true,
-    timestamps: { createdAt: false, updatedAt: true },
-  });
+// router.get('/:post_id/edit', async (req, res) => {
+//   const { post_id } = req.params;
 
+//   const post = await Post.findOneAndUpdate({ id: post_id }, req.body, {
+//     new: true,
+//     upsert: true,
+//     timestamps: { createdAt: false, updatedAt: true },
+//   });
+
+//   res.render('./product/postedit', { mypost : post });
+// });
+
+// front update test
+
+router.get("/:post_id/edit", async (req, res) => {
+  const post = await Post.findOne({ id : req.params.post_id})
   res.render('./product/postedit', { mypost : post });
 });
+
+router.post("/:post_id/edit", async (req, res) => {
+  const post = await Post.findOne({ id : req.params.post_id})
+  
+  if(req.body) {
+    console.log("요기", req.body)
+    await Post.updateOne({ id : req.params.post_id }, { 
+      title: req.body.title,
+      content: req.body.content,
+      location: req.body.location,
+      category: req.body.category,
+      isSoldOut: req.body.isSoldOut,
+      price: req.body.price.replace(' 원', '').replace(' ,', ''),
+    })
+
+  } 
+  res.redirect(`/posts/${post.id}`);
+})
 
 //판매완료 후 게시물 업데이트
 router.patch('/:post_id/soldout', async (req, res) => {

@@ -21,7 +21,7 @@
 }
 
 .post_img_line {
-  padding: 25px 25px 15px 0;
+  padding: 25px 25px 25px 0;
 }
 
 .post_img_btn {
@@ -29,7 +29,6 @@
   border: solid 2px #E5E5E5;
   border-radius: 10px;
   width: 70px;
-  
 }
 
 .post_img_icon {
