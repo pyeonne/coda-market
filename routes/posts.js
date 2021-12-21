@@ -113,10 +113,11 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  res.render('./product/postedit', { mypost: post });
+  res.render('./product/postedit', { post: post });
 });
 
 router.post('/:post_id/edit', async (req, res) => {
+  console.log("하이")
   const post = await Post.findOne({ shortId: req.params.post_id });
 
   if (req.body) {
