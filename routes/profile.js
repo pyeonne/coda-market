@@ -3,12 +3,11 @@ import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import Post from '../models/Post.js';
 import store from '../passport/middlewares/multer.js';
+import passport from 'passport';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  console.log(req.user.name);
-  console.log('hello');
   res.render('./profile', { name: req.user.name });
 });
 
@@ -16,6 +15,12 @@ router.get('/edit', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   res.render('./profile-edit');
 });
+
+router.post(
+  '/password-check',
+  passport.authenticate('local', { session: false }),
+  async (req, res) => {},
+);
 
 router.post('/edit', store.single('image'), async (req, res) => {
   const { name, pwd, location } = req.body;
