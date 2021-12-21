@@ -116,7 +116,7 @@ li {
 }
 
 .content-info a {
-  margin-left: 3px;
+  margin-left: 2px;
   margin-right: 10px;
 }
 
@@ -270,3 +270,16 @@ li {
   color: #f75e6a;
 }
 
+.title-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-check {
+  position: relative;
+  bottom: 12px;
+}
+
+.content-mid, .content-bottom {
+  margin-left: 2px;
+} 

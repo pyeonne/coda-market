@@ -1,0 +1,58 @@
+.id-set-box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 300px;
+  text-align: center;
+  
+}
+
+.logo-top {
+  font-size: 22px;
+  color: #6762E0;
+  margin: 10px 0 10px 0;
+}
+
+.p-input {
+  font-size: 14px;
+  margin: 10px 0 10px 0;
+}
+
+.p-input input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 1px solid #767676;
+  border-radius: 5px;
+  font-size: 13px;
+  outline: none;
+}
+
+.input-btn input{
+  padding: 6px;
+  width: 200px;
+  background-color: #6762E0;
+  border: 1px solid #6762E0;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.login-signup {
+  margin-top: 5px;
+}
+
+.login-signup span{
+  font-size: 14px;
+}
+
+.login-signup span:nth-child(2){
+  margin: 5px;
+}

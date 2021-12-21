@@ -48,13 +48,16 @@ app.use(getUserFromJwt);
 app.get('/welcome', (req, res) => res.render('./first'));
 app.get('/login', (req, res) => res.render('./account/login'));
 app.get('/mypage', (req, res) => res.render('./mypage'));
-app.get('/product/post', (req, res) => res.render('./product/post'));
-app.get('/product/postedit', (req, res) => res.render('./product/postedit'));
-app.get('/product/detail', (req, res) => res.render('./product/detail'));
+app.get('/posts/new', (req, res) => res.render('./product/post'));
+app.get('/posts/edit', (req, res) => res.render('./product/postedit'));
+app.get('/detail', (req, res) => res.render('./product/detail'));
 app.get('/chat', (req, res) => res.render('./chat-list'));
 app.get('/profile', (req, res) => res.render('./profile'));
 app.get('/category', (req, res) => res.render('./category'));
 app.get('/pwd', (req, res) => res.render('./pwd'));
+app.get('/setid', (req, res) => {
+  res.render('./account/setid');
+});
 
 app.use('/conversation', conversationRouter);
 app.use('/', homeRouter);
@@ -111,7 +114,7 @@ const start = async () => {
   try {
     /* DB */
     await connectDB(process.env.MONGODB);
-    server.listen(3000, () => {
+    server.listen(process.env.PORT, () => {
       // 업로드될 파일을 저장할 폴더 생성
       const dir = './uploadedFiles';
 

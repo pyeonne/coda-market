@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  
+
   <title>Post Page</title>
   <link rel="stylesheet" href="">
+
   <head>
     <%- include("../layout/head") %>
 
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
-    crossorigin="anonymous"
-    />
-  <link rel="stylesheet" href="/css/base.css"/>
-  <link rel="stylesheet" href="/css/nav.css"/>
-  <link rel="stylesheet" href="/css/nav-bottom.css" />
-  <link rel="stylesheet" href="/css/product_post.css" />
-  
-</head>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous" />
+      <link rel="stylesheet" href="/css/base.css" />
+      <link rel="stylesheet" href="/css/nav.css" />
+      <link rel="stylesheet" href="/css/nav-bottom.css" />
+      <link rel="stylesheet" href="/css/product_post.css" />
+
+  </head>
+
 <body>
   <form action="/posts/new" method="post" enctype="multipart/form-data">
     <div class="post_nav">
       <ul class="post_menu">
         <li><a href="/"><i class="fas fa-times"></a></i></li>
-        <li><h4>코다마켓 글쓰기</h4></li>
+        <li>
+          <h4>코다마켓 글쓰기</h4>
+        </li>
         <li><input type="submit" value="완료"></li>
       </ul>
     </div>
     <hr style="border: solid 1px #E5E5E5">
-    
-  <div class="post_main">
+
+    <div class="post_main">
       <div class="post_img_line">
 
         <button type="button" class="post_img_btn" onchange="change_btn()">
-            <div class="post_img">
-              <label className="input-file-button" for="input-file">
-                <i class="fas fa-camera post_img_icon"></i>
-                <span class="img_count_text">0/5</span>
-              </label>
-              <input class="file_input" id="input-file" type="file" name="images" style="display: none;" multiple>
-            </div>
+          <div class="post_img">
+            <label className="input-file-button" for="input-file">
+              <i class="fas fa-camera post_img_icon"></i>
+              <span class="img_count_text">0/5</span>
+            </label>
+            <input class="file_input" id="input-file" type="file" name="images" style="display: none;" multiple>
+          </div>
         </button>
-          
-        </div>
-        <hr style="border: solid 1px #E5E5E5;">    
+
+      </div>
+      <hr style="border: solid 1px #E5E5E5;">
 
       <div class="post_title">
-         <input type="text" name="title" placeholder="상품 이름">
-        </div>
-        <hr style="border: solid 1px #E5E5E5;">
+        <input type="text" name="title" placeholder="상품 이름">
+      </div>
+      <hr style="border: solid 1px #E5E5E5;">
 
-        <div class="post_category">
+      <div class="post_category">
         <p>카테고리 선택</p>
         <select name="category" class="category_btn">
           <option value="1" selected="selected">카테고리</option>
-          <option value="usedCar">중고차</option> 
-          <option value="digitalDevice">디지털기기</option> 
-          <option value="appliance">생활가전</option> 
-          <option value="furniture">가구/인테리어</option> 
-          <option value="children">유아동</option> 
-          <option value="kitchenware">생활/가공식품</option> 
-          <option value="childrenBook">유아도서</option> 
-          <option value="sports">스포츠/레저</option> 
-          <option value="womenGoods">여성잡화</option> 
-          <option value="womenClothing">여성의류</option> 
-          <option value="menGoodsAndClothing">남성패션/잡화</option> 
-          <option value="hobby">게임/취미</option> 
-          <option value="beauty">뷰티/미용</option> 
-          <option value="pet">반려동물용품</option> 
-          <option value="bookAndTicketAndRecord">도서/티켓/음반</option> 
-          <option value="plant">식물</option> 
-          <option value="others">기타 중고물품</option> 
-      </select>
+          <option value="usedCar">중고차</option>
+          <option value="digitalDevice">디지털기기</option>
+          <option value="appliance">생활가전</option>
+          <option value="furniture">가구/인테리어</option>
+          <option value="children">유아동</option>
+          <option value="kitchenware">생활/가공식품</option>
+          <option value="childrenBook">유아도서</option>
+          <option value="sports">스포츠/레저</option>
+          <option value="womenGoods">여성잡화</option>
+          <option value="womenClothing">여성의류</option>
+          <option value="menGoodsAndClothing">남성패션/잡화</option>
+          <option value="hobby">게임/취미</option>
+          <option value="beauty">뷰티/미용</option>
+          <option value="pet">반려동물용품</option>
+          <option value="bookAndTicketAndRecord">도서/티켓/음반</option>
+          <option value="plant">식물</option>
+          <option value="others">기타 중고물품</option>
+        </select>
 
-     </div>
-     <hr style="border: solid 1px #E5E5E5;">
-
-    <div class='post_price'>
-        <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);" onfocus="getfocus(this);" placeholder="판매금액">
-      <div class="post_option">
-        <button class="price_btn" type="button">
-          <i class="fas fa-check-circle"></i>
-          <span>가격 제안받기</span>
-        </button>
       </div>
-    </div>  
-    <hr style="border: solid 1px #E5E5E5;">
+      <hr style="border: solid 1px #E5E5E5;">
 
-    <div class="post_content">
-      <textarea class="area_text" name="content" id="" cols="50" rows="10" placeholder="안녕하세요 코다마켓 입니다. 상품 게시글의 내용을 작성해주세요. (가품 및 판매금지 품목은 게시가 제한될 수 있어요.)"></textarea>
+      <div class='post_price'>
+        <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);"
+          onfocus="getfocus(this);" placeholder="판매금액">
+        <div class="post_option">
+          <button class="price_btn" type="button">
+            <i class="fas fa-check-circle"></i>
+            <span>가격 제안받기</span>
+          </button>
+        </div>
+      </div>
+      <hr style="border: solid 1px #E5E5E5;">
+
+      <div class="post_content">
+        <textarea class="area_text" name="content" id="" cols="50" rows="10"
+          placeholder="안녕하세요 코다마켓 입니다. 상품 게시글의 내용을 작성해주세요. (가품 및 판매금지 품목은 게시가 제한될 수 있어요.)"></textarea>
+      </div>
+      <hr style="border: solid 1px #E5E5E5;">
+
     </div>
-    <hr style="border: solid 1px #E5E5E5;">
-
-  </div>
-</form>
+  </form>
 
   <%- include("../layout/nav-bottom") %>
-  <script src="/js/post.js"></script>
+    <script src="/js/post.js"></script>
 </body>
+
 </html>
