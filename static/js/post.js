@@ -34,9 +34,13 @@ function change_btn() {
   let fileName = document.querySelector(".file_input").files
   let files = document.querySelector(".file_input").files.length
 
+  if(files > 5 ) {
+    return alert("이미지 파일은 5개 이상 업로드 할 수 없습니다.")
+  }
+  
   for (let i=0; i < files; i++) {
     console.log(fileName[i].name)
   }
   
-  data.innerText = `${files}/10`
+  data.innerText = `${files}/5`
 }
