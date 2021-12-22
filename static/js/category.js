@@ -5,6 +5,6 @@ items.forEach(item => {
     const category = item.querySelector('span').getAttribute('value');
 
     // window.location.replace(`/posts/category?category=${category}`);
-    window.location.replace(`search?category=${category}`);
+    window.location.replace(`/posts/search?category=${category}`);
   });
 });

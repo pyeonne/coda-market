@@ -14,9 +14,16 @@
     <script src="/js/home.js" defer></script>
     <script defer>
       const userLoca = '<%= userLocation %>';
+      const isCategory = JSON.parse('<%= isCategory %>');
+      const getPosts = "<%= posts %>".replace(/&#34;/g, "\"");
+      const posts = JSON.parse(getPosts);
+
+      console.log(userLoca);
+      console.log(isCategory);
+      console.log(posts);
 
       window.onload = function () {
-        setLoation(userLoca);
+        setLoation(userLoca, isCategory, posts);
       }
     </script>
     <title>Home</title>
