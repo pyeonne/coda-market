@@ -37,15 +37,20 @@ router.get('/category', (req, res) => res.render('./category'));
 
 router.get('/search', async (req, res) => {
   const { input, location } = req.query;
+  let posts;
 
   if (input !== undefined) {
-    const posts = await Post.find({ title: { $regex: input, $options: 'gi' } });
+    posts = await Post.find({ title: { $regex: input, $options: 'gi' } });
   }
 
-  const posts = await Post.find({ title: { $regex: input, $options: 'gi' } });
+  if (location !== undefined) {
+    posts = await Post.find({ location: { $regex: location, $options: 'gi' } });
+  }
 
-  console.log(input);
-  console.log(location);
+  posts = await Post.find({
+    title: { $regex: input, $options: 'gi' },
+    location,
+  });
 
   res.status(200).json({ posts });
 });

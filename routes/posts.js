@@ -7,8 +7,9 @@ import store from '../passport/middlewares/multer.js';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  const user = await User.findOne({ shortId: req.user.id });
   const posts = await Post.find({}).sort({ updatedAt: 'desc' }).exec();
-  res.render('./home', { posts });
+  res.render('./home', { posts, userLocation: user.location });
 });
 
 //localhost:3000/posts/search?title=
@@ -25,13 +26,17 @@ router.get('/search', async (req, res) => {
 //localhost:3000/posts/category?category=
 router.get('/category', async (req, res) => {
   const { category } = req.query;
+  const user = await User.findOne({ shortId: req.user.id });
 
   const posts = await Post.find({
     category,
+    location: user.location,
   });
 
-  // $and: [{ location: req.user.location }, { category }],
-  res.render('./home.ejs', { posts });
+  console.log(posts);
+  console.log(user.location);
+
+  res.render('./home.ejs', { posts, userLocation: user.location });
 });
 
 router.get('/new', (req, res) => res.render('./product/post'));
