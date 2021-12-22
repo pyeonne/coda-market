@@ -41,7 +41,9 @@ function change_btn() {
   let imgBox = document.createElement('div');
   imgBox.classList.add('img-box');
 
-  if (files <= 5) {
+  let file_count = document.querySelectorAll(".img-box > .img > img").length
+
+  if (file_count < 5) {
     imgBox.innerHTML = ``;
     for (let i = 0; i < files; i++) {
       let div = document.createElement('div');
@@ -51,13 +53,14 @@ function change_btn() {
       img.src = URL.createObjectURL(input.files[i]);
       div.appendChild(img);
       imgBox.appendChild(div);
-
       console.log(URL.createObjectURL(input.files[i]));
 
     }
-
     postImg.appendChild(imgBox);
-    data.innerText = `${files}/5`;
+
+    let file_counting = document.querySelectorAll(".img-box > .img > img").length
+
+    data.innerText = `${file_counting}/5`;
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
