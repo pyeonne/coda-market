@@ -44,7 +44,13 @@
     <div class="detail-ch">
 
       <div class="detail-info">
+
+        <% if (post.author.thumbnail) { %>
+        <a href="/mypage"><img src="/<%= post.author.thumbnail %>"></a>
+        <% } else { %>
         <a href="/mypage"><img src="/img/user.jpg"></a>
+        <% }  %>
+
         <div class="info-my">
           <span>
             <%= post.author.name %>
