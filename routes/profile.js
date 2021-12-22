@@ -20,11 +20,6 @@ router.get('/edit', async (req, res) => {
 router.post('/password-check', async (req, res) => {
   const user = await User.findOne({ name: req.user.name });
 
-  console.log('==============================================');
-  console.log(user);
-  console.log(user.password);
-  console.log(req.body.password);
-
   if (user.password === hashingPassword(req.body.password)) {
     console.log('확인');
     res.redirect('/profile/edit');
@@ -35,13 +30,14 @@ router.post('/password-check', async (req, res) => {
 
 router.post('/edit', store.single('image'), async (req, res) => {
   const { name, pwd, location } = req.body;
-  const thumbnail = req.file.path;
 
+  const thumbnail = req.file.path.replace(/\\/g, '/');
+  const password = hashingPassword(pwd);
   const user = await User.findOneAndUpdate(
     { shortId: req.user.id },
     {
       name,
-      password: pwd,
+      password,
       location,
       thumbnail,
     },

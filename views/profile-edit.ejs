@@ -38,12 +38,12 @@
           </div>
           <input type="file" id="file" name="image" accept="image/*" onchange="loadFile(this)">
         </div>
-        <input type="text" class="profile__rename">
+        <input name="name" type="text" class="profile__rename">
         <p class="profile__alt">프로필 사진과 닉네임을 입력해주세요.</p>
 
         <div class="selectbox">
           <!-- <select name="addressRegion" id="addressRegion2"></select> -->
-          <select name="addressDo" id="addressDo2">
+          <select name="locaiton" id="addressDo2">
             <option value='전체'>지역 선택</option>
             <option value='서울'>서울특별시</option>
             <option value='부산'>부산광역시</option>
@@ -65,7 +65,7 @@
           <!-- <select name="addressSiGunGu" id="addressSiGunGu2"></select> -->
         </div>
         <p class="profile__alt">살고 있는 지역을 선택해주세요.</p>
-        <input type="password" class="profile__pwd">
+        <input type="password" name="pwd" class="profile__pwd">
         <p class="profile__alt">변경하실 비밀번호를 입력해주세요.</p>
         <div>
           <button type="submit" id="submit" class="btn btn-primary done__btn">완료</button>
