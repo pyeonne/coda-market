@@ -73,6 +73,7 @@
 
 .post_title > input {
   font-size: 16px;
+  width: 100%;
   border: none;
   outline: none;
   background-color: var(--body-color);
@@ -122,6 +123,7 @@
 .post_price > input {
   border: none;
   outline: none;
+  width: 100%;
   font-size: 16px;
   background-color: var(--body-color);
 }
