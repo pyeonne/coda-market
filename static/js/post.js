@@ -1,3 +1,7 @@
+function file_btn() {
+  let data = document.querySelector(".file_input").click()
+}
+
 /* 세자리 마다 숫자 찍기 펑션 */
 function getNumber(obj) {
   var num01;
