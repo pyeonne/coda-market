@@ -37,7 +37,6 @@ app.set('view engine', 'ejs');
 app.set('socketio', io);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(cookieParser());
 app.use(express.static(__dirname + '/static'));
 app.use('/uploads', express.static('uploads'));
