@@ -35,8 +35,8 @@ function change_btn() {
   let img = document.createElement('img');
   let postImg = document.querySelector('.post_img_line');
   let image_count = document.querySelectorAll(".post_img_line > img").length
-
-  if (image_count <= 4) {
+  
+  if (image_count < 5) {
     for (let i = 0; i < files; i++) {
       let img = document.createElement('img');
       console.log(input.files[i]);
@@ -47,7 +47,11 @@ function change_btn() {
     }
     let image_counting = document.querySelectorAll(".post_img_line > img").length
     data.innerText = `${image_counting}/5`;
-  } else {
+  } 
+  else if (files > 5) {
+    alert('이미지는 최대 5개까지 첨부할 수 있어요');
+
+} else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
 }
