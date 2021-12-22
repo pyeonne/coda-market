@@ -20,27 +20,49 @@
 }
 
 .post_img_line {
-  display: flex;
+  display: grid;
+  justify-content: start;
+  align-items: center;
+  grid-auto-flow: column;
+
   width: 100%;
-  padding: 25px 25px 15px 0;
+  height: 100%;
+  padding: var(--mb-1) 0;
   white-space: nowrap;
-  overflow: auto;
+  overflow-x: auto;
 }
 
 .post_img_line::-webkit-scrollbar {
   display: none;
 }
 
-.post_img_line img {
+.post_img_line .img {
+  position: relative;
+  display: inline-block;
   width: 70px;
   height: 70px;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-right: var(--mb-0-5);
+  overflow: hidden;
+}
+
+.img-box {
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+}
+
+.img img {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .post_img_btn {
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
   padding: 15px;

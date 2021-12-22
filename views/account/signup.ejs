@@ -18,33 +18,38 @@
   <body>
     <div class="wrapper">
       <div class="form_container">
-        <form action="/signup" method="POST" >
+        <form action="/signup" method="POST">
           <h3>회원 가입</h3>
 
-            <select name="location" class="location_box">
-              <option value="1" selected="selected">지역 선택</option>
-              <option value="서울특별시">서울특별시</option>
-              <option value="부산광역시">부산광역시</option>
-              <option value="인천광역시">인천광역시</option>
-              <option value="대구광역시">대구광역시</option>
-              <option value="울산광역시">울산광역시</option>
-              <option value="광주광역시">광주광역시</option>
-              <option value="대전광역시">대전광역시</option>
-              <option value="경기도">경기도</option>
-              <option value="강원도">강원도</option>
-              <option value="충청북도">충청북도</option>
-              <option value="충청남도">충청남도</option>
-              <option value="전라북도">전라북도</option>
-              <option value="전라남도">전라남도</option>
-              <option value="경상북도">경상북도</option>
-              <option value="경상남도">경상남도</option>
-              <option value="제주도">제주도</option>
-            </select>
+          <select name="location" class="location_box">
+            <option value="1" selected="selected">지역 선택</option>
+            <option value="서울특별시">서울특별시</option>
+            <option value="부산광역시">부산광역시</option>
+            <option value="인천광역시">인천광역시</option>
+            <option value="대구광역시">대구광역시</option>
+            <option value="울산광역시">울산광역시</option>
+            <option value="광주광역시">광주광역시</option>
+            <option value="대전광역시">대전광역시</option>
+            <option value="경기도">경기도</option>
+            <option value="강원도">강원도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="제주도">제주도</option>
+          </select>
 
           <div class="form_group">
-            <input name="id" type="text" class="form_control" required  autocomplete="off" onkeyup="id_check(this.value)">
-
-           
+            <input
+              name="id"
+              type="text"
+              class="form_control"
+              required
+              autocomplete="off"
+              onkeyup="id_check(this.value)"
+            />
 
             <span>아이디</span>
             <span class="border"></span>
@@ -55,17 +60,29 @@
             <span class="idCheckNo">
               <i class="fas fa-times"></i>
             </span>
-
           </div>
 
           <div class="form_group">
-            <input name="name" type="text" class="form_control" required autocomplete="off">
+            <input
+              name="name"
+              type="text"
+              class="form_control"
+              required
+              autocomplete="off"
+            />
             <span>닉네임</span>
             <span class="border"></span>
           </div>
 
           <div class="form_group">
-            <input name="pwd" type="password" class="form_control" autocomplete="new-password" onkeyup="pw1_check(this.value)" required >
+            <input
+              name="pwd"
+              type="password"
+              class="form_control"
+              autocomplete="new-password"
+              onkeyup="pw1_check(this.value)"
+              required
+            />
             <span>패스워드</span>
             <span class="border"></span>
 
@@ -75,11 +92,16 @@
             <span class="pw1CheckNo">
               <i class="fas fa-times"></i>
             </span>
-
           </div>
 
           <div class="form_group">
-            <input name="pwd_check" type="password" class="form_control" onkeyup="pw2_check(this.value)" required >
+            <input
+              name="pwd_check"
+              type="password"
+              class="form_control"
+              onkeyup="pw2_check(this.value)"
+              required
+            />
             <span>패스워드 확인</span>
             <span class="border"></span>
 
@@ -89,11 +111,16 @@
             <span class="pw2CheckNo">
               <i class="fas fa-times"></i>
             </span>
-
           </div>
 
           <div class="form_group">
-            <input name="email" type="text" class="form_control" required autocomplete="off" >
+            <input
+              name="email"
+              type="text"
+              class="form_control"
+              required
+              autocomplete="off"
+            />
             <span>E-mail</span>
             <span class="border"></span>
           </div>

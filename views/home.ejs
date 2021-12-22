@@ -8,19 +8,25 @@
     <link rel="stylesheet" href="/css/nav-bottom.css" />
     <link rel="stylesheet" href="/css/home.css" />
 
+    <link rel="stylesheet" href="https://codepen.io/desandro/pen/owWLYz.css" />
+
+    <script
+      src="https://cdn.jsdelivr.net/gh/marshall-ku/infinite-scroll/dist/infiniteScroll.min.js"
+      defer
+    ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
       defer
     ></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+
     <script src="js/home.js" defer></script>
     <script defer>
       const userLoca = '<%= userLocation %>';
 
-
       window.onload = function () {
         setLoation(userLoca);
-      }
+      };
     </script>
     <title>Home</title>
   </head>
@@ -28,7 +34,30 @@
   <body>
     <%- include("./layout/nav-top") %>
     <main role="main">
-      <ul></ul>
+      <h1>Infinite Scroll v4 - Loading JSON + Masonry</h1>
+
+      <p>
+        Loading photos from the
+        <a
+          href="https://unsplash.com/developers?utm_source=infinite-scroll-demos&utm_medium=referral&utm_campaign=api-credit"
+          >Unsplash API</a
+        >
+      </p>
+      <div class="grid">
+        <div class="grid__col-sizer"></div>
+        <div class="grid__gutter-sizer"></div>
+      </div>
+
+      <div class="page-load-status">
+        <div class="loader-ellips infinite-scroll-request">
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+        </div>
+        <p class="infinite-scroll-last">End of content</p>
+        <p class="infinite-scroll-error">No more pages to load</p>
+      </div>
     </main>
 
     <span class="no-result-message none">검색 결과가 없어요 😥</span>
@@ -40,5 +69,9 @@
     </button>
 
     <%- include("./layout/nav-bottom") %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script src="js/infiniteScroll.js"></script>
   </body>
 </html>

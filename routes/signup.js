@@ -9,20 +9,27 @@ router.get('/', async (req, res) => {
   res.render('./account/signup');
 });
 
-router.post(
-  '/',
-  asyncHandler(async (req, res) => {
-    const { location, id, pwd, name, email } = req.body;
-    const user = await User.create({
-      shortId: id,
-      password: getHash(pwd),
-      name,
-      location,
-      email,
-    });
+router.post('/', async (req, res) => {
+  const { location, id, pwd, name, email } = req.body;
+  let user = await User.find({ shortId: id });
+  if (id !== undefined && user.length !== 0) {
+    res.json({ existingUserId: true });
+  }
 
-    res.render('./account/login');
-  }),
-);
+  user = await User.find({ email });
+  if (email !== undefined && user.length !== 0) {
+    res.json({ existingUserEmail: true });
+  }
+
+  await User.create({
+    shortId: id,
+    password: getHash(pwd),
+    name,
+    location,
+    email,
+  });
+
+  res.redirect('/login');
+});
 
 export default router;
