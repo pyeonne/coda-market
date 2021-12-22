@@ -17,7 +17,6 @@ async function toggleHistories() {
         .then(res => res.json())
         .then(data => {
           for (let i = 0; i < Object.keys(data.list).length; i++) {
-            console.log(data.list[i]);
             if (data.list[i].isSoldOut === false) {
               data.list[i].isSoldOut = '판매중';
             } else {
@@ -63,12 +62,50 @@ async function toggleHistories() {
         .then(data => console.log(data));
     }
 
-    if ($(this).hasClass('cart-list')) {
+    if ($(this).hasClass('cart-list') && 
+    document.querySelector('.cart-list .histories__list').innerHTML === '') {
       await fetch(`/profile/carts`, {
         method: 'get',
       })
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data => {
+          for (let i = 0; i < Object.keys(data.list).length; i++) {
+            console.log(data.list[i]);
+            if (data.list[i].isSoldOut === false) {
+              data.list[i].isSoldOut = '판매중';
+            } else {
+              data.list[i].isSoldOut = '판매완료';
+            }
+
+            document.querySelector('.cart-list .histories__list').innerHTML += `
+                <a href="/posts/${
+                  data.list[i].shortId
+                }" class="histories__data">
+                <div class="histories__titles">
+                  <img
+                    src="${data.list[i].thumbnail}"
+                    alt=""
+                    class="histories__img"
+                  />
+                  <div>
+                    <h3 class="histories__name">
+                      ${data.list[i].title}
+                    </h3>
+                    <span class="histories__time">${
+                      data.list[i].location
+                    } · ${timeForToday(data.list[i].updatedAt)}</span>
+                    <div class="histories__info">
+                      <div class="button histories__status progress">
+                        ${data.list[i].isSoldOut}
+                      </div>
+                      <h3 class="histories__price">${data.list[i].price}원</h3>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            `;
+          }
+        });
     }
   }
 }

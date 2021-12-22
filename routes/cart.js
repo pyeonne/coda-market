@@ -9,27 +9,26 @@ router.post('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
   const user = await User.findOne({ shortId: req.user.id });
   let cart = await Cart.findOne({ user, post }).populate('post');
-
-  if (cart.length === 0) {
+  
+  if (cart === null) {
     await Cart.create({
       user,
       post,
     });
   } else {
-    await Cart.delete({
+    await Cart.deleteOne({
       user,
       post,
     });
   }
-
-  res.json({ isClick: cart.length !== 0 });
+  res.json({ isClick: cart === null });
 });
 
 // 찜 목록 리스트
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.findOne({ user: user }).populate('post');
-  res.json({ cart: cart.posts });
+  res.json({ cart: cart });
 });
 
 export default router;

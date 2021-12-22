@@ -63,7 +63,6 @@ router.post('/edit', store.single('image'), async (req, res) => {
 router.get('/tranactions', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const posts = await Post.find({ author: user });
-
   res.json({ list: posts });
 });
 
@@ -76,16 +75,8 @@ router.get('/purchases', async (req, res) => {
 router.get('/carts', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.find({ user }).populate('post');
-  res.json({ list: cart });
+  const list =  cart.map(item => item.post);
+  res.json({ list });
 });
-
-// router.get('/:nickname', async (req, res) => {
-//   // 쿼리파라미터로 하자! (postId, name 넘겨달라하기 => 그냥 profile로 합치기)
-//   if (req.user.name !== req.params.nickname) {
-//     res.render('./profile', { isOwner: false });
-//   } else {
-//     res.render('./profile', { isOwner: true });
-//   }
-// });
 
 export default router;

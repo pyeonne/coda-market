@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/detail.css" />
 </head>
 
-<body>
+<body onload="check_clicked('<%=isClick%>')">
 
   <div class="menus">
 
@@ -273,7 +273,7 @@
   <div class="detail-last">
     <div class="last-menu1">
       <div class="menu1-item">
-        <button onclick="save_cart()"><i class="far fa-heart"></i></i></button>
+        <button onclick="save_cart('<%= post.shortId %>')"><i class="far fa-heart"></i></i></button>
         <div class="re"></div>
         <div class="dscription">
           <span id="ds-pice">
@@ -293,9 +293,34 @@
     let num = document.querySelector("#ds-pice")
     num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
-    let save_cart = (value) => {
-      let data = document.querySelector(".menu1-item > button > i")
-      data.classList.toggle("save-cart")
+    let save_cart = async (value) => {
+      let heart = document.querySelector(".menu1-item > button > i")
+
+      const url = `/cart/${value}`
+      await fetch(url, {
+        method: 'post',
+      })
+        .then(res => res.json())
+        .then(data => {
+          const isClick = data.isClick
+          if (isClick) {
+            heart.classList.add('save-cart')
+          } else {
+            heart.classList.remove('save-cart')
+          }
+        })
+    }
+
+    let check_clicked = (isClick) => {
+      let heart = document.querySelector(".menu1-item > button > i")
+      console.log(typeof isClick);
+      if (isClick === 'true') {
+        console.log(1)
+        heart.classList.add('save-cart')
+      } else {
+        console.log(123123)
+        heart.classList.remove('save-cart')
+      }
     }
 
     let content_time = document.querySelector("#get_times")

@@ -2,6 +2,7 @@ import { render } from 'ejs';
 import express from 'express';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
+import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import hashingPassword from '../utils/hash-password.js';
 
@@ -46,8 +47,10 @@ router.get('/edit', (req, res) => res.render('./product/postedit'));
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
-
-  res.render('./product/detail', { post: post });
+  const user = await User.findOne({ shortId: req.user.id});
+  const cart = await Cart.findOne({user, post});
+  console.log('cart:', cart);
+  res.render('./product/detail', { post: post, isClick: cart !== null });
 });
 
 //게시물 생성
