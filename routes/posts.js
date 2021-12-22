@@ -91,7 +91,7 @@ router.post('/:post_id/delete', async (req, res) => {
     },
   );
 
-  res.redirect('http://localhost:3000/');
+  res.redirect('/posts/');
 });
 
 //게시물 업데이트
