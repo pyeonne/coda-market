@@ -149,6 +149,7 @@
   height: 360px;
   width: 100%;
   padding: 10px;
+  resize: none;
   background-color: var(--body-color);
 }
 
