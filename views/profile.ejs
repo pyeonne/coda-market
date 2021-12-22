@@ -36,7 +36,14 @@
         <div class="mypage__container container grid">
           <div class="mypage__content grid">
             <div class="mypage__img">
-              <img src="/img/profile.png" alt="" />
+              
+              <% if(user.thumbnail) { %>
+                <img src="<%= user.thumbnail %>" alt="" />
+              <% } else { %>
+                  <img src="/img/profile.png" alt="" />
+              <% } %> 
+
+
             </div>
             <div class="mypage__data">
               <h3 class="mypage__name"><%= user.name %></h3>

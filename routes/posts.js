@@ -134,7 +134,7 @@ router.post('/:post_id/edit', async (req, res) => {
     {
       ...req.body,
       thumbnail,
-      price: req.body.price.replace(' 원', '').replace(',', ''),
+      price: req.body.price.replace(' 원', '').replace(/,/gi, ''),
       timestamps: { createdAt: false, updatedAt: true },
     },
   );
