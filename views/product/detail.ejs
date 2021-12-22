@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/detail.css" />
 </head>
 
-<body>
+<body onload="change_category(`<%= post.category %>`)">
 
   <div class="menus">
 
@@ -95,9 +95,9 @@
               <% } %>
         </div>
         <div class="content-info">
-          <a href="/">
+          <a href="/" class="category-text">
             <%= post.category %>
-          </a> · <span id="get_times">10분전</span>
+          </a> · <span>10분전</span>
         </div>
 
 
@@ -295,42 +295,8 @@
     </div>
   </div>
 
-  <script>
-    let num = document.querySelector("#ds-pice")
-    num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
-    let save_cart = (value) => {
-      let data = document.querySelector(".menu1-item > button > i")
-      data.classList.toggle("save-cart")
-    }
-
-    let content_time = document.querySelector("#get_times")
-    console.log(content_time.innerText)
-
-    const sYear = content_time.substring(11, 15);
-    const sMonth = content_time.substring(5, 7);
-    const sDate = content_time.substring(8, 10);
-    const sHour = content_time.substring(11, 13);
-    const sMinute = content_time.substring(14, 16);
-    const sSecond = content_time.substring(17, 19);
-    console.log(sYear, sMonth, sDate, sHour, sMinute, sSecond)
-
-    let like_click = (value) => {
-
-      if (value === 1) {
-        let data = document.querySelector(".like > i")
-        let btnData = document.querySelector(".like-btn")
-        data.classList.toggle("like-on");
-        btnData.classList.toggle("like-on");
-
-      } else {
-        let data = document.querySelector(".dislike > i")
-        let btnData = document.querySelector(".dislike-btn")
-        data.classList.toggle("dislike-on");
-        btnData.classList.toggle("dislike-on");
-      }
-      
-    }
+  <script src="/js/postdetail.js">
+    
 
   </script>
 </body>
