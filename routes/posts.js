@@ -46,7 +46,7 @@ router.get('/edit', (req, res) => res.render('./product/postedit'));
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
-
+  console.log('$');
   res.render('./product/detail', { post: post });
 });
 

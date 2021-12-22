@@ -90,7 +90,7 @@ document.querySelector('#edit__button').addEventListener('click', () => {
 });
 
 document.querySelector('#pwd__form').addEventListener('submit', () => {
-  window.location.href = '/profile';
+  window.location.href = '/edit';
 });
 
 // 모달창 X 아이콘 클릭 시
