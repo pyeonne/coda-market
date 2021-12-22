@@ -23,3 +23,7 @@ function setThumbnail(e) {
     alert('에러');
   });
 }
+
+async function loadThumbnail(e) {
+  await fetch('/posts/p', { method: 'get' }).then(res => console.log(res));
+}
