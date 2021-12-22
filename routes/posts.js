@@ -127,10 +127,13 @@ router.get('/:post_id/edit', async (req, res) => {
 router.post('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
+  const thumbnail = req.file ? req.file.path.replace(/\\/g, '/') : '';
+
   await Post.findOneAndUpdate(
     { shortId: req.params.post_id },
     {
       ...req.body,
+      thumbnail,
       price: req.body.price.replace(' 원', '').replace(',', ''),
       timestamps: { createdAt: false, updatedAt: true },
     },
