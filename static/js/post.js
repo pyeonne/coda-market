@@ -36,26 +36,29 @@ function change_btn() {
   let input = document.querySelector('.file_input');
   let fileName = document.querySelector('.file_input').files;
   let files = document.querySelector('.file_input').files.length;
-  let img = document.createElement('img');
   let postImg = document.querySelector('.post_img_line');
-  let image_count = document.querySelectorAll(".post_img_line > img").length
-  
-  if (image_count < 5) {
+
+  let imgBox = document.createElement('div');
+  imgBox.classList.add('img-box');
+
+  if (files <= 5) {
+    imgBox.innerHTML = ``;
     for (let i = 0; i < files; i++) {
+      let div = document.createElement('div');
       let img = document.createElement('img');
+      div.classList.add('img');
       console.log(input.files[i]);
       img.src = URL.createObjectURL(input.files[i]);
-      postImg.appendChild(img);
+      div.appendChild(img);
+      imgBox.appendChild(div);
+
       console.log(URL.createObjectURL(input.files[i]));
 
     }
-    let image_counting = document.querySelectorAll(".post_img_line > img").length
-    data.innerText = `${image_counting}/5`;
-  } 
-  else if (files > 5) {
-    alert('이미지는 최대 5개까지 첨부할 수 있어요');
 
-} else {
+    postImg.appendChild(imgBox);
+    data.innerText = `${files}/5`;
+  } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
 }

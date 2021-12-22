@@ -192,3 +192,10 @@ button {
   background-color: transparent;
   color: var(--first-color-alt);
 }
+
+input::-webkit-input-placeholder,
+select option,
+select {
+  color: var(--text-color);
+  font-family: var(--body-font);
+}
