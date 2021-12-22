@@ -159,7 +159,7 @@ input:-webkit-autofill {
   left: 210px;
   border: solid 1px #207E81;
   padding: 2px 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-weight: bold;
   background-color: #207E81;
 }
