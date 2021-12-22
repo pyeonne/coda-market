@@ -11,34 +11,70 @@ router.get('/', async (req, res) => {
   const posts = await Post.find({}).sort({ updatedAt: 'desc' });
 
   res.render('home', { posts, userLocation: user.location });
-
 });
 
-//localhost:3000/posts/search?title=
-router.get('/search', async (req, res) => {
-  const { title } = req.query;
+//localhost:3000/posts/search?
+// router.get('/search', async (req, res) => {
+//   const { input } = req.query;
+//   const user = await User.findOne({ shortId: req.user.id });
 
-  const posts = await Post.find({
-    location: req.user.location,
-    title,
-  });
-  res.render('home', { posts });
+//   const posts = await Post.find({
+//     location: req.query.location,
+//     title: input,
+//   });
+
+//   res.render('home', { posts, userLocation: user.location });
+// });
+
+router.get('/search', async (req, res) => {
+  const { category, location, input } = req.query;
+  const user = await User.findOne({ shortId: req.user.id });
+  let posts;
+  let userLocation = user.location;
+
+  console.log('=======================');
+  console.log(req.query);
+  console.log(userLocation);
+
+  if (category) {
+    posts = await Post.find({
+      location: userLocation,
+      category,
+    });
+  }
+
+  if (location && input) {
+    posts = await Post.find({
+      location,
+      title: input,
+    });
+    userLocation = location;
+  }
+
+  if (location) {
+    posts = await Post.find({
+      location,
+    });
+    userLocation = location;
+  }
+
+  console.log(posts);
+
+  res.render('home', { posts, userLocation });
 });
 
 //localhost:3000/posts/category?category=
-router.get('/category', async (req, res) => {
-  const { category } = req.query;
-  const user = await User.findOne({ shortId: req.user.id });
+// router.get('/category', async (req, res) => {
+//   const { category } = req.query;
+//   const user = await User.findOne({ shortId: req.user.id });
 
-  const posts = await Post.find({
-    category,
-    location: user.location,
-  });
+//   const posts = await Post.find({
+//     category,
+//     location: user.location,
+//   });
 
-  res.render('home', { posts, userLocation: user.location });
-
-  
-});
+//   res.render('home', { posts, userLocation: user.location });
+// });
 
 router.get('/new', (req, res) => res.render('./product/post'));
 router.get('/edit', (req, res) => res.render('./product/postedit'));
@@ -49,8 +85,6 @@ router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
 
-  console.log(post);
-
   res.render('./product/detail', { post: post });
 });
 
@@ -59,7 +93,7 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
-  
+
   // if (!files) {
   //   const err = new Error('선택된 파일이 없습니다.');
   //   return next(err);

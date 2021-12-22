@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include("./layout/head") %>
+
+<head>
+  <%- include("./layout/head") %>
 
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/nav-top.css" />
     <link rel="stylesheet" href="/css/nav-bottom.css" />
     <link rel="stylesheet" href="/css/home.css" />
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-      defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-    <script src="js/home.js" defer></script>
+    <script src="/js/home.js" defer></script>
     <script defer>
       const userLoca = '<%= userLocation %>';
-
 
       window.onload = function () {
         setLoation(userLoca);
       }
     </script>
     <title>Home</title>
-  </head>
+</head>
 
-  <body>
-    <%- include("./layout/nav-top") %>
+<body>
+  <%- include("./layout/nav-top") %>
     <main role="main">
       <ul></ul>
     </main>
@@ -40,5 +37,6 @@
     </button>
 
     <%- include("./layout/nav-bottom") %>
-  </body>
+</body>
+
 </html>
