@@ -5,15 +5,8 @@ items.forEach(item => {
   item.addEventListener('click', async () => {
     const category = item.querySelector('span').getAttribute('value');
 
-    await fetch(`/posts/category?category=${category}`, {
-      method: 'post',
-    });
-
     window.location.replace(`/posts`);
 
-    // axios.post(`search/category/${category}`).then(res => {
-    //   console.log(res);
-    //   body.innerHTML += res.data.posts[0].content;
-    // });
+
   });
 });

@@ -32,6 +32,7 @@ router.post('/edit', store.single('image'), async (req, res) => {
   const { name, pwd, location } = req.body;
 
   const thumbnail = req.file.path.replace(/\\/g, '/');
+
   const password = hashingPassword(pwd);
   const user = await User.findOneAndUpdate(
     { shortId: req.user.id },

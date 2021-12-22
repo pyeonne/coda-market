@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
   const posts = await Post.find({}).sort({ updatedAt: 'desc' });
 
   res.render('home', { posts, userLocation: user.location });
+
 });
 
 //localhost:3000/posts/search?title=
@@ -28,13 +29,15 @@ router.get('/search', async (req, res) => {
 router.get('/category', async (req, res) => {
   const { category } = req.query;
   const user = await User.findOne({ shortId: req.user.id });
+
   const posts = await Post.find({
     category,
     location: user.location,
   });
 
-  console.log(user, posts);
   res.render('home', { posts, userLocation: user.location });
+
+  
 });
 
 router.get('/new', (req, res) => res.render('./product/post'));
