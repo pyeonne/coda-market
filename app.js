@@ -40,6 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 app.use(express.static(__dirname + '/static'));
+app.use('/uploads', express.static('uploads'));
 
 app.use(passport.initialize());
 app.use(getUserFromJwt);
