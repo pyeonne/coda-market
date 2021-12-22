@@ -56,13 +56,13 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
-
+  
   // if (!files) {
   //   const err = new Error('선택된 파일이 없습니다.');
   //   return next(err);
   // }
 
-  const imageArray = files.map(file => file.path);
+  const imageArray = files.map(file => file.path.replace(/\\/g, '/'));
   const user = await User.findOne({ shortId: req.user.id });
   const post = await Post.create({
     images: imageArray,
