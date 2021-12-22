@@ -9,17 +9,18 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const { postId } = req.query;
-  const loginedUser = await User.findOne({ shortId: req.user.shortId });
+  const loginedUser = await User.findOne({ shortId: req.user.id });
+  console.log(loginedUser);
   if (postId === undefined) {
-    res.render('./profile', { loginedUser, isOwner: true });
+    res.render('./profile', { user: loginedUser, isOwner: true });
   } else {
     const post = await Post.findOne({ shortId: postId }).populate('author');
     const postedUser = await User.findOne({ shortId: post.author.shortId });
     if (postedUser === loginedUser) {
       const user = await User.findOne({ shortId: req.user.id });
-      res.render('./profile', { postedUser, isOwner: true });
+      res.render('./profile', { user: postedUser, isOwner: true });
     } else {
-      res.render('./profile', { postedUser, isOwner: false });
+      res.render('./profile', { user: postedUser, isOwner: false });
     }
   }
 });
