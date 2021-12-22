@@ -32,6 +32,8 @@ router.get('/edit', async (req, res) => {
 router.post('/password-check', async (req, res) => {
   const user = await User.findOne({ name: req.user.name });
 
+  console.log(user.password === hashingPassword(req.body.password));
+
   if (user.password === hashingPassword(req.body.password)) {
     res.redirect('/profile/edit', { user });
   } else {

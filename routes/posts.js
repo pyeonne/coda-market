@@ -3,6 +3,7 @@ import express from 'express';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 import store from '../passport/middlewares/multer.js';
+import hashingPassword from '../utils/hash-password.js';
 
 const router = express.Router();
 
@@ -11,7 +12,6 @@ router.get('/', async (req, res) => {
   const posts = await Post.find({}).sort({ updatedAt: 'desc' });
 
   res.render('home', { posts, userLocation: user.location });
-
 });
 
 //localhost:3000/posts/search?title=
@@ -36,8 +36,6 @@ router.get('/category', async (req, res) => {
   });
 
   res.render('home', { posts, userLocation: user.location });
-
-  
 });
 
 router.get('/new', (req, res) => res.render('./product/post'));
@@ -59,7 +57,7 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
-  
+
   // if (!files) {
   //   const err = new Error('선택된 파일이 없습니다.');
   //   return next(err);
@@ -88,16 +86,20 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 router.post('/:post_id/delete', async (req, res) => {
   //게시물 아이디
   const { post_id } = req.params;
-  //작성자인지 인증 필요
+  const { password } = req.body;
+  const user = await User.findOne({ shortId: req.user.id });
 
-  const post = await Post.updateOne(
-    { shortId: post_id },
-    {
-      current_status: 'deleted',
-    },
-  );
-
-  res.redirect('http://localhost:3000/');
+  if (password === hashingPassword(user.password)) {
+    await Post.findOneAndUpdate(
+      { shortId: post_id },
+      {
+        current_status: 'deleted',
+      },
+    );
+    res.redirect('http://localhost:3000/');
+  } else {
+    throw new Error('비밀번호가 맞지 않습니다.');
+  }
 });
 
 //게시물 업데이트

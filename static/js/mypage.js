@@ -25,7 +25,9 @@ async function toggleHistories() {
             }
 
             document.querySelector('.histories__list').innerHTML += `
-                <a href="./detail" class="histories__data">
+                <a href="/posts/${
+                  data.list[i].shortId
+                }" class="histories__data">
                 <div class="histories__titles">
                   <img
                     src="${data.list[i].thumbnail}"
