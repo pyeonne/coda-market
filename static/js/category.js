@@ -6,14 +6,14 @@ items.forEach(item => {
     const category = item.querySelector('span').getAttribute('value');
 
     await fetch(`/posts/category?category=${category}`, {
-      method: 'get',
+      method: 'post',
     });
 
-    window.location.replace(`/posts/category?category=${category}`);
+    window.location.replace(`/posts`);
 
-    axios.post(`search/category/${category}`).then(res => {
-      console.log(res);
-      body.innerHTML += res.data.posts[0].content;
-    });
+    // axios.post(`search/category/${category}`).then(res => {
+    //   console.log(res);
+    //   body.innerHTML += res.data.posts[0].content;
+    // });
   });
 });
