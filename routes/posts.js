@@ -47,8 +47,6 @@ router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
 
-  console.log(post);
-
   res.render('./product/detail', { post: post });
 });
 
@@ -89,17 +87,19 @@ router.post('/:post_id/delete', async (req, res) => {
   const { password } = req.body;
   const user = await User.findOne({ shortId: req.user.id });
 
-  if (password === hashingPassword(user.password)) {
-    await Post.findOneAndUpdate(
-      { shortId: post_id },
-      {
-        current_status: 'deleted',
-      },
-    );
-    res.redirect('http://localhost:3000/');
-  } else {
-    throw new Error('비밀번호가 맞지 않습니다.');
-  }
+  // if (password === hashingPassword(user.password)) {
+  //   await Post.findOneAndUpdate(
+  //     { shortId: post_id },
+  //     {
+  //       current_status: 'deleted',
+  //     },
+  //   );
+  //   res.redirect('http://localhost:3000/');
+  // } else {
+  //   throw new Error('비밀번호가 맞지 않습니다.');
+  // }
+
+  res.redirect('/posts/');
 });
 
 //게시물 업데이트
@@ -121,26 +121,21 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  res.render('./product/postedit', { mypost: post });
+  res.render('./product/postedit', { post });
 });
 
 router.post('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  if (req.body) {
-    await Post.findOneAndUpdate(
-      { shortId: req.params.post_id },
-      {
-        title: req.body.title,
-        content: req.body.content,
-        location: req.body.location,
-        category: req.body.category,
-        isSoldOut: req.body.isSoldOut,
-        price: req.body.price.replace(' 원', '').replaceAll(',', ''),
-        timestamps: { createdAt: false, updatedAt: true },
-      },
-    );
-  }
+  await Post.findOneAndUpdate(
+    { shortId: req.params.post_id },
+    {
+      ...req.body,
+      price: req.body.price.replace(' 원', '').replace(',', ''),
+      timestamps: { createdAt: false, updatedAt: true },
+    },
+  );
+
   res.redirect(`/posts/${post.shortId}`);
 });
 
