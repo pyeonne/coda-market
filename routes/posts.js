@@ -8,8 +8,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
-  const posts = await Post.find({}).sort({ updatedAt: 'desc' }).exec();
-  res.render('./home', { posts, userLocation: user.location });
+  const posts = await Post.find({}).sort({ updatedAt: 'desc' });
+
+  res.render('home', { posts, userLocation: user.location });
+
 });
 
 //localhost:3000/posts/search?title=
@@ -20,7 +22,7 @@ router.get('/search', async (req, res) => {
     location: req.user.location,
     title,
   });
-  res.render('./home.ejs', { posts });
+  res.render('home', { posts });
 });
 
 //localhost:3000/posts/category?category=
@@ -33,10 +35,9 @@ router.get('/category', async (req, res) => {
     location: user.location,
   });
 
-  console.log(posts);
-  console.log(user.location);
+  res.render('home', { posts, userLocation: user.location });
 
-  res.render('./home.ejs', { posts, userLocation: user.location });
+  
 });
 
 router.get('/new', (req, res) => res.render('./product/post'));
@@ -58,21 +59,21 @@ router.get('/:post_id', async (req, res) => {
 router.post('/new', store.array('images', 5), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
-
+  
   // if (!files) {
   //   const err = new Error('선택된 파일이 없습니다.');
   //   return next(err);
   // }
 
-  const imageArray = files.map(file => file.path);
+  const imageArray = files.map(file => file.path.replace(/\\/g, '/'));
   const user = await User.findOne({ shortId: req.user.id });
   const post = await Post.create({
-    image: imageArray,
+    images: imageArray,
     title,
     content,
     location: user.location,
     category,
-    price: price.replace(' 원', '').replaceAll(',', ''),
+    price: price.replace(' 원', '').replace(/,/gi, ''),
     author: user,
     thumbnail: imageArray[0],
   });
