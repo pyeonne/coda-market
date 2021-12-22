@@ -123,7 +123,6 @@ router.get('/:post_id/edit', async (req, res) => {
 });
 
 router.post('/:post_id/edit', async (req, res) => {
-  console.log("하이")
   const post = await Post.findOne({ shortId: req.params.post_id });
 
   if (req.body) {
