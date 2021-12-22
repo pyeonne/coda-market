@@ -25,7 +25,9 @@ async function toggleHistories() {
             }
 
             document.querySelector('.histories__list').innerHTML += `
-                <a href="./detail" class="histories__data">
+                <a href="/posts/${
+                  data.list[i].shortId
+                }" class="histories__data">
                 <div class="histories__titles">
                   <img
                     src="${data.list[i].thumbnail}"
@@ -125,4 +127,11 @@ function timeForToday(value) {
   }
 
   return `${Math.floor(betweenTimeDay / 365)}년전`;
+}
+
+function logout() {
+  const f = document.logout;
+  f.action = '/logout';
+  f.method = 'post';
+  f.submit();
 }
