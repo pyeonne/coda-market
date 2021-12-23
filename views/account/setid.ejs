@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("../layout/head") %>
+
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/setid.css" />
+    <title>set id</title>
+
+</head>
+
+<body>
+  <div class="id-set-box">
+    <div class="logo-top">
+      코다 마켓
+    </div>
+    <hr>
+
+    <div class="p-input">
+      <p>이메일 주소를 입력해주세요</p>
+      <form id='form' action="/find/id" method="post">
+        <input type="text" name='email' placeholder="이메일 주소">
+      </form>
+    </div>
+
+    <div class="help-box">
+      <div class="input-btn">
+        <input type="submit" form='form' value="아이디 찾기">
+      </div>
+      <div class="login-signup">
+        <a href="/login"><span>로그인</span></a>
+        <span>|</span>
+        <a href="/signup"><span>회원가입</span></a>
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

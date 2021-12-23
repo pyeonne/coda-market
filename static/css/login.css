@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+  margin: 200px auto 0 auto;
+}
+
+.container .logo {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 64px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #6762e0;
+}
+
+.container .login-form {
+  width: 100%;
+}
+
+.container .login-form .loginbox {
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border: 1px solid #767676;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.container .login-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container .login-menu .keep-login {
+  display: flex;
+}
+
+.container .login-menu input {
+  width: 18px;
+  height: 18px;
+}
+
+.container .login-menu a {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #767676;
+}
+
+.container .loginFailed-message {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 12px;
+  margin-bottom: -46px;
+  font-size: 12px;
+  color: red;
+}
+
+.container .login-btn {
+  width: 100%;
+  height: 48px;
+  margin-top: 56px;
+  margin-bottom: var(--mb-1);
+  border-radius: 10px;
+  background-color: #6762e0;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+p a {
+  font-weight: var(--semi-bold-font-weight);
+  color: var(--first-color-second);
+  cursor: pointer;
+}
+
+.forget-login {
+  margin-right: var(--mb-0-75);
+}

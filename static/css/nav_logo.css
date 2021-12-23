@@ -1,0 +1,13 @@
+.logo_box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menus {
+  padding: 30px 30px;
+}
+
+.menu_item {
+  padding: 10px 10px;
+  display: inline;
+}

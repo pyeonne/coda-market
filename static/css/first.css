@@ -1,0 +1,47 @@
+body {
+  background-color: #fff;
+}
+
+.first.section {
+  padding-top: 13rem;
+}
+
+.grid {
+  gap: 0;
+  justify-content: center;
+  text-align: center;
+}
+
+.first__content {
+  padding-bottom: 15rem;
+}
+
+.first__title {
+  margin-bottom: var(--mb-0-75);
+  font-size: var(--h2-font-size);
+}
+
+.first__button {
+  text-align: center;
+}
+
+.first__button .button {
+  width: 100%;
+  margin-bottom: var(--mb-1);
+  text-align: center;
+  font-size: var(--h2-font-size);
+}
+
+.first__button p {
+  font-size: var(-medium-font-size);
+}
+
+.first__login {
+  font-weight: var(--semi-bold-font-weight);
+  color: var(--first-color-second);
+  cursor: pointer;
+}
+
+
+
+
