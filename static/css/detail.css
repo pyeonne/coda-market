@@ -9,6 +9,7 @@ li {
   padding: 10px 10px 10px 10px;
   width: 100%;
   align-items: center;
+  background-color: var(--body-color);;
 }
 
 .menu1 li {
