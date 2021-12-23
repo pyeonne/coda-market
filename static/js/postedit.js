@@ -35,15 +35,21 @@ function uploadCheck(value, port) {
 
   let img_datas = value.split(',');
 
+  
+
+
   imgBox.innerHTML = ``;
   for (let i = 0; i < value.split(',').length; i++) {
     let div = document.createElement('div');
-    div.classList.add('img');
-
     let img = document.createElement('img');
-
+    let button = document.createElement('button');
+    div.classList.add('img');
     img.src = `http://localhost:${port}/${img_datas[i]}`;
-    div.appendChild(img);
+    button.type = "button"
+    
+    button.classList.add('img-cheking');
+    button.appendChild(img)
+    div.appendChild(button);
     imgBox.appendChild(div);
   }
   postImg.appendChild(imgBox);
