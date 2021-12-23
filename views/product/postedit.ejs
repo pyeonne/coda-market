@@ -17,7 +17,8 @@
 
   </head>
 
-<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`)">
+<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)">
+  
   <form action="/posts/<%= post.shortId %>/edit" method="post">
     <div class="post_nav">
       <ul class="post_menu">

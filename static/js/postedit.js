@@ -23,7 +23,7 @@ function selec_change() {
   }
 }
 
-function uploadCheck(value) {
+function uploadCheck(value, port) {
   let data = document.querySelector('.img_count_text');
   let input = document.querySelector('.file_input');
   let fileName = document.querySelector('.file_input').files;
@@ -45,7 +45,7 @@ function uploadCheck(value) {
 
     let img = document.createElement('img');
   
-    img.src = `http://localhost:8888/${img_datas[i]}`
+    img.src = `http://localhost:${port}/${img_datas[i]}`
     div.appendChild(img);
     imgBox.appendChild(div);
   }
