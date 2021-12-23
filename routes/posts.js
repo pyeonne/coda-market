@@ -28,28 +28,21 @@ router.get('/', async (req, res) => {
 // });
 
 router.get('/search', async (req, res) => {
-  const { category, location, input } = req.query;
-  const user = await User.findOne({ shortId: req.user.id });
+  const { location, category, input } = req.query;
   let posts;
 
-  console.log('=======================');
-  console.log(req.query);
-  console.log(category);
-  console.log(location);
-  console.log(input);
-
-  if (category) {
-    console.log('category');
+  if (location && category) {
+    console.log('location && category');
 
     posts = await Post.find({
-      location: user.location,
+      location,
       category,
     });
     posts = JSON.stringify(posts);
 
     res.render('home', {
       posts,
-      userLocation: user.location,
+      userLocation: location,
       isCategory: true,
     });
   } else if (location && input) {
@@ -70,8 +63,6 @@ router.get('/search', async (req, res) => {
 
     res.status(200).json({ posts, userLocation: location });
   }
-
-  console.log(posts);
 });
 
 //localhost:3000/posts/category?category=

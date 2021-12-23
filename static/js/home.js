@@ -5,6 +5,9 @@ const locaSelectBoxOptions = document.querySelectorAll(
   'header .init .loca-select option',
 );
 const searchBtn = document.querySelector('header .init .btn-list .search-btn');
+const categoryBtn = document.querySelector(
+  'header .init .btn-list .category-btn',
+);
 const backBtn = document.querySelector('header .search .btn-list .back-btn');
 const searchInput = document.querySelector('header .search input');
 const postList = document.querySelector('body main ul');
@@ -13,6 +16,14 @@ const noResultMsg = document.querySelector('.no-result-message');
 searchBtn.addEventListener('click', () => {
   initHeader.classList.toggle('none');
   searchHeader.classList.toggle('none');
+});
+
+categoryBtn.addEventListener('click', () => {
+  window.location.replace(
+    `/category?location=${
+      locaSelectBox.options[locaSelectBox.selectedIndex].value
+    }`,
+  );
 });
 
 backBtn.addEventListener('click', () => {
@@ -47,6 +58,17 @@ function setLoation(userLoca, isCategory, posts) {
 
 // 지역 설정 selectBox에서 특정 지역 선택 시, 해당 지역의 post들을 가져오는 함수
 function selectLocation() {
+  locaSelectBoxOptions.forEach(optionTag => {
+    if (optionTag.hasAttribute('selected')) {
+      optionTag.removeAttribute('selected');
+    }
+  });
+
+  locaSelectBox.options[locaSelectBox.selectedIndex].setAttribute(
+    'selected',
+    'selected',
+  );
+
   reqResHandler(`/posts/search?location=${locaSelectBox.value}`);
 }
 

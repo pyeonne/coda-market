@@ -18,10 +18,6 @@
       const getPosts = "<%= posts %>".replace(/&#34;/g, "\"");
       const posts = JSON.parse(getPosts);
 
-      console.log(userLoca);
-      console.log(isCategory);
-      console.log(posts);
-
       window.onload = function () {
         setLoation(userLoca, isCategory, posts);
       }

@@ -33,7 +33,9 @@ router.get('/logout', (req, res) => {
   res.cookie('token', null, { maxAge: 0 }).render('./first');
 });
 
-router.get('/category', (req, res) => res.render('./category'));
+router.get('/category', (req, res) => {
+  res.render('./category', { userLocation: req.query.location });
+});
 
 // router.get('/search', async (req, res) => {
 //   const { input, location } = req.query;
