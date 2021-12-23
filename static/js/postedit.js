@@ -22,3 +22,38 @@ function selec_change() {
     document.querySelector(".sold_btn").style.color = "red"
   }
 }
+
+function uploadCheck(value) {
+  let data = document.querySelector('.img_count_text');
+  let input = document.querySelector('.file_input');
+  let fileName = document.querySelector('.file_input').files;
+  let files = document.querySelector('.file_input').files.length;
+  let postImg = document.querySelector('.post_img_line');
+
+  let imgBox = document.createElement('div');
+  imgBox.classList.add('img-box');
+  let file_count = document.querySelectorAll('.img-box > .img > img').length;
+
+
+  let img_datas = value.split(",")
+
+  imgBox.innerHTML = ``;
+  for (let i = 0; i < value.split(",").length; i++) {
+    
+    let div = document.createElement('div');
+    div.classList.add('img');
+
+    let img = document.createElement('img');
+  
+    img.src = `http://localhost:5555/${img_datas[i]}`
+    div.appendChild(img);
+    imgBox.appendChild(div);
+  }
+  postImg.appendChild(imgBox);
+
+  let file_counting = document.querySelectorAll(
+    '.img-box > .img > img',
+  ).length;
+
+  data.innerText = `${file_counting}/5`;
+}
