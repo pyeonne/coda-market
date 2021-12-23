@@ -7,7 +7,8 @@ export default (req, res, next) => {
       url !== '/login' &&
       url !== '/' &&
       url !== '/signup' &&
-      url !== '/find/id'
+      url !== '/find/id' &&
+      url !== '/find/pwd'
     ) {
       if (url === '/auth') {
         next();
@@ -23,7 +24,8 @@ export default (req, res, next) => {
       url === '/login' ||
       url === '/' ||
       url === '/signup' ||
-      url === '/find/id'
+      url === '/find/id' ||
+      url !== '/find/pwd'
     ) {
       res.redirect('/posts');
     }

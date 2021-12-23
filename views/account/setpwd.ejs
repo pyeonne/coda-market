@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include("./layout/head") %>
+    <%- include("../layout/head") %>
 
     <link rel="stylesheet" href="/css/base.css" />
-    <link rel="stylesheet" href="/css/profile.css" />
+    <link rel="stylesheet" href="/css/profile-edit.css" />
     <link rel="stylesheet" href="/css/nav-bottom.css" />
 
     <title>Profile</title>
@@ -25,15 +25,15 @@
     <!-- MAIN -->
     <main role="main" class="main">
       <!-- Profile -->
-      <form class="profile section" id="profile form" method="post" enctype="multipart/form-data" action="">
-        <div class="profile__container container grid profile" method="post" action="/profile/edit">
+      <form class="profile section" id="profile form" method="post" action="/find/pwd">
+        <div class="profile__container container grid profile">
           <div class="profile__content grid">
             
             
             <p class="profile__alt">비밀번호는 가입한 닉네임과 이메일을 통해</br> 찾으실 수 있습니다.</p>
-            <input type="text" class="profile__rename" required>
+            <input name="id" type="text" class="profile__rename" required>
             <p class="profile__alt">닉네임을 입력해주세요.</p>
-            <input type="email" class="profile__rename">
+            <input name="email" type="email" class="profile__rename" required>
             <p class="profile__alt">이메일을 입력해주세요.</p>
           </div>
           
@@ -50,7 +50,7 @@
 
       <!-- JS -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="./js/pwd.js"></script>
+      <script src="js/pwd.js"></script>
 
       
   </body>
