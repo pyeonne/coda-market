@@ -384,6 +384,17 @@
     })
 
 
+    // Make navbar transparent when it is on the top
+    const navbar = document.querySelector('.menus');
+    const navbarHeight = navbar.getBoundingClientRect().height;
+    document.addEventListener('scroll', () => {
+        if (window.scrollY > navbarHeight) {
+            navbar.classList.add('navbar--dark');
+        } else {
+            navbar.classList.remove('navbar--dark');
+        }
+    });
+
 
     let num = document.querySelector("#ds-pice")
     num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")

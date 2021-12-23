@@ -199,6 +199,11 @@ li {
   display: flex;
 }
 
+.menus.navbar--dark {
+  background-color: var(--body-color);
+  padding: 8px;
+}
+
 .menu1-item {
   display: flex;
 }
