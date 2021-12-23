@@ -12,7 +12,11 @@
     <link rel="stylesheet" href="/css/detail.css" />
 </head>
 
+<<<<<<< HEAD
 <body onload="check_clicked('<%=isClick%>')">
+=======
+<body onload="change_category(`<%= post.category %>`)">
+>>>>>>> origin/test7577
 
   <div class="menus">
 
@@ -31,7 +35,7 @@
     </div>
 
   </div>
-
+  
   <div class="detail-img">
     <ul class="slides">
       <p></p>
@@ -44,7 +48,13 @@
     <div class="detail-ch">
 
       <div class="detail-info">
-        <a href="/mypage"><img src="/img/user.jpg"></a>
+
+        <% if (post.author.thumbnail) { %>
+        <a href="/profile"><img src="/<%= post.author.thumbnail %>"></a>
+        <% } else { %>
+        <a href="/profile"><img src="/img/user.jpg"></a>
+        <% }  %>
+
         <div class="info-my">
           <span>
             <%= post.author.name %>
@@ -89,9 +99,9 @@
               <% } %>
         </div>
         <div class="content-info">
-          <a href="/">
+          <a href="/" class="category-text">
             <%= post.category %>
-          </a> · <span id="get_times">10분전</span>
+          </a> · <span>10분전</span>
         </div>
 
 
@@ -288,7 +298,6 @@
       <a href="">채팅으로 거래하기</a>
     </div>
   </div>
-
   <script>
     let num = document.querySelector("#ds-pice")
     num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -348,6 +357,7 @@
     }
 
   </script>
+  <script src="/js/postdetail.js"></script>
 </body>
 
 </html>
