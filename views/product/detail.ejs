@@ -75,12 +75,8 @@
     <div class="detail-ch">
 
       <div class="detail-info">
-
-        <% if (post.author.thumbnail) { %>
-        <a href="/profile"><img src="/<%= post.author.thumbnail %>"></a>
-        <% } else { %>
-        <a href="/profile"><img src="/img/user.jpg"></a>
-        <% }  %>
+        
+        <a href="/profile"><img src="<%= post.author.thumbnail ? `/${post.author.thumbnail}` : '/img/profile.png' %>" alt="" class="img-profile"></a>
 
         <div class="info-my">
           <span>

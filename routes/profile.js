@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
 
 router.get('/edit', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
-  res.render('./profile-edit', { user });
+  console.log(user);
+  res.render('./profile-edit.ejs', { user });
 });
 
 router.post('/password-check', async (req, res) => {
