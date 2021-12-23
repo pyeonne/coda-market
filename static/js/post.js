@@ -49,7 +49,7 @@ function change_btn() {
       let div = document.createElement('div');
       let img = document.createElement('img');
       div.classList.add('img');
-      console.log(input.files[i]);
+    
       img.src = URL.createObjectURL(input.files[i]);
       div.appendChild(img);
       imgBox.appendChild(div);

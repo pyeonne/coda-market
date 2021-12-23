@@ -49,7 +49,6 @@ router.get('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: post_id }).populate('author');
   const user = await User.findOne({ shortId: req.user.id});
   const cart = await Cart.findOne({user, post});
-  console.log('cart:', cart);
   res.render('./product/detail', { post: post, isClick: cart !== null });
 });
 
@@ -77,7 +76,6 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     thumbnail: imageArray[0],
   });
 
-  console.log(post);
 
   res.redirect(`/posts/${post.shortId}`);
 });

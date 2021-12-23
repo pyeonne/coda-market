@@ -46,17 +46,14 @@
               name="id"
               type="text"
               class="form_control"
+              id="user_id"
               required
               autocomplete="off"
-              onkeyup="id_check(this.value)"
+              onblur="signup_check(this.value, 'id')"
             />
 
-            <span
-              >아이디
-              <button class="overBtn" onclick="id_check()">
-                중복체크
-              </button></span
-            >
+            <span>아이디
+            </span>
 
             <span class="border"></span>
 
@@ -66,6 +63,14 @@
             <span class="idCheckNo">
               <i class="fas fa-times"></i>
             </span>
+          </div>
+
+          <div class="availableId">
+            <span>사용 가능한 아이디입니다.</span>
+          </div>
+
+          <div class="existedId">
+            <span>이미 사용중인 아이디입니다.</span>
           </div>
 
           <div class="form_group">
@@ -89,8 +94,6 @@
               onblur="pw1_check(this.value)"
               required
             />
-            <<<<<<< HEAD ======= >>>>>>>
-            31fa3deb83d196e90fa4aebe2d1dd9b5ea1cc5e8
             <span>패스워드</span>
             <span class="border"></span>
 
@@ -100,6 +103,10 @@
             <span class="pw1CheckNo">
               <i class="fas fa-times"></i>
             </span>
+          </div>
+
+          <div class="unavailablePassword">
+            <span>8~15자 문자, 숫자, 특수문자를 사용하세요.</span>
           </div>
 
           <div class="form_group">
@@ -126,15 +133,29 @@
               name="email"
               type="text"
               class="form_control"
+              id = "email"
               required
               autocomplete="off"
+              onblur="signup_check(this.value, 'email')"
             />
             <span>E-mail</span>
             <span class="border"></span>
           </div>
 
+          <div class="availableEmail">
+            <span>사용 가능한 이메일입니다.</span>
+          </div>
+
+          <div class="existedEmail">
+            <span>이미 사용중인 이메일입니다.</span>
+          </div>
+
+          <div class="unavailableEmail">
+            <span>이메일 주소를 다시 확인해주세요.</span>
+          </div>
+
           <div class="signup_btn">
-            <input type="submit" value="신청하기" />
+            <input type="submit" value="신청하기" disabled/>
           </div>
         </form>
       </div>

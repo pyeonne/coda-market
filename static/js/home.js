@@ -53,7 +53,7 @@ function enterkey() {
 function reqResHandler(url) {
   axios.get(url).then(res => {
     const posts = res.data.posts;
-    console.log(posts);
+  
     removePostList();
 
     if (posts.length > 0) {
@@ -73,7 +73,7 @@ function removePostList() {
 
 // DB에서 받아온 post들을 홈 화면에 띄워주는 함수
 function makePostList(posts) {
-  console.log(posts);
+
   posts.forEach(post => {
     const li = document.createElement('li');
     postList.appendChild(li);
