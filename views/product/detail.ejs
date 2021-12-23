@@ -66,7 +66,12 @@
   <div class="detail-img">
     <ul class="slides">
       <p></p>
-      <li><img src="/<%= post.thumbnail %>"></li>
+      <% if(post.thumbnail) { %>
+        <li><img src="/<%= post.thumbnail %>"></li>
+      <% } else { %>
+        <img src="/img/detail-default-logo.png">
+      <% } %>
+
     </ul>
   </div>
   
@@ -126,20 +131,26 @@
             <%= post.title %>
           </h2>
 
-          <% if(post.isSoldOut==false) { %>
-            <div class="product-check check1">
-              판매중
-            </div>
-            <% } else { %>
-              <div class="product-check check2">
-                판매완료
-              </div>
-              <% } %>
+          
         </div>
         <div class="content-info">
-          <a href="/" class="category-text">
-            <%= post.category %>
-          </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
+          <div>
+            <a href="/" class="category-text">
+              <%= post.category %>
+            </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
+          </div>
+
+          <div class='sold-out-box'>
+            <% if(post.isSoldOut==false) { %>
+              <div class="product-check check1">
+                판매중
+              </div>
+              <% } else { %>
+                <div class="product-check check2">
+                  판매완료
+                </div>
+                <% } %>
+          </div>
         </div>
 
 
@@ -163,7 +174,6 @@
       <h4>
         <%= post.author.name %>님의 판매 상품
       </h4>
-      <a href="">모두보기</a>
     </div>
     <hr style="border: solid 1px #f3eeee">
 

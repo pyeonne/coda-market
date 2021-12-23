@@ -29,7 +29,7 @@ router.get('/search', async (req, res) => {
     });
     posts = JSON.stringify(posts);
 
-    res.render('home', {
+    return res.render('home', {
       posts,
       userLocation: location,
       isCategory: true,
@@ -42,7 +42,7 @@ router.get('/search', async (req, res) => {
       title: { $regex: input, $options: 'gi' },
     });
 
-    res.status(200).json({ posts, userLocation: location });
+    return res.status(200).json({ posts, userLocation: location });
   } else if (location) {
     console.log('location');
 
@@ -50,7 +50,7 @@ router.get('/search', async (req, res) => {
       location,
     });
 
-    res.status(200).json({ posts, userLocation: location });
+    return res.status(200).json({ posts, userLocation: location });
   }
 });
 
@@ -117,42 +117,34 @@ router.post('/:post_id/delete', async (req, res) => {
   res.redirect('/posts/');
 });
 
-//게시물 업데이트
-//localhost:3000/post/:postId - patch
-
-// router.get('/:post_id/edit', async (req, res) => {
-//   const { post_id } = req.params;
-
-//   const post = await Post.findOneAndUpdate({ id: post_id }, req.body, {
-//     new: true,
-//     upsert: true,
-//     timestamps: { createdAt: false, updatedAt: true },
-//   });
-
-//   res.render('./product/postedit', { mypost : post });
-// });
-
-// front update test
-
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
   res.render('./product/postedit', { post });
 });
 
-router.post('/:post_id/edit', async (req, res) => {
+router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  const thumbnail = req.file ? req.file.path.replace(/\\/g, '/') : '';
+  const thumbnail = req.files
+    ? req.files.map(img => img.path.replace(/\\/g, '/'))
+    : '';
+  const price = req.body.price
+    ? req.body.price.replace(' 원', '').replace(/,/gi, '')
+    : '';
+  const option = {
+    ...req.body,
+    thumbnail,
+    price,
+    timestamps: { createdAt: false, updatedAt: true },
+  };
 
-  await Post.findOneAndUpdate(
-    { shortId: req.params.post_id },
-    {
-      ...req.body,
-      thumbnail,
-      price: req.body.price.replace(' 원', '').replace(/,/gi, ''),
-      timestamps: { createdAt: false, updatedAt: true },
-    },
+  const asArray = Object.entries(option);
+  const filtered = asArray.filter(
+    ([key, value]) => value !== '' && value !== '1',
   );
+  const filteredOpton = Object.fromEntries(filtered);
+
+  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
   res.redirect(`/posts/${post.shortId}`);
 });
