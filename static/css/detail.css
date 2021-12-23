@@ -151,6 +151,8 @@ li {
 
 .now-product-list > a {
   color: gray;
+  font-size: 14px;
+  margin-right: 13px;
 }
 
 .container {
