@@ -66,7 +66,12 @@
   <div class="detail-img">
     <ul class="slides">
       <p></p>
-      <li><img src="/<%= post.thumbnail %>"></li>
+      <% if(post.thumbnail) { %>
+        <li><img src="/<%= post.thumbnail %>"></li>
+      <% } else { %>
+        <img src="/img/detail-default-logo.png">
+      <% } %>
+
     </ul>
   </div>
   
