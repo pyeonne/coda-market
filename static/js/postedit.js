@@ -45,7 +45,7 @@ function uploadCheck(value) {
 
     let img = document.createElement('img');
   
-    img.src = `http://localhost:5555/${img_datas[i]}`
+    img.src = `http://localhost:8888/${img_datas[i]}`
     div.appendChild(img);
     imgBox.appendChild(div);
   }
