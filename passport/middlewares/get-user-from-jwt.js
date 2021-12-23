@@ -25,7 +25,7 @@ export default (req, res, next) => {
       url === '/' ||
       url === '/signup' ||
       url === '/find/id' ||
-      url !== '/find/pwd'
+      url === '/find/pwd'
     ) {
       res.redirect('/posts');
     }

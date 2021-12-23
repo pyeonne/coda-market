@@ -47,7 +47,7 @@ router.post('/edit', store.single('image'), async (req, res) => {
   const password = pwd ? hashingPassword(pwd) : '';
 
   const option = { name, location, thumbnail, password };
-  console.log(pwd);
+
   const asArray = Object.entries(option);
   const filtered = asArray.filter(([key, value]) => value !== '');
   const filteredOpton = Object.fromEntries(filtered);
