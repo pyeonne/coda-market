@@ -48,10 +48,14 @@ function change_btn() {
     for (let i = 0; i < files; i++) {
       let div = document.createElement('div');
       let img = document.createElement('img');
+      let button = document.createElement('button');
       div.classList.add('img');
-    
       img.src = URL.createObjectURL(input.files[i]);
-      div.appendChild(img);
+      button.type = "button"
+      
+      button.classList.add('img-cheking');
+      button.appendChild(img)
+      div.appendChild(button);
       imgBox.appendChild(div);
       console.log(URL.createObjectURL(input.files[i]));
     }

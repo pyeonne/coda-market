@@ -209,3 +209,12 @@ textarea::placeholder {
 .post_category > p {
   font-size: 16px;
 }
+
+.img-cheking img  {
+  bottom: 1px;
+}
+
+.img-cheking img:hover {
+  position: absolute;
+  filter: brightness(60%); 
+}
