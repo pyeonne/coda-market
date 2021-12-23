@@ -1,10 +1,10 @@
-import { render } from 'ejs';
 import express from 'express';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import hashingPassword from '../utils/hash-password.js';
+import { nanoid } from 'nanoid';
 
 const router = express.Router();
 
@@ -64,6 +64,7 @@ router.get('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: post_id }).populate('author');
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.findOne({ user, post });
+
   res.render('./product/detail', { post: post, isClick: cart !== null });
 });
 
@@ -89,8 +90,10 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     price: price.replace(' 원', '').replace(/,/gi, ''),
     author: user,
     thumbnail: imageArray[0],
+    shortId: nanoid(),
   });
 
+  console.log(post);
   res.redirect(`/posts/${post.shortId}`);
 });
 

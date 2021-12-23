@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 
 const PostSchema = new Schema(
   {
-    shortId: { type: String, default: nanoid() },
+    shortId: { type: String },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     title: { type: String, required: true },
     location: { type: String, required: true },
