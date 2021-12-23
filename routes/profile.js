@@ -75,7 +75,7 @@ router.get('/purchases', async (req, res) => {
 router.get('/carts', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.find({ user }).populate('post');
-  const list =  cart.map(item => item.post);
+  const list = cart.map(item => item.post);
   res.json({ list });
 });
 
