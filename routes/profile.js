@@ -14,14 +14,14 @@ router.get('/', (req, res) => {
 
 router.get('/edit', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
-  res.render('./profile-edit');
+  console.log(user);
+  res.render('./profile-edit.ejs', { user });
 });
 
 router.post('/password-check', async (req, res) => {
   const user = await User.findOne({ name: req.user.name });
 
   if (user.password === hashingPassword(req.body.password)) {
-    console.log('확인');
     res.redirect('/profile/edit');
   } else {
     // alert('비밀번호를 다시 입력해주세요.');

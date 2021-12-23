@@ -1,5 +1,6 @@
 const targetImg = document.querySelector('#target_img');
 const profileImg = document.querySelector('.img-profile');
+const selectbox = document.querySelectorAll('.select option');
 
 targetImg.addEventListener('click', function (e) {
   document.querySelector('#file').click();
@@ -18,8 +19,13 @@ function setThumbnail(e) {
   reader.onload = e => {
     profileImg.src = e.target.result;
   };
+}
 
-  fetch(profile / edit, profileData).catch(err => {
-    alert('에러');
+function setLoation(userLoca) {
+  console.log(selectbox);
+  selectbox.forEach(optionTag => {
+    if (optionTag.value === userLoca) {
+      optionTag.setAttribute('selected', 'selected');
+    }
   });
 }

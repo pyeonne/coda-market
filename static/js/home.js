@@ -31,26 +31,26 @@ function setLoation(userLoca) {
     }
   });
 
-  reqResHandler(`posts/search?location=${userLoca}`);
+  // reqResHandler(`/posts/search?location=${userLoca}`);
 }
 
 // 지역 설정 selectBox에서 특정 지역 선택 시, 해당 지역의 post들을 가져오는 함수
 function selectLocation() {
-  reqResHandler(`posts/search?location=${locaSelectBox.value}`);
+  reqResHandler(`/posts/search?location=${locaSelectBox.value}`);
 }
 
 // 검색 input에서 특정 검색어 검색 시, 해당 검색어에 해당하는 post들을 가져오는 함수
 function enterkey() {
   if (window.event.keyCode == 13) {
     reqResHandler(
-      `posts/search?location=${locaSelectBox.value}&input=${searchInput.value}`,
+      `/posts/search?location=${locaSelectBox.value}&input=${searchInput.value}`,
     );
   }
 }
 
 function reqResHandler(url) {
   axios.get(url).then(res => {
-    const posts = res;
+    const posts = res.data.posts;
 
     console.log(posts);
 

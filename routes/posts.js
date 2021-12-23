@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const posts = await Post.find({}).sort({ updatedAt: 'desc' });
 
-  res.render('home', { posts, userLocation: user.location });
+  res.render('./home.ejs', { posts, userLocation: user.location });
 });
 
 //localhost:3000/posts/search?
@@ -28,39 +28,35 @@ router.get('/', async (req, res) => {
 
 router.get('/search', async (req, res) => {
   const { category, location, input } = req.query;
-  const user = await User.findOne({ shortId: req.user.id });
   let posts;
-  let userLocation = user.location;
-
-  console.log('=======================');
-  console.log(req.query);
-  console.log(userLocation);
 
   if (category) {
+    const user = await User.findOne({ shortId: req.user.id });
+    let userLocation = user.location;
+
     posts = await Post.find({
       location: userLocation,
       category,
     });
+
+    return res.render('./home.ejs', { posts, userLocation });
   }
 
   if (location && input) {
+    console.log(location, input);
     posts = await Post.find({
       location,
-      title: input,
+      title: { $regex: input, $options: 'ig' },
     });
-    userLocation = location;
+    return res.status(200).json({ posts });
   }
 
   if (location) {
     posts = await Post.find({
       location,
     });
-    userLocation = location;
+    return res.status(200).json({ posts });
   }
-
-  console.log(posts);
-
-  res.render('home', { posts, userLocation });
 });
 
 //localhost:3000/posts/category?category=
