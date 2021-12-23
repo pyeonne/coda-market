@@ -117,6 +117,11 @@ li {
 
 .content-info {
   display: flex;
+  justify-content: space-between;
+}
+.sold-out-box {
+  position: relative;
+  bottom: 8px;
 }
 
 .content-info a {

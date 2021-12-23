@@ -131,20 +131,26 @@
             <%= post.title %>
           </h2>
 
-          <% if(post.isSoldOut==false) { %>
-            <div class="product-check check1">
-              판매중
-            </div>
-            <% } else { %>
-              <div class="product-check check2">
-                판매완료
-              </div>
-              <% } %>
+          
         </div>
         <div class="content-info">
-          <a href="/" class="category-text">
-            <%= post.category %>
-          </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
+          <div>
+            <a href="/" class="category-text">
+              <%= post.category %>
+            </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
+          </div>
+
+          <div class='sold-out-box'>
+            <% if(post.isSoldOut==false) { %>
+              <div class="product-check check1">
+                판매중
+              </div>
+              <% } else { %>
+                <div class="product-check check2">
+                  판매완료
+                </div>
+                <% } %>
+          </div>
         </div>
 
 
