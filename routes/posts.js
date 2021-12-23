@@ -81,7 +81,7 @@ router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
 
-  res.render('./product/detail', { post: post });
+  res.render('./product/detail', { post });
 });
 
 //게시물 생성
