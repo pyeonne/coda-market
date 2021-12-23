@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/nav.css" />
     <link rel="stylesheet" href="/css/detail.css" />
+
+    
 </head>
 
 <body onload="check_clicked(`<%= isClick %>`), change_category(`<%= post.category %>`)">
@@ -25,10 +27,39 @@
 
     <div class="menu2">
       <li><a href="/posts/<%= post.shortId %>/edit">수정</a></i></li>
-      <li><a href="/posts/<%= post.shortId %>/delete">삭제</a></i></li>
-
+      <li ><a id="delete-btn" href="javascript:void(0)">삭제</a></i></li>
+      <!-- /posts/<%= post.shortId %>/delete -->
       <!-- <button id="modal_btn"><i class="fas fa-ellipsis-v"></button></i> -->
     </div>
+    <form
+              class="services__modal"
+              id="pwd__form"
+              method="post"
+              action="/posts/<%= post.shortId %>/delete"
+            >
+              <div class="services__modal-content">
+                <h4 class="services__modal-title">정말 삭제하시나요?</h4>
+                <i class="fas fa-times services__modal-close"></i>
+
+                <div class="btn-box">
+                  
+                  <button
+                    type="button"
+                    
+                    class="button btn-primary done__btn no"
+                  >
+                    아니오
+                  </button>
+                  <button
+                    type="submit"
+                    id="submit"
+                    class="button btn-primary done__btn yes"
+                  >
+                    예
+                  </button>
+                </div>
+              </div>
+            </form>
 
   </div>
   
@@ -53,6 +84,7 @@
 
         <div class="info-my">
           <span>
+            
             <%= post.author.name %>
           </span>
           <span>
@@ -65,6 +97,33 @@
     <hr style="border: solid 1px #f3eeee">
 
     <div class="defailt-content">
+      <%
+      // 날짜 계산
+      function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+      
+        const betweenTime = Math.floor(
+          (today.getTime() - timeValue.getTime()) / 1000 / 60,
+        );
+        if (betweenTime < 1) return '방금전';
+        if (betweenTime < 60) {
+          return `${betweenTime}분전`;
+        }
+      
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+          return `${betweenTimeHour}시간전`;
+        }
+      
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+          return `${betweenTimeDay}일전`;
+        }
+      
+        return `${Math.floor(betweenTimeDay / 365)}년전`;
+      }
+      %>
       <div class="content-top">
         <div class='title-top'>
           <h2>
@@ -84,7 +143,7 @@
         <div class="content-info">
           <a href="/" class="category-text">
             <%= post.category %>
-          </a> · <span>10분전</span>
+          </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
         </div>
 
 
@@ -281,10 +340,56 @@
       <a href="">채팅으로 거래하기</a>
     </div>
   </div>
-  <!-- <script>
-   
-  </script> -->
   <script src="/js/postdetail.js"></script>
+
+  <script>
+    /*** Modal ***/
+    const modalViews = document.querySelector('.services__modal');
+    const modalCloses = document.querySelector('.services__modal-close');
+
+    let modal = function () {
+      modalViews.classList.add('active-modal');
+      document.querySelector('.detail-last').style.display = 'none';
+    };
+
+    document.querySelector('#delete-btn').addEventListener('click', e => {
+      modal();
+      console.log('ddd');
+    });
+
+    document.querySelector('#pwd__form').addEventListener('submit', () => {
+      window.location.href = '/edit';
+    });
+
+    // 모달창 X 아이콘 클릭 시
+    modalCloses.addEventListener('click', () => {
+      modalViews.classList.remove('active-modal');
+    });
+
+    // 모달 밖 클릭 시
+    window.addEventListener('click', e => {
+      e.target === modalViews ? modalViews.classList.remove('active-modal') : false;
+    });
+
+    // 아니오 클릭 시
+    document.querySelector('.no').addEventListener('click', () => {
+      modalViews.classList.remove('active-modal');
+      document.querySelector('.detail-last').style.display = 'flex';
+    })
+
+
+    // Make navbar transparent when it is on the top
+    const navbar = document.querySelector('.menus');
+    const navbarHeight = navbar.getBoundingClientRect().height;
+    document.addEventListener('scroll', () => {
+        if (window.scrollY > navbarHeight) {
+            navbar.classList.add('navbar--dark');
+        } else {
+            navbar.classList.remove('navbar--dark');
+        }
+    });
+
+  </script>
 </body>
 
 </html>
