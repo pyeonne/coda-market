@@ -12,11 +12,7 @@
     <link rel="stylesheet" href="/css/detail.css" />
 </head>
 
-<<<<<<< HEAD
-<body onload="check_clicked('<%=isClick%>')">
-=======
-<body onload="change_category(`<%= post.category %>`)">
->>>>>>> origin/test7577
+<body onload="check_clicked(`<%= isClick %>`), change_category(`<%= post.category %>`)">
 
   <div class="menus">
 
@@ -64,19 +60,6 @@
           </span>
         </div>
       </div>
-
-
-      <!-- <div class="imfo-box">
-          <div class="like">
-            <i class="far fa-thumbs-up"></i>
-            <button class="like-btn" onclick="like_click(1)">좋아요</button>
-          </div>
-          <div class="dislike">
-            <i class="far fa-thumbs-down"></i>
-            <button class="dislike-btn" onclick="like_click(2)">싫어요</button>
-          </div>
-
-        </div> -->
 
     </div>
     <hr style="border: solid 1px #f3eeee">
@@ -298,65 +281,9 @@
       <a href="">채팅으로 거래하기</a>
     </div>
   </div>
-  <script>
-    let num = document.querySelector("#ds-pice")
-    num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
-    let save_cart = async (value) => {
-      let heart = document.querySelector(".menu1-item > button > i")
-
-      const url = `/cart/${value}`
-      await fetch(url, {
-        method: 'post',
-      })
-        .then(res => res.json())
-        .then(data => {
-          const isClick = data.isClick
-          if (isClick) {
-            heart.classList.add('save-cart')
-          } else {
-            heart.classList.remove('save-cart')
-          }
-        })
-    }
-
-    let check_clicked = (isClick) => {
-      let heart = document.querySelector(".menu1-item > button > i")
-  
-      if (isClick === 'true') {
-        heart.classList.add('save-cart')
-      } else {
-        heart.classList.remove('save-cart')
-      }
-    }
-
-    let content_time = document.querySelector("#get_times")
-
-    const sYear = content_time.substring(11, 15);
-    const sMonth = content_time.substring(5, 7);
-    const sDate = content_time.substring(8, 10);
-    const sHour = content_time.substring(11, 13);
-    const sMinute = content_time.substring(14, 16);
-    const sSecond = content_time.substring(17, 19);
-
-    let like_click = (value) => {
-
-      if (value === 1) {
-        let data = document.querySelector(".like > i")
-        let btnData = document.querySelector(".like-btn")
-        data.classList.toggle("like-on");
-        btnData.classList.toggle("like-on");
-
-      } else {
-        let data = document.querySelector(".dislike > i")
-        let btnData = document.querySelector(".dislike-btn")
-        data.classList.toggle("dislike-on");
-        btnData.classList.toggle("dislike-on");
-      }
-      
-    }
-
-  </script>
+  <!-- <script>
+   
+  </script> -->
   <script src="/js/postdetail.js"></script>
 </body>
 
