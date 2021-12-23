@@ -139,10 +139,13 @@ router.get('/:post_id/edit', async (req, res) => {
   res.render('./product/postedit', { post });
 });
 
-router.post('/:post_id/edit', async (req, res) => {
+router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
+  let thumbnail = req.files ? req.files : '';
 
-  const thumbnail = req.file ? req.file.path.replace(/\\/g, '/') : '';
+  if (thumbnail) {
+    thumbnail = thumbnail.map(img => img.path.replace(/\\/g, '/'));
+  }
 
   await Post.findOneAndUpdate(
     { shortId: req.params.post_id },
