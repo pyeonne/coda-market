@@ -29,15 +29,20 @@ router.post('/', async (req, res) => {
 
   if (id !== undefined && idCheck === null) {
     res.json({ existedUserId: false });
-  } else {
-    if (email !== undefined && emailCheck === null) {
-      res.json({ existedUserEmail: false });
-    } else {
-      res.json({existedUserId: true, existedUserEmail: true})
-    }
   }
 
+  if (id === undefined && emailCheck === null) {
+    res.json({existedUserEmail: false});
+  }
   
+  if (email === undefined && idCheck !== null) {
+    res.json({existedUserId: true});
+  }
+
+  if (email !== undefined && emailCheck !== null) {
+    res.json({existedUserEmail: true});
+  }
+
 });
 
 export default router;

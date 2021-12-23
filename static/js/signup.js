@@ -41,14 +41,12 @@ async function signup_check(value, check) {
     const availableEmail = document.querySelector('.availableEmail');
     const existedEmail = document.querySelector('.existedEmail');
     const unavailableEmail = document.querySelector('.unavailableEmail');
-    // const inputId = document.querySelector('#user_id').value;
     await fetch(url, {
       method: 'post',
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // id: inputId,
         email: value,
       })
     }).then(res => res.json())
