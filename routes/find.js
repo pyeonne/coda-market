@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid';
 const router = express.Router();
 
 router.get('/id', (req, res) => res.render('./account/setId'));
+router.get('/pwd', (req, res) => res.render('./account/setpwd'));
 
 // localhost:3000/find/id
 router.post('/id', async (req, res) => {
@@ -14,7 +15,6 @@ router.post('/id', async (req, res) => {
   const user = await User.findOne({
     email: receiverEmail,
   });
-
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -46,10 +46,11 @@ router.post('/id', async (req, res) => {
   });
 });
 
-router.post('/password', async (req, res) => {
+router.post('/pwd', async (req, res) => {
   let receiverEmail = req.body.email;
   let receiveruserId = req.body.id;
-
+  console.log(receiverEmail);
+  console.log(receiveruserId);
   const user = await User.findOne({
     email: receiverEmail,
     shortId: receiveruserId,
@@ -77,7 +78,7 @@ router.post('/password', async (req, res) => {
       pass: process.env.emailPassword,
     },
   });
-
+  console.log('ddddd');
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: `"CODA Team" <${'clsrns1111@gmail.com'}>`,
