@@ -56,8 +56,9 @@ router.get('/edit', (req, res) => res.render('./product/postedit'));
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
+  const list = await Post.find({ author: post.author });
 
-  res.render('./product/detail', { post: post });
+  res.render('./product/detail', { post, list });
 });
 
 //게시물 생성

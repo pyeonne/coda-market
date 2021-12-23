@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const { postId } = req.query;
   const loginedUser = await User.findOne({ shortId: req.user.id });
-  console.log(loginedUser);
+
   if (postId === undefined) {
     res.render('./profile', { user: loginedUser, isOwner: true });
   } else {
