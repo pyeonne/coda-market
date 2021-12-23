@@ -139,12 +139,12 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   };
 
   const asArray = Object.entries(option);
-  const filtered = asArray.filter(([key, value]) => value !== '');
+  const filtered = asArray.filter(
+    ([key, value]) => value !== '' && value !== '1',
+  );
   const filteredOpton = Object.fromEntries(filtered);
 
-  console.log(filteredOpton);
-
-  await Post.findOneAndUpdate({ shortId: req.params.post_id }, option);
+  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
   res.redirect(`/posts/${post.shortId}`);
 });
