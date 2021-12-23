@@ -9,7 +9,6 @@ const config = {
 };
 
 const local = new LocalStrategy(config, async (id, password, done) => {
-  console.log(id, password);
   const user = await User.findOne({ shortId: id });
   let loginFailed = false;
 
@@ -18,7 +17,6 @@ const local = new LocalStrategy(config, async (id, password, done) => {
       loginFailed: true,
     });
   } else {
-    console.log(user);
     if (user.password !== hashPassword(password)) {
       loginFailed = true;
     }

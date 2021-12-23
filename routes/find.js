@@ -15,7 +15,6 @@ router.post('/id', async (req, res) => {
     email: receiverEmail,
   });
 
-  console.log(user);
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -50,7 +49,7 @@ router.post('/id', async (req, res) => {
 router.post('/password', async (req, res) => {
   let receiverEmail = req.body.email;
   let receiveruserId = req.body.id;
-  console.log(receiverEmail);
+
   const user = await User.findOne({
     email: receiverEmail,
     shortId: receiveruserId,
@@ -82,7 +81,7 @@ router.post('/password', async (req, res) => {
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: `"CODA Team" <${'clsrns1111@gmail.com'}>`,
-    to: 'clsrns1111@gmail.com',
+    to: receiverEmail,
     subject: '코다마켓 - 비밀번호찾기 결과',
     text: 'test1123',
     html: `<b>(주)코다마켓에서 보낸 이메일입니다.</b><p>비밀번호는 ${newPwd} 입니다. </p>

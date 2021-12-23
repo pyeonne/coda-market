@@ -34,18 +34,19 @@ const io = new Server(server);
 const __dirname = path.resolve();
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.set('socketio', io);
+// app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(cookieParser());
 app.use(express.static(__dirname + '/static'));
+app.use('/uploads', express.static('uploads'));
 
 app.use(passport.initialize());
 app.use(getUserFromJwt);
 
 app.use('/conversation', conversationRouter);
-app.use('/', homeRouter);
 app.use('/profile', profileRouter);
 app.use('/signup', signupRouter);
 app.use('/posts', postRouter);
@@ -53,6 +54,7 @@ app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
 app.use('/find/', findRouter);
 app.use('/messages', messagesRouter);
+app.use('/', homeRouter);
 // app.use('/main', mainRouter);
 
 //socket io 통신

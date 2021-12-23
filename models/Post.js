@@ -16,6 +16,7 @@ const PostSchema = new Schema(
     purchased_user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      default: null,
     },
     isSoldOut: { type: Boolean, default: false },
     thumbnail: { type: String },

@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/nav.css" />
     <link rel="stylesheet" href="/css/detail.css" />
+
+    
 </head>
 
-<body>
+<body onload="check_clicked(`<%= isClick %>`), change_category(`<%= post.category %>`)">
 
   <div class="menus">
 
@@ -25,27 +27,60 @@
 
     <div class="menu2">
       <li><a href="/posts/<%= post.shortId %>/edit">수정</a></i></li>
-      <li><a href="/posts/<%= post.shortId %>/delete">삭제</a></i></li>
-
+      <li ><a id="delete-btn" href="javascript:void(0)">삭제</a></i></li>
+      <!-- /posts/<%= post.shortId %>/delete -->
       <!-- <button id="modal_btn"><i class="fas fa-ellipsis-v"></button></i> -->
     </div>
+    <form
+              class="services__modal"
+              id="pwd__form"
+              method="post"
+              action="/posts/<%= post.shortId %>/delete"
+            >
+              <div class="services__modal-content">
+                <h4 class="services__modal-title">정말 삭제하시나요?</h4>
+                <i class="fas fa-times services__modal-close"></i>
+
+                <div class="btn-box">
+                  
+                  <button
+                    type="button"
+                    
+                    class="button btn-primary done__btn no"
+                  >
+                    아니오
+                  </button>
+                  <button
+                    type="submit"
+                    id="submit"
+                    class="button btn-primary done__btn yes"
+                  >
+                    예
+                  </button>
+                </div>
+              </div>
+            </form>
 
   </div>
-
+  
   <div class="detail-img">
     <ul class="slides">
-      <li><img src="/img/mac.jpg"></li>
+      <p></p>
+      <li><img src="/<%= post.thumbnail %>"></li>
     </ul>
   </div>
-
+  
   <div class="detail-page">
 
     <div class="detail-ch">
 
       <div class="detail-info">
-        <a href="/mypage"><img src="/img/user.jpg"></a>
+        
+        <a href="/profile"><img src="<%= post.author.thumbnail ? `/${post.author.thumbnail}` : '/img/profile.png' %>" alt="" class="img-profile"></a>
+
         <div class="info-my">
           <span>
+            
             <%= post.author.name %>
           </span>
           <span>
@@ -54,23 +89,37 @@
         </div>
       </div>
 
-
-      <!-- <div class="imfo-box">
-          <div class="like">
-            <i class="far fa-thumbs-up"></i>
-            <button class="like-btn" onclick="like_click(1)">좋아요</button>
-          </div>
-          <div class="dislike">
-            <i class="far fa-thumbs-down"></i>
-            <button class="dislike-btn" onclick="like_click(2)">싫어요</button>
-          </div>
-
-        </div> -->
-
     </div>
     <hr style="border: solid 1px #f3eeee">
 
     <div class="defailt-content">
+      <%
+      // 날짜 계산
+      function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+      
+        const betweenTime = Math.floor(
+          (today.getTime() - timeValue.getTime()) / 1000 / 60,
+        );
+        if (betweenTime < 1) return '방금전';
+        if (betweenTime < 60) {
+          return `${betweenTime}분전`;
+        }
+      
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+          return `${betweenTimeHour}시간전`;
+        }
+      
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+          return `${betweenTimeDay}일전`;
+        }
+      
+        return `${Math.floor(betweenTimeDay / 365)}년전`;
+      }
+      %>
       <div class="content-top">
         <div class='title-top'>
           <h2>
@@ -88,9 +137,9 @@
               <% } %>
         </div>
         <div class="content-info">
-          <a href="/">
+          <a href="/" class="category-text">
             <%= post.category %>
-          </a> · <span> 끌올 3일 전</span>
+          </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
         </div>
 
 
@@ -104,7 +153,7 @@
       </div>
 
       <div class="content-bottom">
-        <p>관심 10 · 조회 269</p>
+        <p><i class="fas fa-heart"></i> 10</p>
       </div>
     </div>
     <hr style="border: solid 1px #f3eeee">
@@ -272,7 +321,7 @@
   <div class="detail-last">
     <div class="last-menu1">
       <div class="menu1-item">
-        <button onclick="save_cart()"><i class="far fa-heart"></i></i></button>
+        <button onclick="save_cart('<%= post.shortId %>')"><i class="far fa-heart"></i></i></button>
         <div class="re"></div>
         <div class="dscription">
           <span id="ds-pice">
@@ -287,32 +336,54 @@
       <a href="">채팅으로 거래하기</a>
     </div>
   </div>
+  <script src="/js/postdetail.js"></script>
 
   <script>
-    let num = document.querySelector("#ds-pice")
-    num.innerText = num.innerText.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    /*** Modal ***/
+    const modalViews = document.querySelector('.services__modal');
+    const modalCloses = document.querySelector('.services__modal-close');
 
-    let save_cart = (value) => {
-      let data = document.querySelector(".menu1-item > button > i")
-      data.classList.toggle("save-cart")
-    }
+    let modal = function () {
+      modalViews.classList.add('active-modal');
+      document.querySelector('.detail-last').style.display = 'none';
+    };
 
-    let like_click = (value) => {
+    document.querySelector('#delete-btn').addEventListener('click', e => {
+      modal();
+      console.log('ddd');
+    });
 
-      if (value === 1) {
-        let data = document.querySelector(".like > i")
-        let btnData = document.querySelector(".like-btn")
-        data.classList.toggle("like-on");
-        btnData.classList.toggle("like-on");
+    document.querySelector('#pwd__form').addEventListener('submit', () => {
+      window.location.href = '/edit';
+    });
 
-      } else {
-        let data = document.querySelector(".dislike > i")
-        let btnData = document.querySelector(".dislike-btn")
-        data.classList.toggle("dislike-on");
-        btnData.classList.toggle("dislike-on");
-      }
+    // 모달창 X 아이콘 클릭 시
+    modalCloses.addEventListener('click', () => {
+      modalViews.classList.remove('active-modal');
+    });
 
-    }
+    // 모달 밖 클릭 시
+    window.addEventListener('click', e => {
+      e.target === modalViews ? modalViews.classList.remove('active-modal') : false;
+    });
+
+    // 아니오 클릭 시
+    document.querySelector('.no').addEventListener('click', () => {
+      modalViews.classList.remove('active-modal');
+      document.querySelector('.detail-last').style.display = 'flex';
+    })
+
+
+    // Make navbar transparent when it is on the top
+    const navbar = document.querySelector('.menus');
+    const navbarHeight = navbar.getBoundingClientRect().height;
+    document.addEventListener('scroll', () => {
+        if (window.scrollY > navbarHeight) {
+            navbar.classList.add('navbar--dark');
+        } else {
+            navbar.classList.remove('navbar--dark');
+        }
+    });
 
   </script>
 </body>

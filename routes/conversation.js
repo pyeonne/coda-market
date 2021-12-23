@@ -24,7 +24,6 @@ router.get('/:user_id', async (req, res) => {
     console.log(io.sockets.emit('messsage', user_id)); // true
 
     io.on('connection', socket => {
-      console.log(123123);
       console.log('welecom this is socket server');
       io.emit('welecom this is socket server ');
     });

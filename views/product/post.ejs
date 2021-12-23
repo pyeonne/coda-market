@@ -22,7 +22,7 @@
   <form action="/posts/new" method="post" enctype="multipart/form-data">
     <div class="post_nav">
       <ul class="post_menu">
-        <li><a href="/"><i class="fas fa-times"></a></i></li>
+        <li><a href="/posts"><i class="fas fa-times"></a></i></li>
         <li>
           <h4>코다마켓 글쓰기</h4>
         </li>
@@ -34,9 +34,9 @@
     <div class="post_main">
       <div class="post_img_line">
 
-        <button type="button" class="post_img_btn" onchange="change_btn()">
+        <button type="button" class="post_img_btn" onchange="change_btn()" onclick="file_btn()">
           <div class="post_img">
-            <label className="input-file-button" for="input-file">
+            <label className="input-file-button" >
               <i class="fas fa-camera post_img_icon"></i>
               <span class="img_count_text">0/5</span>
             </label>
@@ -53,7 +53,6 @@
       <hr style="border: solid 1px #E5E5E5;">
 
       <div class="post_category">
-        <p>카테고리 선택</p>
         <select name="category" class="category_btn">
           <option value="1" selected="selected">카테고리</option>
           <option value="usedCar">중고차</option>
@@ -81,12 +80,6 @@
       <div class='post_price'>
         <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);"
           onfocus="getfocus(this);" placeholder="판매금액">
-        <div class="post_option">
-          <button class="price_btn" type="button">
-            <i class="fas fa-check-circle"></i>
-            <span>가격 제안받기</span>
-          </button>
-        </div>
       </div>
       <hr style="border: solid 1px #E5E5E5;">
 

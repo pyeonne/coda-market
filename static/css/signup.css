@@ -153,3 +153,97 @@ input:-webkit-autofill {
 }
 
 
+.overBtn {
+  position: relative;
+  font-size: 13px;
+  left: 210px;
+  border: solid 1px #207E81;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #207E81;
+}
+
+.availableId {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: green;
+}
+
+.existedId {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: red;
+}
+
+.availableId.on {
+  display: flex;
+}
+
+.existedId.on {
+  display: flex;
+}
+
+.availableEmail {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: green;
+}
+
+.existedEmail {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: red;
+}
+
+.availableEmail.on {
+  display: flex;
+}
+
+.existedEmail.on {
+  display: flex;
+}
+
+.unavailablePassword {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: red;
+}
+
+.unavailablePassword.on {
+  display: flex;
+}
+
+.unavailableEmail {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: red;
+}
+
+.unavailableEmail.on {
+  display: flex;
+}

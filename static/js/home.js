@@ -1,7 +1,13 @@
 const initHeader = document.querySelector('header .init');
 const searchHeader = document.querySelector('header .search');
 const locaSelectBox = document.querySelector('header .init .loca-select');
+const locaSelectBoxOptions = document.querySelectorAll(
+  'header .init .loca-select option',
+);
 const searchBtn = document.querySelector('header .init .btn-list .search-btn');
+const categoryBtn = document.querySelector(
+  'header .init .btn-list .category-btn',
+);
 const backBtn = document.querySelector('header .search .btn-list .back-btn');
 const searchInput = document.querySelector('header .search input');
 const postList = document.querySelector('body main ul');
@@ -10,6 +16,14 @@ const noResultMsg = document.querySelector('.no-result-message');
 searchBtn.addEventListener('click', () => {
   initHeader.classList.toggle('none');
   searchHeader.classList.toggle('none');
+});
+
+categoryBtn.addEventListener('click', () => {
+  window.location.replace(
+    `/category?location=${
+      locaSelectBox.options[locaSelectBox.selectedIndex].value
+    }`,
+  );
 });
 
 backBtn.addEventListener('click', () => {
@@ -21,23 +35,57 @@ backBtn.addEventListener('click', () => {
   selectLocation();
 });
 
+function setLoation(userLoca, isCategory, posts) {
+  locaSelectBoxOptions.forEach(optionTag => {
+    if (optionTag.value === userLoca) {
+      optionTag.setAttribute('selected', 'selected');
+    }
+  });
+
+  if (!isCategory) {
+    reqResHandler(`/posts/search?location=${userLoca}`);
+  } else {
+    removePostList();
+    noResultMsg.classList.add('none');
+
+    if (posts.length > 0) {
+      makePostList(posts);
+    } else {
+      noResultMsg.classList.remove('none');
+    }
+  }
+}
+
 // 지역 설정 selectBox에서 특정 지역 선택 시, 해당 지역의 post들을 가져오는 함수
 function selectLocation() {
-  reqResHandler(`search?location=${locaSelectBox.value}`);
+  locaSelectBoxOptions.forEach(optionTag => {
+    if (optionTag.hasAttribute('selected')) {
+      optionTag.removeAttribute('selected');
+    }
+  });
+
+  locaSelectBox.options[locaSelectBox.selectedIndex].setAttribute(
+    'selected',
+    'selected',
+  );
+
+  reqResHandler(`/posts/search?location=${locaSelectBox.value}`);
 }
 
 // 검색 input에서 특정 검색어 검색 시, 해당 검색어에 해당하는 post들을 가져오는 함수
 function enterkey() {
   if (window.event.keyCode == 13) {
-    reqResHandler(`search?input=${searchInput.value}`);
+    reqResHandler(
+      `/posts/search?location=${locaSelectBox.value}&input=${searchInput.value}`,
+    );
   }
 }
 
 function reqResHandler(url) {
   axios.get(url).then(res => {
     const posts = res.data.posts;
-
     removePostList();
+    noResultMsg.classList.add('none');
 
     if (posts.length > 0) {
       makePostList(posts);
@@ -61,7 +109,7 @@ function makePostList(posts) {
     postList.appendChild(li);
 
     const anchor = document.createElement('a');
-    anchor.setAttribute('href', `posts/${post.shortId}`);
+    anchor.setAttribute('href', `/posts/${post.shortId}`);
     li.appendChild(anchor);
 
     const postInfo = document.createElement('div');
@@ -72,8 +120,6 @@ function makePostList(posts) {
     postImg.setAttribute('src', `${post.thumbnail}`);
     postImg.setAttribute('alt', 'post-image');
     postInfo.appendChild(postImg);
-
-    console.log(post.thumbnail);
 
     const description = document.createElement('div');
     description.setAttribute('class', 'description');

@@ -2,36 +2,56 @@ import { render } from 'ejs';
 import express from 'express';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
+import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
+import hashingPassword from '../utils/hash-password.js';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const posts = await Post.find({}).sort({ updatedAt: 'desc' }).exec();
-  res.render('./home', { posts });
+  const user = await User.findOne({ shortId: req.user.id });
+  let posts = await Post.find({}).sort({ updatedAt: 'desc' });
+  posts = JSON.stringify(posts);
+
+  res.render('home', { posts, userLocation: user.location, isCategory: false });
 });
 
-//localhost:3000/posts/search?title=
 router.get('/search', async (req, res) => {
-  const { title } = req.query;
+  const { location, category, input } = req.query;
+  let posts;
 
-  const posts = await Post.find({
-    location: req.user.location,
-    title,
-  });
-  res.render('./home.ejs', { posts });
-});
+  if (location && category) {
+    console.log('location && category');
 
-//localhost:3000/posts/category?category=
-router.get('/category', async (req, res) => {
-  const { category } = req.query;
+    posts = await Post.find({
+      location,
+      category,
+    });
+    posts = JSON.stringify(posts);
 
-  const posts = await Post.find({
-    category,
-  });
+    res.render('home', {
+      posts,
+      userLocation: location,
+      isCategory: true,
+    });
+  } else if (location && input) {
+    console.log('location && input');
 
-  // $and: [{ location: req.user.location }, { category }],
-  res.render('./home.ejs', { posts });
+    posts = await Post.find({
+      location,
+      title: { $regex: input, $options: 'gi' },
+    });
+
+    res.status(200).json({ posts, userLocation: location });
+  } else if (location) {
+    console.log('location');
+
+    posts = await Post.find({
+      location,
+    });
+
+    res.status(200).json({ posts, userLocation: location });
+  }
 });
 
 router.get('/new', (req, res) => res.render('./product/post'));
@@ -42,10 +62,9 @@ router.get('/edit', (req, res) => res.render('./product/postedit'));
 router.get('/:post_id', async (req, res) => {
   const { post_id } = req.params;
   const post = await Post.findOne({ shortId: post_id }).populate('author');
-
-  console.log(post);
-
-  res.render('./product/detail', { post: post });
+  const user = await User.findOne({ shortId: req.user.id });
+  const cart = await Cart.findOne({ user, post });
+  res.render('./product/detail', { post: post, isClick: cart !== null });
 });
 
 //게시물 생성
@@ -59,20 +78,18 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
   //   return next(err);
   // }
 
-  const imageArray = files.map(file => file.path);
+  const imageArray = files.map(file => file.path.replace(/\\/g, '/'));
   const user = await User.findOne({ shortId: req.user.id });
   const post = await Post.create({
-    image: imageArray,
+    images: imageArray,
     title,
     content,
     location: user.location,
     category,
-    price: price.replace(' 원', '').replaceAll(',', ''),
+    price: price.replace(' 원', '').replace(/,/gi, ''),
     author: user,
     thumbnail: imageArray[0],
   });
-
-  console.log(post);
 
   res.redirect(`/posts/${post.shortId}`);
 });
@@ -82,16 +99,22 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 router.post('/:post_id/delete', async (req, res) => {
   //게시물 아이디
   const { post_id } = req.params;
-  //작성자인지 인증 필요
+  const { password } = req.body;
+  const user = await User.findOne({ shortId: req.user.id });
 
-  const post = await Post.updateOne(
-    { shortId: post_id },
-    {
-      current_status: 'deleted',
-    },
-  );
+  // if (password === hashingPassword(user.password)) {
+  //   await Post.findOneAndUpdate(
+  //     { shortId: post_id },
+  //     {
+  //       current_status: 'deleted',
+  //     },
+  //   );
+  //   res.redirect('http://localhost:3000/');
+  // } else {
+  //   throw new Error('비밀번호가 맞지 않습니다.');
+  // }
 
-  res.redirect('http://localhost:3000/');
+  res.redirect('/posts/');
 });
 
 //게시물 업데이트
@@ -113,26 +136,24 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  res.render('./product/postedit', { mypost: post });
+  res.render('./product/postedit', { post });
 });
 
 router.post('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  if (req.body) {
-    await Post.findOneAndUpdate(
-      { shortId: req.params.post_id },
-      {
-        title: req.body.title,
-        content: req.body.content,
-        location: req.body.location,
-        category: req.body.category,
-        isSoldOut: req.body.isSoldOut,
-        price: req.body.price.replace(' 원', '').replaceAll(',', ''),
-        timestamps: { createdAt: false, updatedAt: true },
-      },
-    );
-  }
+  const thumbnail = req.file ? req.file.path.replace(/\\/g, '/') : '';
+
+  await Post.findOneAndUpdate(
+    { shortId: req.params.post_id },
+    {
+      ...req.body,
+      thumbnail,
+      price: req.body.price.replace(' 원', '').replace(/,/gi, ''),
+      timestamps: { createdAt: false, updatedAt: true },
+    },
+  );
+
   res.redirect(`/posts/${post.shortId}`);
 });
 

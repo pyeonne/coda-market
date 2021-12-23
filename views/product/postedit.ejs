@@ -8,8 +8,6 @@
 
   <head>
     <%- include("../layout/head") %>
-      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data: fonts.gstatic.com;">
-      <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous" />
       <link rel="stylesheet" href="/css/base.css" />
@@ -19,13 +17,13 @@
 
   </head>
 
-<body>
-  <form action="/posts/<%= mypost.id %>/edit" method="post">
+<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`)">
+  <form action="/posts/<%= post.shortId %>/edit" method="post">
     <div class="post_nav">
       <ul class="post_menu">
         <li><a href="/"><i class="fas fa-times"></a></i></li>
         <li>
-          <h4>코다마켓 글쓰기</h4>
+          <h4 class="header__title">중고거래 글쓰기</h4>
         </li>
         <li><input id="submit" type="submit" value="완료"></li>
       </ul>
@@ -35,9 +33,9 @@
     <div class="post_main">
       <div class="post_img_line">
 
-        <button type="button" class="post_img_btn" onchange="change_btn()">
+        <button type="button" class="post_img_btn" onclick="file_btn()" onchange="change_btn()">
           <div class="post_img">
-            <label className="input-file-button" for="input-file">
+            <label className="input-file-button">
               <i class="fas fa-camera post_img_icon"></i>
               <span class="img_count_text">0/5</span>
             </label>
@@ -45,20 +43,20 @@
               onchange="loadFile(this)">
           </div>
         </button>
+      
 
       </div>
       <hr style="border: solid 1px #E5E5E5;">
 
       <div class="post_title">
-        <input type="text" name="title" value="<%- mypost.title %>" placeholder="상품 이름">
+        <input type="text" name="title" value="<%- post.title %>" placeholder="상품 이름">
       </div>
       <hr style="border: solid 1px #E5E5E5;">
 
       <div class="post_category">
-        <p>판매물품 상태</p>
-        <select name="isSoldOut" class="category_btn" style="color: black;">
+        <select name="isSoldOut" class="sold_btn" onchange="selec_change()" style="color: black;">
           <option value="1" selected="selected">상품상태</option>
-          <option value="false" style="color: blue;">판매중</option>
+          <option value="false" style="color: green;">판매중</option>
           <option value="true" style="color: red;">판매완료</option>
         </select>
 
@@ -66,7 +64,6 @@
 
 
       <div class="post_category">
-        <p>카테고리 선택</p>
         <select name="category" id="category" class="category_btn">
           <option value="1" selected="selected">카테고리</option>
           <option value="usedCar">중고차</option>
@@ -93,19 +90,13 @@
 
       <div class='post_price'>
         <input type="text" name="price" onchange="getNumber(this);" onkeyup="getNumber(this);" onblur="getblur(this);"
-          onfocus="getfocus(this);" value="<%- mypost.price %>" placeholder="판매금액">
-        <div class="post_option">
-          <button class="price_btn" type="button">
-            <i class="fas fa-check-circle"></i>
-            <span>가격 제안받기</span>
-          </button>
-        </div>
+          onfocus="getfocus(this);" value="<%- post.price %>" placeholder="판매금액">
       </div>
       <hr style="border: solid 1px #E5E5E5;">
 
       <div class="post_content">
         <textarea class="area_text" name="content" id="" cols="50" rows="10"
-          placeholder="안녕하세요 코다마켓 입니다. 상품 게시글의 내용을 작성해주세요. (가품 및 판매금지 품목은 게시가 제한될 수 있어요.)"><%- mypost.content %></textarea>
+          placeholder="안녕하세요 코다마켓 입니다. 상품 게시글의 내용을 작성해주세요. (가품 및 판매금지 품목은 게시가 제한될 수 있어요.)"><%- post.content %></textarea>
       </div>
       <hr style="border: solid 1px #E5E5E5;">
 

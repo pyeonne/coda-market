@@ -1,3 +1,7 @@
+function file_btn() {
+  let data = document.querySelector('.file_input').click();
+}
+
 /* 세자리 마다 숫자 찍기 펑션 */
 function getNumber(obj) {
   var num01;
@@ -32,18 +36,32 @@ function change_btn() {
   let input = document.querySelector('.file_input');
   let fileName = document.querySelector('.file_input').files;
   let files = document.querySelector('.file_input').files.length;
-  let img = document.createElement('img');
   let postImg = document.querySelector('.post_img_line');
 
-  if (files <= 5) {
+  let imgBox = document.createElement('div');
+  imgBox.classList.add('img-box');
+
+  let file_count = document.querySelectorAll('.img-box > .img > img').length;
+
+  if (file_count < 5) {
+    imgBox.innerHTML = ``;
     for (let i = 0; i < files; i++) {
+      let div = document.createElement('div');
       let img = document.createElement('img');
-      console.log(input.files[i]);
+      div.classList.add('img');
+    
       img.src = URL.createObjectURL(input.files[i]);
-      postImg.appendChild(img);
+      div.appendChild(img);
+      imgBox.appendChild(div);
       console.log(URL.createObjectURL(input.files[i]));
     }
-    data.innerText = `${files}/5`;
+    postImg.appendChild(imgBox);
+
+    let file_counting = document.querySelectorAll(
+      '.img-box > .img > img',
+    ).length;
+
+    data.innerText = `${file_counting}/5`;
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
