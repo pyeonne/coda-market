@@ -47,13 +47,9 @@ router.get('/category', (req, res) => {
 //   }
 
 //   if (location !== undefined) {
-//     posts = await Post.find({ location: { $regex: location, $options: 'gi' } });
+//     console.log(location);
+//     posts = await Post.find({ location });
 //   }
-
-//   posts = await Post.find({
-//     title: { $regex: input, $options: 'gi' },
-//     location,
-//   });
 
 //   res.status(200).json({ posts });
 // });
