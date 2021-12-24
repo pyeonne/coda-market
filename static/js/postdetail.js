@@ -89,18 +89,9 @@ function change_category(value) {
 
 let save_cart = async value => {
   let heart = document.querySelector('.menu1-item > button > i');
-
+  heart.classList.toggle('save-cart');
   const url = `/cart/${value}`;
   await fetch(url, {
     method: 'post',
-  })
-    .then(res => res.json())
-    .then(data => {
-      const isClick = data.isClick;
-      if (isClick) {
-        heart.classList.add('save-cart');
-      } else {
-        heart.classList.remove('save-cart');
-      }
-    });
+  });
 };

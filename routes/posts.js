@@ -3,7 +3,6 @@ import Post from '../models/Post.js';
 import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
-import hashingPassword from '../utils/hash-password.js';
 import { nanoid } from 'nanoid';
 
 const router = express.Router();
@@ -11,9 +10,18 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   let posts = await Post.find({}).sort({ updatedAt: 'desc' });
-  posts = JSON.stringify(posts);
+  const heartNum = [];
+  for (let i = 0; i < posts.length; i++) {
+    heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+  }
 
-  res.render('home', { posts, userLocation: user.location, isCategory: false });
+  posts = JSON.stringify(posts);
+  res.render('home', {
+    posts,
+    userLocation: user.location,
+    isCategory: false,
+    heartNum,
+  });
 });
 
 router.get('/search', async (req, res) => {
@@ -67,7 +75,7 @@ router.get('/:post_id', async (req, res) => {
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
-  console.log("게시글 생성 값", req.body)
+  console.log('게시글 생성 값', req.body);
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -118,12 +126,12 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  console.log(post)
+  console.log(post);
   res.render('./product/postedit', { post });
 });
 
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
-  console.log("게시글 수정 값", req.body)
+  console.log('게시글 수정 값', req.body);
   const post = await Post.findOne({ shortId: req.params.post_id });
 
   const thumbnail = req.files
