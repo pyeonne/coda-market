@@ -100,10 +100,7 @@ router.get('/:post_id', async (req, res) => {
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
-<<<<<<< HEAD
-=======
   console.log('게시글 생성 값', req.body);
->>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -178,7 +175,6 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const filtered = asArray.filter(
     ([key, value]) => value !== '' && value !== '1',
   );
-<<<<<<< HEAD
   const filteredOpton = Object.fromEntries(filtered);
   console.log(filteredOpton);
   await Post.findOneAndUpdate(
@@ -186,12 +182,6 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     filteredOpton,
     {},
   );
-=======
-
-  const filteredOpton = Object.fromEntries(filtered);
-  console.log(filteredOpton);
-  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
->>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
 
   res.redirect(`/posts/${post.shortId}`);
 });
