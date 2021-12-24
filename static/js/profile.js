@@ -21,7 +21,7 @@ function setThumbnail(e) {
   };
 }
 
-function setLoation(userLoca) {
+function setLocation(userLoca) {
   console.log(selectbox);
   selectbox.forEach(optionTag => {
     if (optionTag.value === userLoca) {

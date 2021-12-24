@@ -35,7 +35,7 @@ backBtn.addEventListener('click', () => {
   selectLocation();
 });
 
-function setLoation(userLoca, isCategory, posts) {
+function setLocation(isCategory, userLoca, posts, heartNum) {
   locaSelectBoxOptions.forEach(optionTag => {
     if (optionTag.value === userLoca) {
       optionTag.setAttribute('selected', 'selected');
@@ -49,7 +49,7 @@ function setLoation(userLoca, isCategory, posts) {
     noResultMsg.classList.add('none');
 
     if (posts.length > 0) {
-      makePostList(posts);
+      makePostList(posts, heartNum);
     } else {
       noResultMsg.classList.remove('none');
     }
@@ -84,11 +84,13 @@ function enterkey() {
 function reqResHandler(url) {
   axios.get(url).then(res => {
     const posts = res.data.posts;
+    const heartNum = res.data.heartNum;
+
     removePostList();
     noResultMsg.classList.add('none');
 
     if (posts.length > 0) {
-      makePostList(posts);
+      makePostList(posts, heartNum);
     } else {
       noResultMsg.classList.remove('none');
     }
@@ -103,7 +105,9 @@ function removePostList() {
 }
 
 // DB에서 받아온 post들을 홈 화면에 띄워주는 함수
-function makePostList(posts) {
+function makePostList(posts, heartNum) {
+  let i = 0;
+
   posts.forEach(post => {
     const li = document.createElement('li');
     postList.appendChild(li);
@@ -176,7 +180,7 @@ function makePostList(posts) {
 
     const likeSpan = document.createElement('span');
     likeSpan.innerText = 3;
-    // likeSpan.innerText = post.like_num; => DB 수정 후 윗줄 삭제 및 주석 제거
+    likeSpan.innerText = heartNum[i++];
     likeNum.appendChild(likeSpan);
   });
 }
