@@ -10,9 +10,12 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   let posts = await Post.find({}).sort({ updatedAt: 'desc' });
+  const filteredPosts = await Post.find({ location: user.location }).sort({
+    updatedAt: 'desc',
+  });
   const heartNum = [];
-  for (let i = 0; i < posts.length; i++) {
-    heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+  for (let i = 0; i < filteredPosts.length; i++) {
+    heartNum.push(await Cart.countDocuments({ post: filteredPosts[i] }));
   }
 
   posts = JSON.stringify(posts);
@@ -27,18 +30,23 @@ router.get('/', async (req, res) => {
 router.get('/search', async (req, res) => {
   const { location, category, input } = req.query;
   let posts;
-
+  const heartNum = [];
   if (location && category) {
     posts = await Post.find({
       location,
       category,
     });
+    for (let i = 0; i < posts.length; i++) {
+      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+    }
+
     posts = JSON.stringify(posts);
 
     return res.render('home', {
       posts,
       userLocation: location,
       isCategory: true,
+      heartNum,
     });
   } else if (location && input) {
     posts = await Post.find({
@@ -46,11 +54,19 @@ router.get('/search', async (req, res) => {
       title: { $regex: input, $options: 'gi' },
     });
 
+    for (let i = 0; i < posts.length; i++) {
+      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+    }
+
     return res.status(200).json({ posts, userLocation: location });
   } else if (location) {
     posts = await Post.find({
       location,
     });
+
+    for (let i = 0; i < posts.length; i++) {
+      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+    }
 
     return res.status(200).json({ posts, userLocation: location });
   }
