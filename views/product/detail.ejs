@@ -31,12 +31,15 @@
       </ul>
     </div>
 
+
+    <% if(user.shortId === post.author.shortId) { %>
     <div class="menu2">
       <li class="edit"><a href="/posts/<%= post.shortId %>/edit">수정</a></i></li>
       <li ><a id="delete-btn" href="javascript:void(0)">삭제</a></i></li>
       <!-- /posts/<%= post.shortId %>/delete -->
       <!-- <button id="modal_btn"><i class="fas fa-ellipsis-v"></button></i> -->
     </div>
+    <% } %>
     <form
               class="services__modal"
               id="pwd__form"

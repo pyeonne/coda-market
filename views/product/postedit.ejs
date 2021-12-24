@@ -20,9 +20,8 @@
       <script src="/js/post.js" defer></script>
   </head>
 
-<body
-  onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)">
-
+<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)" onchange=checkings()>
+  
   <form action="/posts/<%= post.shortId %>/edit" method="post">
     <div class="post_nav">
       <ul class="post_menu">
@@ -107,6 +106,8 @@
   </form>
 
   <%- include("../layout/nav-bottom") %>
+    <script src="/js/post.js"></script>
+    <script src="/js/postedit.js"></script>
 </body>
 
 </html>
