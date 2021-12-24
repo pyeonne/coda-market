@@ -3,11 +3,13 @@
 
 <head>
 
-  <title>Post Page</title>
+  <title>코다마켓</title>
   <link rel="stylesheet" href="">
 
   <head>
     <%- include("../layout/head") %>
+
+      <link rel="shortcut icon" href="/img/only-logo.png">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous" />
       <link rel="stylesheet" href="/css/base.css" />
@@ -15,10 +17,12 @@
       <link rel="stylesheet" href="/css/nav-bottom.css" />
       <link rel="stylesheet" href="/css/product_post.css" />
 
+      <script src="/js/post.js" defer></script>
   </head>
 
-<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)">
-  
+<body
+  onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)">
+
   <form action="/posts/<%= post.shortId %>/edit" method="post">
     <div class="post_nav">
       <ul class="post_menu">
@@ -43,7 +47,6 @@
             <input class="file_input" id="input-file" type="file" name="images" style="display: none;" multiple>
           </div>
         </button>
-      
 
       </div>
       <hr style="border: solid 1px #E5E5E5;">
@@ -104,7 +107,6 @@
   </form>
 
   <%- include("../layout/nav-bottom") %>
-    <script src="/js/post.js"></script>
 </body>
 
 </html>

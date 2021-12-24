@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include("./layout/head") %>
 
+<head>
+  <%- include("./layout/head") %>
+    <link rel="shortcut icon" href="/img/only-logo.png">
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/nav-top.css" />
     <link rel="stylesheet" href="/css/nav-bottom.css" />
@@ -15,10 +16,7 @@
       defer
     ></script> -->
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
-      defer
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
     <script src="/js/home.js" defer></script>
     <script defer>
@@ -31,11 +29,11 @@
         setLoation(userLoca, isCategory, posts);
       };
     </script>
-    <title>Home</title>
-  </head>
+    <title>코다마켓</title>
+</head>
 
-  <body>
-    <%- include("./layout/nav-top") %>
+<body>
+  <%- include("./layout/nav-top") %>
     <main role="main">
       <ul></ul>
       <!-- <h1>Infinite Scroll v4 - Loading JSON + Masonry</h1>
@@ -73,9 +71,10 @@
     </button>
 
     <%- include("./layout/nav-bottom") %>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script> -->
-    <!-- <script src="js/infiniteScroll.js"></script> -->
-  </body>
+      <!-- <script src="js/infiniteScroll.js"></script> -->
+</body>
+
 </html>
