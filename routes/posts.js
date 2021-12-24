@@ -71,6 +71,7 @@ router.get('/:post_id', async (req, res) => {
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
+  console.log("게시글 생성 값", req.body)
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -122,10 +123,12 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
+  console.log(post)
   res.render('./product/postedit', { post });
 });
 
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
+  console.log("게시글 수정 값", req.body)
   const post = await Post.findOne({ shortId: req.params.post_id });
 
   const thumbnail = req.files
