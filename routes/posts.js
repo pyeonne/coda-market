@@ -35,11 +35,11 @@ router.get('/search', async (req, res) => {
     posts = await Post.find({
       location,
       category,
-    });
+    }).sort({ updatedAt: 'desc' });
+
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
     }
-
     posts = JSON.stringify(posts);
 
     return res.render('home', {
@@ -52,7 +52,7 @@ router.get('/search', async (req, res) => {
     posts = await Post.find({
       location,
       title: { $regex: input, $options: 'gi' },
-    });
+    }).sort({ updatedAt: 'desc' });
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
@@ -62,7 +62,7 @@ router.get('/search', async (req, res) => {
   } else if (location) {
     posts = await Post.find({
       location,
-    });
+    }).sort({ updatedAt: 'desc' });
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
@@ -73,20 +73,6 @@ router.get('/search', async (req, res) => {
 });
 
 router.get('/new', (req, res) => res.render('./product/post'));
-router.get('/edit', (req, res) => res.render('./product/postedit'));
-
-//등록된 게시물 가져오기 (detail)
-// localhost:3000/posts/:postId
-router.get('/:post_id', async (req, res) => {
-  const { post_id } = req.params;
-  const post = await Post.findOne({ shortId: post_id }).populate('author');
-  const user = await User.findOne({ shortId: req.user.id });
-  const cart = await Cart.findOne({ user, post });
-  const list = await Post.find({ author: post.author });
-  const like = await Cart.countDocuments({ post: post._id });
-
-  res.render('./product/detail', { post, list, isClick: cart !== null, like });
-});
 
 //게시물 생성
 // localhost:3000/post -post
@@ -117,6 +103,19 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
   res.redirect(`/posts/${post.shortId}`);
 });
 
+//등록된 게시물 가져오기 (detail)
+// localhost:3000/posts/:postId
+router.get('/:post_id', async (req, res) => {
+  const { post_id } = req.params;
+  const post = await Post.findOne({ shortId: post_id }).populate('author');
+  const user = await User.findOne({ shortId: req.user.id });
+  const cart = await Cart.findOne({ user, post });
+  const list = await Post.find({ author: post.author });
+  const like = await Cart.countDocuments({ post: post._id });
+
+  res.render('./product/detail', { post, list, isClick: cart !== null, like });
+});
+
 //게시물 삭제
 //localhost:3000/post/:postId - delete
 router.post('/:post_id/delete', async (req, res) => {
@@ -142,7 +141,6 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  console.log(post);
   res.render('./product/postedit', { post });
 });
 

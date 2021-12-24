@@ -13,7 +13,7 @@ let check_clicked = isClick => {
 
 function change_category(value) {
   let data = '';
-  console.log(1);
+
   switch (value) {
     case 'usedCar':
       data = '중고차';
@@ -91,7 +91,14 @@ let save_cart = async value => {
   let heart = document.querySelector('.menu1-item > button > i');
   heart.classList.toggle('save-cart');
   const url = `/cart/${value}`;
-  await fetch(url, {
-    method: 'post',
-  });
+  const likeNum = document.querySelector('.likeNum');
+  if (heart.classList.contains('save-cart')) {
+    likeNum.innerText = Number(likeNum.innerText) + 1;
+  } else {
+    likeNum.innerText = Number(likeNum.innerText) - 1;
+  }
+  if (heart.classList.has)
+    await fetch(url, {
+      method: 'post',
+    });
 };
