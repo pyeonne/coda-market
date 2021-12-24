@@ -21,7 +21,11 @@
         <form action="/signup" method="POST">
           <h3>회원 가입</h3>
 
-          <select name="location" class="location_box">
+          <select
+            name="location"
+            class="location_box"
+            onblur="locationCheck();"
+          >
             <option value="1" selected="selected">지역 선택</option>
             <option value="서울특별시">서울특별시</option>
             <option value="부산광역시">부산광역시</option>
@@ -41,13 +45,16 @@
             <option value="제주도">제주도</option>
           </select>
 
+          <div class="blankLocation">
+            <span>지역을 선택해주세요.</span>
+          </div>
+
           <div class="form_group">
             <input
               name="id"
               type="text"
               class="form_control"
               id="user_id"
-              required
               autocomplete="off"
               onblur="signup_check(this.value, 'id')"
             />
@@ -64,6 +71,10 @@
             </span>
           </div>
 
+          <div class="blankId">
+            <span>아이디를 입력해주세요.</span>
+          </div>
+
           <div class="availableId">
             <span>사용 가능한 아이디입니다.</span>
           </div>
@@ -77,21 +88,26 @@
               name="name"
               type="text"
               class="form_control"
-              required
+              onblur="nicknameCheck();"
+              id="nickname"
               autocomplete="off"
             />
             <span>닉네임</span>
             <span class="border"></span>
           </div>
 
+          <div class="blankNickname">
+            <span>닉네임을 입력해주세요.</span>
+          </div>
+
           <div class="form_group">
             <input
               name="pwd"
               type="password"
+              id="password"
               class="form_control"
               autocomplete="new-password"
               onblur="pw1_check(this.value)"
-              required
             />
 
             <span>패스워드</span>
@@ -134,12 +150,15 @@
               type="text"
               class="form_control"
               id="email"
-              required
               autocomplete="off"
               onblur="signup_check(this.value, 'email')"
             />
             <span>E-mail</span>
             <span class="border"></span>
+          </div>
+
+          <div class="blankEmail">
+            <span>이메일을 입력해주세요.</span>
           </div>
 
           <div class="availableEmail">
@@ -155,7 +174,11 @@
           </div>
 
           <div class="signup_btn">
-            <input type="submit" value="신청하기" disabled />
+            <input
+              type="submit"
+              value="신청하기"
+              onclick="check_signup(event)"
+            />
           </div>
         </form>
       </div>

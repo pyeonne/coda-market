@@ -2,15 +2,20 @@ body {
   background-color: white;
 }
 
-input, textarea, button { color: #ffffff; font-size: 15px; outline: none; }
-
+input,
+textarea,
+button {
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+}
 
 h3 {
-   margin: 0 0 12px 0;
-   font-size: 35px;
-   text-align:center;
-   color: white;
-  }
+  margin: 0 0 12px 0;
+  font-size: 35px;
+  text-align: center;
+  color: white;
+}
 
 p {
   padding: 0 10px;
@@ -29,7 +34,7 @@ p {
   max-width: 767px;
   margin: auto;
   padding: 50px 80px 60px;
-  background: #524FA1;
+  background: #524fa1;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
 }
 
@@ -51,7 +56,8 @@ p {
 
 .form_group span.border {
   position: absolute;
-  left: 0; top: 41px;
+  left: 0;
+  top: 41px;
   width: 100%;
   height: 2px;
   display: block;
@@ -72,36 +78,37 @@ p {
   margin-left: 5px;
 }
 
-.form_control:focus, .form_control:valid {
+.form_control:focus,
+.form_control:valid {
   border-bottom: 1px solid #584646;
 }
 
-.form_control:focus + span, .form_control:valid + span {
+.form_control:focus + span,
+.form_control:valid + span {
   transform: translateY(-22px) scale(1);
 }
 
-.form_control:focus + span + .border, .form_control:valid + span + .border {
+.form_control:focus + span + .border,
+.form_control:valid + span + .border {
   transform: scaleX(1);
 }
-
-
 
 .signup_btn {
   text-align: center;
 }
 
-.signup_btn input{
+.signup_btn input {
   position: absolute;
-	transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   margin-top: 10px;
   cursor: pointer;
-	width:120px;
-	height: 40px;
-	color:#fff;
-	background: #F75E6A;
-	font-size: 16px;
-	border:none;
-	border-radius: 15px;
+  width: 120px;
+  height: 40px;
+  color: #fff;
+  background: #f75e6a;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
 }
 
 .location_box {
@@ -123,7 +130,7 @@ p {
 }
 
 .idCheck {
-  display : none;
+  display: none;
 }
 
 .idCheckNo {
@@ -131,7 +138,7 @@ p {
 }
 
 .pw1Check {
-  display : none;
+  display: none;
 }
 
 .pw1CheckNo {
@@ -139,101 +146,36 @@ p {
 }
 
 .pw2Check {
-  display : none;
+  display: none;
 }
 
 .pw2CheckNo {
   display: none;
 }
 
-
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #524FA1 inset;
+  -webkit-box-shadow: 0 0 0 30px #524fa1 inset;
   -webkit-text-fill-color: #fff;
 }
-
 
 .overBtn {
   position: relative;
   font-size: 13px;
   left: 210px;
-  border: solid 1px #207E81;
+  border: solid 1px #207e81;
   padding: 2px 5px;
   border-radius: 5px;
   font-weight: bold;
-  background-color: #207E81;
+  background-color: #207e81;
 }
 
-.availableId {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  margin-top: -20px;
-  margin-bottom: 15px;
-  font-size: 12px;
-  color: green;
-}
-
-.existedId {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  margin-top: -20px;
-  margin-bottom: 15px;
-  font-size: 12px;
-  color: red;
-}
-
-.availableId.on {
-  display: flex;
-}
-
-.existedId.on {
-  display: flex;
-}
-
-.availableEmail {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  margin-top: -20px;
-  margin-bottom: 15px;
-  font-size: 12px;
-  color: green;
-}
-
-.existedEmail {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  margin-top: -20px;
-  margin-bottom: 15px;
-  font-size: 12px;
-  color: red;
-}
-
-.availableEmail.on {
-  display: flex;
-}
-
-.existedEmail.on {
-  display: flex;
-}
-
-.unavailablePassword {
-  display: none;
-  flex-direction: column;
-  width: 100%;
-  margin-top: -20px;
-  margin-bottom: 15px;
-  font-size: 12px;
-  color: red;
-}
-
-.unavailablePassword.on {
-  display: flex;
-}
-
+.blankLocation,
+.blankId,
+.existedId,
+.blankNickname,
+.blankEmail,
+.existedEmail,
+.unavailablePassword,
 .unavailableEmail {
   display: none;
   flex-direction: column;
@@ -244,6 +186,26 @@ input:-webkit-autofill {
   color: red;
 }
 
-.unavailableEmail.on {
+.availableId,
+.availableEmail {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: green;
+}
+
+.availableId.on,
+.existedId.on,
+.blankId.on,
+.blankNickname.on,
+.blankEmail.on,
+.availableEmail.on,
+.existedEmail.on,
+.unavailablePassword.on,
+.unavailableEmail.on,
+.blankLocation.on {
   display: flex;
 }
