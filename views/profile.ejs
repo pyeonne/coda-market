@@ -1,122 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/base.css" />
-    <link rel="stylesheet" href="/css/profile.css" />
-    <link rel="stylesheet" href="/css/nav-bottom.css" />
-    <title>mypage</title>
-  </head>
 
-  <body>
-    <!-- HEADER -->
-    <header class="header mypage__header" id="header">
-      <nav class="nav container">
-        <a href="javascript:void(0)" class="nav__logo">나의 코다</a>
-        <div class="nav__btns">
-          <form name="logout"></form>
-          <div class="nav__toggle" id="nav-toggle">
-            <a href="javascript:logout();">로그아웃</a>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/img/only-logo.png">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/profile.css" />
+  <link rel="stylesheet" href="/css/nav-bottom.css" />
+  <title>코다마켓</title>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header mypage__header" id="header">
+    <nav class="nav container">
+      <a href="javascript:void(0)" class="nav__logo">나의 코다</a>
+      <div class="nav__btns">
+        <form name="logout"></form>
+        <div class="nav__toggle" id="nav-toggle">
+          <a href="javascript:logout();">로그아웃</a>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 
-    <!-- MAIN -->
-    <main role="main" class="main">
-      <!-- Profile -->
-      <section class="mypage section" id="mypage">
-        <div class="mypage__container container grid">
-          <div class="mypage__content grid">
-            <div class="mypage__img">
-              <% if(user.thumbnail) { %>
+  <!-- MAIN -->
+  <main role="main" class="main">
+    <!-- Profile -->
+    <section class="mypage section" id="mypage">
+      <div class="mypage__container container grid">
+        <div class="mypage__content grid">
+          <div class="mypage__img">
+            <% if(user.thumbnail) { %>
               <img src="<%= user.thumbnail %>" alt="" />
               <% } else { %>
-              <img src="/img/profile.png" alt="" />
-              <% } %>
+                <img src="/img/profile.png" alt="" />
+                <% } %>
+          </div>
+          <div class="mypage__data">
+            <h3 class="mypage__name">
+              <%= user.name %>
+            </h3>
+            <div>
+              <p>
+                <%= user.location %>
+              </p>
             </div>
-            <div class="mypage__data">
-              <h3 class="mypage__name"><%= user.name %></h3>
+          </div>
+        </div>
+        <div class="mypage__fix">
+          <a id="edit__button" class="button">프로필 수정 </a>
+          <form class="services__modal" id="pwd__form" method="post" action="/profile/password-check">
+            <div class="services__modal-content">
+              <h4 class="services__modal-title">비밀번호를 입력해주세요</h4>
+              <i class="fas fa-times services__modal-close"></i>
+
               <div>
-                <p><%= user.location %></p>
+                <input type="password" class="pwd" name="password" />
+                <button type="submit" id="submit" class="button btn-primary done__btn">
+                  완료
+                </button>
               </div>
             </div>
-          </div>
-          <div class="mypage__fix">
-            <a id="edit__button" class="button">프로필 수정 </a>
-            <form
-              class="services__modal"
-              id="pwd__form"
-              method="post"
-              action="/profile/password-check"
-            >
-              <div class="services__modal-content">
-                <h4 class="services__modal-title">비밀번호를 입력해주세요</h4>
-                <i class="fas fa-times services__modal-close"></i>
+          </form>
+        </div>
+      </div>
+    </section>
 
-                <div>
-                  <input type="password" class="pwd" name="password" />
-                  <button
-                    type="submit"
-                    id="submit"
-                    class="button btn-primary done__btn"
-                  >
-                    완료
-                  </button>
-                </div>
+    <!-- Histories -->
+    <section class="histories section" id="history">
+      <div class="histories__container container grid">
+        <div>
+          <!-- Sales History -->
+          <div class="histories__content transaction-list">
+            <div class="histories__header">
+              <i class="fas fa-receipt histories__icon"></i>
+              <div>
+                <h1 class="histories__title">거래내역</h1>
               </div>
-            </form>
+              <i class="fas fa-chevron-down histories__arrow"></i>
+            </div>
+            <div class="histories__list grid"></div>
+          </div>
+
+          <!-- Like History -->
+          <div class="histories__content cart-list">
+            <div class="histories__header">
+              <i class="fas fa-heart histories__icon"></i>
+              <div>
+                <h1 class="histories__title">관심목록</h1>
+              </div>
+              <i class="fas fa-chevron-down histories__arrow"></i>
+            </div>
+            <div class="histories__list grid"></div>
           </div>
         </div>
-      </section>
-
-      <!-- Histories -->
-      <section class="histories section" id="history">
-        <div class="histories__container container grid">
-          <div>
-            <!-- Sales History -->
-            <div class="histories__content transaction-list">
-              <div class="histories__header">
-                <i class="fas fa-receipt histories__icon"></i>
-                <div>
-                  <h1 class="histories__title">거래내역</h1>
-                </div>
-                <i class="fas fa-chevron-down histories__arrow"></i>
-              </div>
-              <div class="histories__list grid"></div>
-            </div>
-
-            <!-- Like History -->
-            <div class="histories__content cart-list">
-              <div class="histories__header">
-                <i class="fas fa-heart histories__icon"></i>
-                <div>
-                  <h1 class="histories__title">관심목록</h1>
-                </div>
-                <i class="fas fa-chevron-down histories__arrow"></i>
-              </div>
-              <div class="histories__list grid"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <%- include("./layout/nav-bottom") %>
+      </div>
+    </section>
+  </main>
+  <%- include("./layout/nav-bottom") %>
 
     <!-- JS -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/mypage.js"></script>
-  </body>
+</body>
+
 </html>

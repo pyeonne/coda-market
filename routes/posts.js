@@ -3,7 +3,6 @@ import Post from '../models/Post.js';
 import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
-import hashingPassword from '../utils/hash-password.js';
 import { nanoid } from 'nanoid';
 
 const router = express.Router();
@@ -11,40 +10,66 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   let posts = await Post.find({}).sort({ updatedAt: 'desc' });
-  posts = JSON.stringify(posts);
+  const filteredPosts = await Post.find({ location: user.location }).sort({
+    updatedAt: 'desc',
+  });
+  const heartNum = [];
+  for (let i = 0; i < filteredPosts.length; i++) {
+    heartNum.push(await Cart.countDocuments({ post: filteredPosts[i] }));
+  }
 
-  res.render('home', { posts, userLocation: user.location, isCategory: false });
+  posts = JSON.stringify(posts);
+  res.render('home', {
+    posts,
+    userLocation: user.location,
+    isCategory: false,
+    heartNum,
+  });
 });
 
 router.get('/search', async (req, res) => {
   const { location, category, input } = req.query;
   let posts;
+  const heartNum = [];
 
   if (location && category) {
     posts = await Post.find({
       location,
       category,
-    });
+    }).sort({ updatedAt: 'desc' });
+
+    for (let i = 0; i < posts.length; i++) {
+      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+    }
     posts = JSON.stringify(posts);
 
     return res.render('home', {
       posts,
       userLocation: location,
       isCategory: true,
+      heartNum,
     });
   } else if (location && input) {
     posts = await Post.find({
       location,
       title: { $regex: input, $options: 'gi' },
-    });
+    }).sort({ updatedAt: 'desc' });
 
-    return res.status(200).json({ posts, userLocation: location });
+    for (let i = 0; i < posts.length; i++) {
+      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+    }
+
+    return res.status(200).json({ posts, userLocation: location, heartNum });
   } else if (location) {
     posts = await Post.find({
       location,
-    });
+    }).sort({ updatedAt: 'desc' });
 
-    return res.status(200).json({ posts, userLocation: location });
+    for (let i = 0; i < posts.length; i++) {
+      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+    }
+
+    return res.status(200).json({ posts, userLocation: location, heartNum });
   }
 });
 
@@ -60,14 +85,21 @@ router.get('/:post_id', async (req, res) => {
   const cart = await Cart.findOne({ user, post });
   const list = await Post.find({ author: post.author });
   const like = await Cart.countDocuments({ post: post._id });
-
-  res.render('./product/detail', { post, list, isClick: cart !== null, like });
+  console.log('user', user);
+  console.log('post', post);
+  res.render('./product/detail', {
+    post,
+    list,
+    isClick: cart !== null,
+    like,
+    user,
+  });
 });
 
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
-  console.log("게시글 생성 값", req.body)
+  console.log('게시글 생성 값', req.body);
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -118,17 +150,16 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  console.log(post)
   res.render('./product/postedit', { post });
 });
 
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
-  console.log("게시글 수정 값", req.body)
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  const thumbnail = req.files
+  const thumbnail = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : '';
+  console.log('thumbnail', thumbnail);
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
     : '';
@@ -136,15 +167,16 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     ...req.body,
     thumbnail,
     price,
-    timestamps: { createdAt: false, updatedAt: true },
+    updatedAt: getCurrentDate(),
   };
 
   const asArray = Object.entries(option);
   const filtered = asArray.filter(
     ([key, value]) => value !== '' && value !== '1',
   );
-  const filteredOpton = Object.fromEntries(filtered);
 
+  const filteredOpton = Object.fromEntries(filtered);
+  console.log(filteredOpton);
   await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
   res.redirect(`/posts/${post.shortId}`);
