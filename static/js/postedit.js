@@ -29,16 +29,16 @@ function uploadCheck(value, port) {
   let files = document.querySelector('.file_input').files.length;
   let postImg = document.querySelector('.post_img_line');
 
-  let imgBox = document.createElement('div');
-  imgBox.classList.add('img-box');
   let file_count = document.querySelectorAll('.img-box > .img ').length;
-
-  let img_datas = value.split(',');
-
   
-
-  imgBox.innerHTML = ``;
+  let img_datas = value.split(',');
+  
+  
+  
   for (let i = 0; i < value.split(',').length; i++) {
+    let imgBox = document.createElement('div');
+    imgBox.classList.add('img-box');
+    imgBox.innerHTML = ``;
     let div = document.createElement('div');
     let img = document.createElement('img');
     let button = document.createElement('button');
@@ -47,23 +47,17 @@ function uploadCheck(value, port) {
     div.classList.add('img');
     img.src = `http://localhost:${port}/${img_datas[i]}`;
     // img.src = URL.createObjectURL(input.files[i]);
-    
     button.type = "button"
-
+    
     button.classList.add('img-cheking');
-
     button.appendChild(img)
     div.appendChild(button);
     imgBox.appendChild(div);
     imgBox.appendChild(itag);
-
-   
+    postImg.appendChild(imgBox);
   }
 
-  postImg.appendChild(imgBox);
-
   let file_counting = document.querySelectorAll('.img-box > .img').length;
-
   data.innerText = `${file_counting}/5`;
 
 }
