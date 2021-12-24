@@ -66,11 +66,4 @@ function uploadCheck(value, port) {
 
   data.innerText = `${file_counting}/5`;
 
-  imgBox.onclick = () => {
-    imgBox.parentNode.removeChild(imgBox);
-    
-    let file_counting = document.querySelectorAll('.img-box > .img').length;
-    data.innerText = `${file_counting}/5`;
-
-  }
 }
