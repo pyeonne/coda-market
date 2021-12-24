@@ -59,8 +59,9 @@ router.get('/:post_id', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.findOne({ user, post });
   const list = await Post.find({ author: post.author });
-  console.log(list);
-  res.render('./product/detail', { post, list, isClick: cart !== null });
+  const like = await Cart.countDocuments({ post: post._id });
+
+  res.render('./product/detail', { post, list, isClick: cart !== null, like });
 });
 
 //게시물 생성
