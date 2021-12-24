@@ -34,6 +34,7 @@ function uploadCheck(value, port) {
 
   let img_datas = value.split(',');
 
+<<<<<<< HEAD
   if (file_count < 5) {
     for (let i = 0; i < value.split(',').length; i++) {
       // if (file_count >= 5)
@@ -55,6 +56,38 @@ function uploadCheck(value, port) {
       imgBox.appendChild(div);
       postImg.appendChild(imgBox);
     }
+=======
+  
+
+  imgBox.innerHTML = ``;
+  for (let i = 0; i < value.split(',').length; i++) {
+    let div = document.createElement('div');
+    let img = document.createElement('img');
+    let button = document.createElement('button');
+    let itag = document.createElement("i")
+    itag.classList.add("fas", "fa-times-circle")
+    div.classList.add('img');
+    img.src = `http://localhost:${port}/${img_datas[i]}`;
+    // img.src = URL.createObjectURL(input.files[i]);
+    
+    button.type = "button"
+
+    button.classList.add('img-cheking');
+
+    button.appendChild(img)
+    div.appendChild(button);
+    imgBox.appendChild(div);
+    imgBox.appendChild(itag);
+
+   
+  }
+
+  postImg.appendChild(imgBox);
+
+  let file_counting = document.querySelectorAll('.img-box > .img').length;
+
+  data.innerText = `${file_counting}/5`;
+>>>>>>> 9813c148073022d85ea1e6ee88a804a400b61395
 
     let file_counting = document.querySelectorAll('.img-box > .img').length;
     data.innerText = `${file_counting}/5`;

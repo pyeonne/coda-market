@@ -48,6 +48,8 @@ function change_btn() {
       let div = document.createElement('div');
       let img = document.createElement('img');
       let button = document.createElement('button');
+      let itag = document.createElement("i")
+      itag.classList.add("fas", "fa-times-circle")
       div.classList.add('img');
       img.src = URL.createObjectURL(input.files[i]);
       button.type = 'button';
@@ -56,6 +58,7 @@ function change_btn() {
       button.appendChild(img);
       div.appendChild(button);
       imgBox.appendChild(div);
+      imgBox.appendChild(itag);
       console.log(URL.createObjectURL(input.files[i]));
       postImg.appendChild(imgBox);
     }

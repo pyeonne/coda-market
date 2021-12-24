@@ -214,7 +214,23 @@ textarea::placeholder {
   bottom: 1px;
 }
 
-.img-cheking img:hover {
+.img-cheking img {
   position: absolute;
-  filter: brightness(60%); 
+
 }
+
+.img-box .img:hover {
+  filter: brightness(60%); 
+  background-color: rgb(206, 200, 200);
+}
+
+.img-box i {
+  position: relative;
+  color: red;
+  right: 15px;
+  bottom: 35px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
