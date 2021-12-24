@@ -31,6 +31,7 @@ router.get('/search', async (req, res) => {
   const { location, category, input } = req.query;
   let posts;
   const heartNum = [];
+
   if (location && category) {
     posts = await Post.find({
       location,
@@ -58,7 +59,7 @@ router.get('/search', async (req, res) => {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
     }
 
-    return res.status(200).json({ posts, userLocation: location });
+    return res.status(200).json({ posts, userLocation: location, heartNum });
   } else if (location) {
     posts = await Post.find({
       location,
@@ -68,7 +69,7 @@ router.get('/search', async (req, res) => {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
     }
 
-    return res.status(200).json({ posts, userLocation: location });
+    return res.status(200).json({ posts, userLocation: location, heartNum });
   }
 });
 

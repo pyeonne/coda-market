@@ -20,13 +20,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
     <script src="/js/home.js" defer></script>
     <script defer>
-      const userLoca = '<%= userLocation %>';
       const isCategory = JSON.parse('<%= isCategory %>');
+      const userLoca = '<%= userLocation %>';
       const getPosts = '<%= posts %>'.replace(/&#34;/g, '"');
       const posts = JSON.parse(getPosts);
+      const heartNum = '<%= heartNum %>'.split(',');
 
       window.onload = function () {
-        setLoation(userLoca, isCategory, posts);
+        setLocation(isCategory, userLoca, posts, heartNum);
       };
     </script>
     <title>코다마켓</title>
