@@ -12,6 +12,7 @@ function getNumber(obj) {
   num01 = setComma(num02);
   obj.value = num01;
 }
+
 function setComma(n) {
   var reg = /(^[+-]?\d+)(\d{3})/;
   n += '';
@@ -51,28 +52,26 @@ function change_btn() {
       let button = document.createElement('button');
       div.classList.add('img');
       img.src = URL.createObjectURL(input.files[i]);
-      button.type = "button"
-      
+      button.type = 'button';
+
       button.classList.add('img-cheking');
-      button.appendChild(img)
+      button.appendChild(img);
       div.appendChild(button);
       imgBox.appendChild(div);
       console.log(URL.createObjectURL(input.files[i]));
     }
     postImg.appendChild(imgBox);
 
-    let file_counting = document.querySelectorAll(
-      '.img-box > .img ',
-    ).length;
+    let file_counting = document.querySelectorAll('.img-box > .img ').length;
 
     data.innerText = `${file_counting}/5`;
-    
+
     imgBox.onclick = () => {
       imgBox.parentNode.removeChild(imgBox);
-      
+
       let file_counting = document.querySelectorAll('.img-box > .img').length;
       data.innerText = `${file_counting}/5`;
-    }
+    };
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }

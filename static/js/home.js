@@ -146,7 +146,7 @@ function makePostList(posts) {
 
     const price = document.createElement('span');
     price.setAttribute('class', 'price');
-    price.innerText = `${post.price}원`;
+    price.innerText = `${post.price.toLocaleString('ko-KR')}원`;
     description.appendChild(price);
 
     const chatAndLike = document.createElement('div');

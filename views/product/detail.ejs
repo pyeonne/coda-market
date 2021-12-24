@@ -4,7 +4,9 @@
 <head>
   <%- include("../layout/head") %>
 
-    <title>Document</title>
+    <title>코다마켓</title>
+
+    <link rel="shortcut icon" href="/img/only-logo.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
       integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous" />
 
@@ -17,7 +19,7 @@
     <link rel="stylesheet" href="/css/nav.css" />
     <link rel="stylesheet" href="/css/detail.css" />
 
-    
+
 </head>
 
 <body onload="check_clicked(`<%= isClick %>`), change_category(`<%= post.category %>`)">
@@ -33,68 +35,56 @@
 
     <div class="menu2">
       <li class="edit"><a href="/posts/<%= post.shortId %>/edit">수정</a></i></li>
-      <li ><a id="delete-btn" href="javascript:void(0)">삭제</a></i></li>
+      <li><a id="delete-btn" href="javascript:void(0)">삭제</a></i></li>
       <!-- /posts/<%= post.shortId %>/delete -->
       <!-- <button id="modal_btn"><i class="fas fa-ellipsis-v"></button></i> -->
     </div>
-    <form
-              class="services__modal"
-              id="pwd__form"
-              method="post"
-              action="/posts/<%= post.shortId %>/delete"
-            >
-              <div class="services__modal-content">
-                <h4 class="services__modal-title">정말 삭제하시나요?</h4>
-                <i class="fas fa-times services__modal-close"></i>
+    <form class="services__modal" id="pwd__form" method="post" action="/posts/<%= post.shortId %>/delete">
+      <div class="services__modal-content">
+        <h4 class="services__modal-title">정말 삭제하시나요?</h4>
+        <i class="fas fa-times services__modal-close"></i>
 
-                <div class="btn-box">
-                  
-                  <button
-                    type="button"
-                    
-                    class="button btn-primary done__btn no"
-                  >
-                    아니오
-                  </button>
-                  <button
-                    type="submit"
-                    id="submit"
-                    class="button btn-primary done__btn yes"
-                  >
-                    예
-                  </button>
-                </div>
-              </div>
-            </form>
+        <div class="btn-box">
+
+          <button type="button" class="button btn-primary done__btn no">
+            아니오
+          </button>
+          <button type="submit" id="submit" class="button btn-primary done__btn yes">
+            예
+          </button>
+        </div>
+      </div>
+    </form>
 
   </div>
-  
+
   <div class="detail-img" id="main_slider">
     <div class="slides owl-carousel owl-theme">
-      
+
       <% if(post.thumbnail) { %>
-        <% for (let i = 0; i < post.images.length; i++) {%>
-        
+        <% for (let i=0; i < post.images.length; i++) {%>
+
           <div class="item"><img src="/<%= post.images[i] %>"></div>
-          
-        <% } %>
-      <% } else { %>
-        <img src="/img/detail-default-logo.png">
-      <% } %>
+
+          <% } %>
+            <% } else { %>
+              <img src="/img/detail-default-logo.png">
+              <% } %>
     </div>
   </div>
-  
+
   <div class="detail-page">
 
     <div class="detail-ch">
 
       <div class="detail-info">
-        
-        <a href="/profile"><img src="<%= post.author.thumbnail ? `/${post.author.thumbnail}` : '/img/profile.png' %>" alt="" class="img-profile"></a>
+
+        <a href="/profile"><img src="<%= post.author.thumbnail ? `/${post.author.thumbnail}` : '/img/profile.png' %>"
+            alt="" class="img-profile"></a>
 
         <div class="info-my">
           <span>
-            
+
             <%= post.author.name %>
           </span>
           <span>
@@ -107,76 +97,59 @@
     <hr style="border: solid 1px #f3eeee">
 
     <div class="defailt-content">
-      <%
-      // 날짜 계산
-      function timeForToday(value) {
-        const today = new Date();
-        const timeValue = new Date(value);
-      
-        const betweenTime = Math.floor(
-          (today.getTime() - timeValue.getTime()) / 1000 / 60,
-        );
-        if (betweenTime < 1) return '방금전';
-        if (betweenTime < 60) {
-          return `${betweenTime}분전`;
-        }
-      
-        const betweenTimeHour = Math.floor(betweenTime / 60);
-        if (betweenTimeHour < 24) {
-          return `${betweenTimeHour}시간전`;
-        }
-      
-        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-        if (betweenTimeDay < 365) {
-          return `${betweenTimeDay}일전`;
-        }
-      
-        return `${Math.floor(betweenTimeDay / 365)}년전`;
-      }
-      %>
-      <div class="content-top">
-        <div class='title-top'>
-          <h2>
-            <%= post.title %>
-          </h2>
+      <% // 날짜 계산 function timeForToday(value) { const today=new Date(); const timeValue=new Date(value); const
+        betweenTime=Math.floor( (today.getTime() - timeValue.getTime()) / 1000 / 60, ); if (betweenTime < 1)
+        return '방금전' ; if (betweenTime < 60) { return `${betweenTime}분전`; } const betweenTimeHour=Math.floor(betweenTime
+        / 60); if (betweenTimeHour < 24) { return `${betweenTimeHour}시간전`; } const betweenTimeDay=Math.floor(betweenTime
+        / 60 / 24); if (betweenTimeDay < 365) { return `${betweenTimeDay}일전`; } return `${Math.floor(betweenTimeDay /
+        365)}년전`; } %>
+        <div class="content-top">
+          <div class='title-top'>
+            <h2>
+              <%= post.title %>
+            </h2>
 
-          
-        </div>
-        <div class="content-info">
-          <div>
-            <a href="/" class="category-text">
-              <%= post.category %>
-            </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
+
           </div>
+          <div class="content-info">
+            <div>
+              <a href="/" class="category-text">
+                <%= post.category %>
+              </a> · <span id="get_times">
+                <%= timeForToday(post.updatedAt)%>
+              </span>
+            </div>
 
-          <div class='sold-out-box'>
-            <% if(post.isSoldOut==false) { %>
-              <div class="product-check check1">
-                판매중
-              </div>
-              <% } else { %>
-                <div class="product-check check2">
-                  판매완료
+            <div class='sold-out-box'>
+              <% if(post.isSoldOut==false) { %>
+                <div class="product-check check1">
+                  판매중
                 </div>
-                <% } %>
+                <% } else { %>
+                  <div class="product-check check2">
+                    판매완료
+                  </div>
+                  <% } %>
+            </div>
           </div>
+
+
+
         </div>
 
+        <div class="content-mid">
+          <p>
+            <%= post.content %>
 
 
-      </div>
+          </p>
+        </div>
 
-      <div class="content-mid">
-        <p>
-          <%= post.content %>
-          
-          
-        </p>
-      </div>
-
-      <div class="content-bottom">
-        <p><i class="fas fa-heart"></i> <%= like %></p>
-      </div>
+        <div class="content-bottom">
+          <p><i class="fas fa-heart"></i>
+            <%= like %>
+          </p>
+        </div>
     </div>
     <hr style="border: solid 1px #f3eeee">
 
@@ -190,20 +163,25 @@
 
     <div class="container">
       <% if (list) { %>
-        <% for (let j = 0; j < list.length; j++) { %>
+        <% for (let j=0; j < list.length; j++) { %>
           <div class="product-item">
-            <a href="/posts/<%= list[j].shortId%>/"><img src="<%= list[j].thumbnail ? `/${list[j].thumbnail}` : `/img/detail-default-logo.png`%>"></a>
+            <a href="/posts/<%= list[j].shortId%>/"><img
+                src="<%= list[j].thumbnail ? `/${list[j].thumbnail}` : `/img/detail-default-logo.png`%>"></a>
             <div class="product-info">
-              <a href="/posts/<%= list[j].shortId%>/" class="product-title"><%= list[j].title%></a>
-              <span class="product-price"><%= list[j].price%>원</span>
+              <a href="/posts/<%= list[j].shortId%>/" class="product-title">
+                <%= list[j].title%>
+              </a>
+              <span class="product-price">
+                <%= list[j].price%>원
+              </span>
             </div>
           </div>
-        <% } %>
-      <% } %>
-     
-     
+          <% } %>
+            <% } %>
 
-      
+
+
+
 
     </div>
   </div>
@@ -240,16 +218,16 @@
       * 이미지 슬라이드 기능을 추가합니다.
       */
       $(".owl-carousel").owlCarousel({
-          items: 1,
-          loop: true,
-          autoplay: false,
-          dots: true,
-          autoplayTimeout: 5000,
-          autoplayHoverPause: true
+        items: 1,
+        loop: true,
+        autoplay: false,
+        dots: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true
       })
     }
-  
-  mainSlide()
+
+    mainSlide()
 
     /*** Modal ***/
     const modalViews = document.querySelector('.services__modal');
@@ -290,11 +268,11 @@
     const navbar = document.querySelector('.menus');
     const navbarHeight = navbar.getBoundingClientRect().height;
     document.addEventListener('scroll', () => {
-        if (window.scrollY > navbarHeight) {
-            navbar.classList.add('navbar--dark');
-        } else {
-            navbar.classList.remove('navbar--dark');
-        }
+      if (window.scrollY > navbarHeight) {
+        navbar.classList.add('navbar--dark');
+      } else {
+        navbar.classList.remove('navbar--dark');
+      }
     });
 
   </script>

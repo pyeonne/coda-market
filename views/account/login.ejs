@@ -1,60 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include("../layout/head") %>
 
+<head>
+  <%- include("../layout/head") %>
+
+    <link rel="shortcut icon" href="/img/only-logo.png">
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/login.css" />
-    <title>Login</title>
-  </head>
+    <title>코다마켓</title>
+</head>
 
-  <body>
-    <div class="container">
-      <div class="logo">코다마켓</div>
+<body>
+  <div class="container">
+    <div class="logo">코다마켓</div>
 
-      <form id="form" method="post" action="/auth" class="login-form">
-        <input
-          type="text"
-          name="id"
-          placeholder="아이디"
-          class="loginbox"
-          required
-        /><br />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          class="loginbox"
-          required
-        />
-      </form>
+    <form id="form" method="post" action="/auth" class="login-form">
+      <input type="text" name="id" placeholder="아이디" class="loginbox" required /><br />
+      <input type="password" name="password" placeholder="비밀번호" class="loginbox" required />
+    </form>
 
-      <div class="login-menu">
-        <div class="keep-login">
-          <input type="checkbox" name="xxx" value="yyy" checked />
-          <a href="#">로그인 유지</a>
-        </div>
-        <div class="find">
-          <a href="/find/id">아이디</a>
-          <a href="/find/password">비밀번호 찾기</a>
-        </div>
+    <div class="login-menu">
+      <div class="keep-login">
+        <input type="checkbox" name="xxx" value="yyy" checked />
+        <a href="#">로그인 유지</a>
       </div>
+      <div class="find">
+        <a href="/find/id">아이디</a>
+        <a href="/find/password">비밀번호 찾기</a>
+      </div>
+    </div>
 
-      <% if (locals.loginFailed) { %>
+    <% if (locals.loginFailed) { %>
       <div class="loginFailed-message">
         <span>아이디 또는 비밀번호가 잘못 입력 되었습니다:(</span>
-        <span
-          ><strong>아이디</strong>와 <strong>비밀번호</strong>를 정확히 입력해
-          주세요!</span
-        >
+        <span><strong>아이디</strong>와 <strong>비밀번호</strong>를 정확히 입력해
+          주세요!</span>
       </div>
       <% } %>
-      <button type="submit" form="form" class="login-btn">로그인</button>
+        <button type="submit" form="form" class="login-btn">로그인</button>
 
-      <p>
-        아직 회원이 아니신가요?
-        <a href="./signup"><span class="first__login">가입하기</span></a>
-      </p>
-    </div>
-  </body>
+        <p>
+          아직 회원이 아니신가요?
+          <a href="./signup"><span class="first__login">가입하기</span></a>
+        </p>
+  </div>
+</body>
+
 </html>
