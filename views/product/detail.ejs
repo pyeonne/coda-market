@@ -169,6 +169,7 @@
       <div class="content-mid">
         <p>
           <%= post.content %>
+          <%= list[0] %>
           
         </p>
       </div>
@@ -188,150 +189,21 @@
     <hr style="border: solid 1px #f3eeee">
 
     <div class="container">
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
+      <% if (list) { %>
+        <% for (let j = 0; j < list.length; j++) { %>
+          <div class="product-item">
+            <a href="/posts/<%= list[j].shortId%>/"><img src="<%= list[j].thumbnail ? `/${list[j].thumbnail}` : `/img/detail-default-logo.png`%>"></a>
+            <div class="product-info">
+              <a href="/posts/<%= list[j].shortId%>/" class="product-title"><%= list[j].title%></a>
+              <span class="product-price"><%= list[j].price%>원</span>
+            </div>
+          </div>
+        <% } %>
+      <% } %>
+     
+     
 
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
-      <div class="product-item">
-        <a href="/product/detail/"><img src="/img/sample.jpg"></a>
-        <div class="product-info">
-          <a href="/product/detail/" class="product-title">샘플 데이터</a>
-          <span class="product-price">10,000원</span>
-        </div>
-      </div>
-
+      
 
     </div>
   </div>

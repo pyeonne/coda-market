@@ -200,6 +200,13 @@ li {
   justify-content: space-between;
 }
 
+.container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: grid;
+  gap: 1rem;
+}
+
 .now-product-list > a {
   color: gray;
   font-size: 14px;
@@ -219,6 +226,10 @@ li {
   width: 120px;
 }
 
+.container .product-info {
+  display: grid;
+}
+
 @media (min-width: 425px) {
   .container {
     justify-content: unset;
@@ -227,7 +238,9 @@ li {
 
 .container .product-item img {
   width: 250px;
+  height: 100px;
   border-radius: 10%;
+  object-fit: cover;
 }
 
 .container .product-info {
