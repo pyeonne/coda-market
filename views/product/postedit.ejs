@@ -19,7 +19,7 @@
 
 <body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)">
   
-  <form action="/posts/<%= post.shortId %>/edit" method="post">
+  <form action="/posts/<%= post.shortId %>/edit" method="post" enctype="multipart/form-data">
     <div class="post_nav">
       <ul class="post_menu">
         <li><a href="/"><i class="fas fa-times"></a></i></li>
@@ -105,6 +105,7 @@
 
   <%- include("../layout/nav-bottom") %>
     <script src="/js/post.js"></script>
+    <script src="/js/postedit.js"></script>
 </body>
 
 </html>

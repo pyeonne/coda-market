@@ -5,6 +5,7 @@ import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import hashingPassword from '../utils/hash-password.js';
 import { nanoid } from 'nanoid';
+import getCurrentDate from '../utils/getTime.js';
 
 const router = express.Router();
 
@@ -67,7 +68,6 @@ router.get('/:post_id', async (req, res) => {
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
-  console.log("게시글 생성 값", req.body)
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -118,17 +118,16 @@ router.post('/:post_id/delete', async (req, res) => {
 
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-  console.log(post)
   res.render('./product/postedit', { post });
 });
 
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
-  console.log("게시글 수정 값", req.body)
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  const thumbnail = req.files
+  const thumbnail = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : '';
+  console.log('thumbnail', thumbnail);
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
     : '';
@@ -136,7 +135,7 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     ...req.body,
     thumbnail,
     price,
-    timestamps: { createdAt: false, updatedAt: true },
+    updatedAt: getCurrentDate(),
   };
 
   const asArray = Object.entries(option);
@@ -144,8 +143,12 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     ([key, value]) => value !== '' && value !== '1',
   );
   const filteredOpton = Object.fromEntries(filtered);
-
-  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
+  console.log(filteredOpton);
+  await Post.findOneAndUpdate(
+    { shortId: req.params.post_id },
+    filteredOpton,
+    {},
+  );
 
   res.redirect(`/posts/${post.shortId}`);
 });
