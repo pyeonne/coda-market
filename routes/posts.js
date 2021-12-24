@@ -21,8 +21,6 @@ router.get('/search', async (req, res) => {
   let posts;
 
   if (location && category) {
-    console.log('location && category');
-
     posts = await Post.find({
       location,
       category,
@@ -35,8 +33,6 @@ router.get('/search', async (req, res) => {
       isCategory: true,
     });
   } else if (location && input) {
-    console.log('location && input');
-
     posts = await Post.find({
       location,
       title: { $regex: input, $options: 'gi' },
@@ -44,8 +40,6 @@ router.get('/search', async (req, res) => {
 
     return res.status(200).json({ posts, userLocation: location });
   } else if (location) {
-    console.log('location');
-
     posts = await Post.find({
       location,
     });
@@ -64,8 +58,10 @@ router.get('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: post_id }).populate('author');
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.findOne({ user, post });
+  const list = await Post.find({ author: post.author });
+  const like = await Cart.countDocuments({ post: post._id });
 
-  res.render('./product/detail', { post: post, isClick: cart !== null });
+  res.render('./product/detail', { post, list, isClick: cart !== null, like });
 });
 
 //게시물 생성
@@ -94,7 +90,6 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     shortId: nanoid(),
   });
 
-  console.log(post);
   res.redirect(`/posts/${post.shortId}`);
 });
 
