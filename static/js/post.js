@@ -41,27 +41,38 @@ function change_btn() {
   let imgBox = document.createElement('div');
   imgBox.classList.add('img-box');
 
-  let file_count = document.querySelectorAll('.img-box > .img > img').length;
+  let file_count = document.querySelectorAll('.img-box > .img ').length;
 
   if (file_count < 5) {
     imgBox.innerHTML = ``;
     for (let i = 0; i < files; i++) {
       let div = document.createElement('div');
       let img = document.createElement('img');
+      let button = document.createElement('button');
       div.classList.add('img');
-    
       img.src = URL.createObjectURL(input.files[i]);
-      div.appendChild(img);
+      button.type = "button"
+      
+      button.classList.add('img-cheking');
+      button.appendChild(img)
+      div.appendChild(button);
       imgBox.appendChild(div);
       console.log(URL.createObjectURL(input.files[i]));
     }
     postImg.appendChild(imgBox);
 
     let file_counting = document.querySelectorAll(
-      '.img-box > .img > img',
+      '.img-box > .img ',
     ).length;
 
     data.innerText = `${file_counting}/5`;
+    
+    imgBox.onclick = () => {
+      imgBox.parentNode.removeChild(imgBox);
+      
+      let file_counting = document.querySelectorAll('.img-box > .img').length;
+      data.innerText = `${file_counting}/5`;
+    }
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }

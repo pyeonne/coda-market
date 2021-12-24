@@ -1,10 +1,10 @@
-import { render } from 'ejs';
 import express from 'express';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import hashingPassword from '../utils/hash-password.js';
+import { nanoid } from 'nanoid';
 
 const router = express.Router();
 
@@ -21,36 +21,30 @@ router.get('/search', async (req, res) => {
   let posts;
 
   if (location && category) {
-    console.log('location && category');
-
     posts = await Post.find({
       location,
       category,
     });
     posts = JSON.stringify(posts);
 
-    res.render('home', {
+    return res.render('home', {
       posts,
       userLocation: location,
       isCategory: true,
     });
   } else if (location && input) {
-    console.log('location && input');
-
     posts = await Post.find({
       location,
       title: { $regex: input, $options: 'gi' },
     });
 
-    res.status(200).json({ posts, userLocation: location });
+    return res.status(200).json({ posts, userLocation: location });
   } else if (location) {
-    console.log('location');
-
     posts = await Post.find({
       location,
     });
 
-    res.status(200).json({ posts, userLocation: location });
+    return res.status(200).json({ posts, userLocation: location });
   }
 });
 
@@ -64,12 +58,16 @@ router.get('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: post_id }).populate('author');
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.findOne({ user, post });
-  res.render('./product/detail', { post: post, isClick: cart !== null });
+  const list = await Post.find({ author: post.author });
+  const like = await Cart.countDocuments({ post: post._id });
+
+  res.render('./product/detail', { post, list, isClick: cart !== null, like });
 });
 
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
+  console.log("게시글 생성 값", req.body)
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -89,6 +87,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     price: price.replace(' 원', '').replace(/,/gi, ''),
     author: user,
     thumbnail: imageArray[0],
+    shortId: nanoid(),
   });
 
   res.redirect(`/posts/${post.shortId}`);
@@ -117,42 +116,36 @@ router.post('/:post_id/delete', async (req, res) => {
   res.redirect('/posts/');
 });
 
-//게시물 업데이트
-//localhost:3000/post/:postId - patch
-
-// router.get('/:post_id/edit', async (req, res) => {
-//   const { post_id } = req.params;
-
-//   const post = await Post.findOneAndUpdate({ id: post_id }, req.body, {
-//     new: true,
-//     upsert: true,
-//     timestamps: { createdAt: false, updatedAt: true },
-//   });
-
-//   res.render('./product/postedit', { mypost : post });
-// });
-
-// front update test
-
 router.get('/:post_id/edit', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
+  console.log(post)
   res.render('./product/postedit', { post });
 });
 
-router.post('/:post_id/edit', async (req, res) => {
+router.post('/:post_id/edit', store.array('images'), async (req, res) => {
+  console.log("게시글 수정 값", req.body)
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  const thumbnail = req.file ? req.file.path.replace(/\\/g, '/') : '';
+  const thumbnail = req.files
+    ? req.files.map(img => img.path.replace(/\\/g, '/'))
+    : '';
+  const price = req.body.price
+    ? req.body.price.replace(' 원', '').replace(/,/gi, '')
+    : '';
+  const option = {
+    ...req.body,
+    thumbnail,
+    price,
+    timestamps: { createdAt: false, updatedAt: true },
+  };
 
-  await Post.findOneAndUpdate(
-    { shortId: req.params.post_id },
-    {
-      ...req.body,
-      thumbnail,
-      price: req.body.price.replace(' 원', '').replace(/,/gi, ''),
-      timestamps: { createdAt: false, updatedAt: true },
-    },
+  const asArray = Object.entries(option);
+  const filtered = asArray.filter(
+    ([key, value]) => value !== '' && value !== '1',
   );
+  const filteredOpton = Object.fromEntries(filtered);
+
+  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
   res.redirect(`/posts/${post.shortId}`);
 });

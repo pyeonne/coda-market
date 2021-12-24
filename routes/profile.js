@@ -27,14 +27,11 @@ router.get('/', async (req, res) => {
 
 router.get('/edit', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
-  console.log(user);
   res.render('./profile-edit.ejs', { user });
 });
 
 router.post('/password-check', async (req, res) => {
   const user = await User.findOne({ name: req.user.name });
-
-  console.log(user.password === hashingPassword(req.body.password));
 
   if (user.password === hashingPassword(req.body.password)) {
     res.redirect('/profile/edit');
@@ -47,17 +44,21 @@ router.post('/edit', store.single('image'), async (req, res) => {
   const { name, pwd, location } = req.body;
 
   const thumbnail = req.file ? req.file.path.replace(/\\/g, '/') : '';
-  const password = hashingPassword(pwd);
-  await User.findOneAndUpdate(
-    { shortId: req.user.id },
-    {
-      name,
-      password,
-      location,
-      thumbnail,
-    },
-  );
+  const password = pwd ? hashingPassword(pwd) : '';
 
+  const option = { name, location, thumbnail, password };
+
+  const asArray = Object.entries(option);
+  const filtered = asArray.filter(([key, value]) => value !== '');
+  const filteredOpton = Object.fromEntries(filtered);
+
+  const user = await User.findOneAndUpdate(
+    { shortId: req.user.id },
+    filteredOpton,
+    { new: true },
+  );
+  console.log(filteredOpton);
+  console.log(user);
   res.redirect('/profile');
 });
 

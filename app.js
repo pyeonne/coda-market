@@ -52,7 +52,7 @@ app.use('/signup', signupRouter);
 app.use('/posts', postRouter);
 app.use('/auth', authRouter);
 app.use('/cart', cartRouter);
-app.use('/find/', findRouter);
+app.use('/find', findRouter);
 app.use('/messages', messagesRouter);
 app.use('/', homeRouter);
 // app.use('/main', mainRouter);

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../layout/head") %>
+
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/profile-edit.css" />
+    <link rel="stylesheet" href="/css/nav-bottom.css" />
+
+    <title>Profile</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header profile__header" id="header">
+      <nav class="nav container">
+        <div class="nav__btns">
+          <a href="./login" class="nav__toggle" id="nav-toggle">
+            <i class="fas fa-times nav__icon"></i>
+          </a>
+        </div>
+        <a href="javascript:void(0)" class="nav__logo">비밀번호 찾기</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main role="main" class="main">
+      <!-- Profile -->
+      <form class="profile section" id="profile form" method="post" action="/find/password">
+        <div class="profile__container container grid profile">
+          <div class="profile__content grid">
+            
+            
+            <p class="profile__alt">비밀번호는 가입한 닉네임과 이메일을 통해</br> 찾으실 수 있습니다.</p>
+            <input name="id" type="text" class="profile__rename" required>
+            <p class="profile__alt">닉네임을 입력해주세요.</p>
+            <input name="email" type="email" class="profile__rename" required>
+            <p class="profile__alt">이메일을 입력해주세요.</p>
+          </div>
+          
+
+         
+          <div>
+            <button type="submit" id="submit" class="btn btn-primary done__btn">찾기</button>
+          </div>
+          
+        </div>
+      </form>
+
+   
+
+      <!-- JS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="js/pwd.js"></script>
+
+      
+  </body>
+</html>
