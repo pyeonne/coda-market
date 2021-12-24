@@ -95,6 +95,10 @@ li {
   margin-top: 50px;
 }
 
+.item img {
+  object-fit: cover;
+}
+
 .owl-dots {
   position: absolute;
   left: 50%;
