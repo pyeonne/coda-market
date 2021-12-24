@@ -97,8 +97,7 @@ let save_cart = async value => {
   } else {
     likeNum.innerText = Number(likeNum.innerText) - 1;
   }
-  if (heart.classList.has)
-    await fetch(url, {
-      method: 'post',
-    });
+  await fetch(url, {
+    method: 'post',
+  });
 };
