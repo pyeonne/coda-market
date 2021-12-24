@@ -198,7 +198,7 @@
             <a href="/posts/<%= list[j].shortId%>/"><img src="<%= list[j].thumbnail ? `/${list[j].thumbnail}` : `/img/detail-default-logo.png`%>"></a>
             <div class="product-info">
               <a href="/posts/<%= list[j].shortId%>/" class="product-title"><%= list[j].title%></a>
-              <span class="product-price"><%= list[j].price%>원</span>
+              <span class="product-price"><%= list[j].price.toLocaleString('ko-KR')%>원</span>
             </div>
           </div>
         <% } %>
@@ -222,7 +222,6 @@
           <span id="ds-pice">
             <%= post.price %>원
           </span>
-          <span id="ds-option">가격 제안 불가</span>
         </div>
       </div>
     </div>

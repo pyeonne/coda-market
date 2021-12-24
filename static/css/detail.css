@@ -294,6 +294,9 @@ li {
   font-size: 18px;
   font-weight: bold;
   color: black;
+  position: relative;
+  top: 4px;
+
 }
 
 .menu1-item #ds-option {
@@ -309,6 +312,9 @@ li {
   border-radius: 7px;
   background-color: #7979d3;
   align-items: center;
+  position: relative;
+  bottom: 4px;
+  left: 10px;
 }
 
 .last-menu2 a {
