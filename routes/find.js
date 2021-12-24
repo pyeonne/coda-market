@@ -23,7 +23,7 @@ router.post('/id', async (req, res) => {
     secure: false,
     auth: {
       user: 'clsrns1111@gmail.com',
-      pass: process.env.emailPassword,
+      pass: 'dyddus11!',
     },
   });
 
@@ -46,7 +46,7 @@ router.post('/id', async (req, res) => {
   });
 });
 
-router.post('/pwd', async (req, res) => {
+router.post('/password', async (req, res) => {
   let receiverEmail = req.body.email;
   let receiveruserId = req.body.id;
   console.log(receiverEmail);
@@ -75,7 +75,7 @@ router.post('/pwd', async (req, res) => {
     secure: false,
     auth: {
       user: 'clsrns1111@gmail.com',
-      pass: process.env.emailPassword,
+      pass: 'dyddus11!',
     },
   });
   console.log('ddddd');
