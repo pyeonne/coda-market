@@ -38,6 +38,16 @@ function change_btn() {
   let fileName = document.querySelector('.file_input').files;
   let files = document.querySelector('.file_input').files.length;
   let postImg = document.querySelector('.post_img_line');
+<<<<<<< HEAD
+  let file_count = document.querySelectorAll('.img-box > .img ').length;
+
+  if (file_count < 5) {
+    // imgBox.innerHTML = ``;
+
+    for (let i = 0; i < files; i++) {
+      let imgBox = document.createElement('div');
+      imgBox.classList.add('img-box');
+=======
 
   let file_count = document.querySelectorAll('.img-box > .img ').length;
 
@@ -46,6 +56,7 @@ function change_btn() {
       let imgBox = document.createElement('div');
       imgBox.classList.add('img-box');
       imgBox.innerHTML = ``;
+>>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
       let div = document.createElement('div');
       let img = document.createElement('img');
       let button = document.createElement('button');
@@ -63,10 +74,33 @@ function change_btn() {
       console.log(URL.createObjectURL(input.files[i]));
       postImg.appendChild(imgBox);
     }
+<<<<<<< HEAD
+=======
 
     let file_counting = document.querySelectorAll('.img-box > .img ').length;
+>>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
 
+    let file_counting = document.querySelectorAll('.img-box > .img ').length;
     data.innerText = `${file_counting}/5`;
+<<<<<<< HEAD
+
+    const images = document.querySelectorAll('.img-box');
+
+    images.forEach(image =>
+      image.addEventListener('click', e => {
+        image.remove();
+        let file_counting = document.querySelectorAll('.img-box > .img').length;
+        data.innerText = `${file_counting}/5`;
+      }),
+    );
+
+    // imgBox.onclick = () => {
+    //   imgBox.parentNode.removeChild(imgBox);
+    //   let file_counting = document.querySelectorAll('.img-box > .img').length;
+    //   data.innerText = `${file_counting}/5`;
+    // };
+=======
+>>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }

@@ -4,6 +4,7 @@ import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import { nanoid } from 'nanoid';
+import getCurrentDate from '../utils/getTime.js';
 
 const router = express.Router();
 
@@ -174,10 +175,13 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const filtered = asArray.filter(
     ([key, value]) => value !== '' && value !== '1',
   );
-
   const filteredOpton = Object.fromEntries(filtered);
   console.log(filteredOpton);
-  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
+  await Post.findOneAndUpdate(
+    { shortId: req.params.post_id },
+    filteredOpton,
+    {},
+  );
 
   res.redirect(`/posts/${post.shortId}`);
 });

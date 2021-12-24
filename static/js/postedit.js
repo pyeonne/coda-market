@@ -35,29 +35,25 @@ function uploadCheck(value, port) {
 
   let img_datas = value.split(',');
 
-  
-
   imgBox.innerHTML = ``;
   for (let i = 0; i < value.split(',').length; i++) {
     let div = document.createElement('div');
     let img = document.createElement('img');
     let button = document.createElement('button');
-    let itag = document.createElement("i")
-    itag.classList.add("fas", "fa-times-circle")
+    let itag = document.createElement('i');
+    itag.classList.add('fas', 'fa-times-circle');
     div.classList.add('img');
     img.src = `http://localhost:${port}/${img_datas[i]}`;
     // img.src = URL.createObjectURL(input.files[i]);
-    
-    button.type = "button"
+
+    button.type = 'button';
 
     button.classList.add('img-cheking');
 
-    button.appendChild(img)
+    button.appendChild(img);
     div.appendChild(button);
     imgBox.appendChild(div);
     imgBox.appendChild(itag);
-
-   
   }
 
   postImg.appendChild(imgBox);
@@ -65,5 +61,4 @@ function uploadCheck(value, port) {
   let file_counting = document.querySelectorAll('.img-box > .img').length;
 
   data.innerText = `${file_counting}/5`;
-
 }
