@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 
 const router = express.Router();
 
-router.get('/id', (req, res) => res.render('./account/setId'));
+router.get('/id', (req, res) => res.render('./account/setid'));
 router.get('/password', (req, res) => res.render('./account/setpwd'));
 
 // localhost:3000/find/id
