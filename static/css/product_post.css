@@ -224,3 +224,13 @@ textarea::placeholder {
   background-color: rgb(206, 200, 200);
 }
 
+.img-box i {
+  position: relative;
+  color: red;
+  right: 15px;
+  bottom: 35px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
