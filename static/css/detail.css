@@ -168,6 +168,7 @@ li {
 .sold-out-box {
   position: relative;
   bottom: 8px;
+  right: 14px;
 }
 
 .content-info a {
@@ -220,6 +221,7 @@ li {
   max-width: 1800px;
   margin-bottom: 15px;
   justify-content: space-between;
+  padding: 15px 40px 15px 40px;
 }
 
 .container .product-item {
