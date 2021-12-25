@@ -4,6 +4,7 @@ const postImg = document.querySelector('.post_img_line');
 const pathList = document.querySelector('#pathList');
 const form = document.querySelector('#actionForm');
 const post_img_btn = document.querySelector('.post_img_btn');
+let file_input = document.querySelector('.file_input');
 
 let list = [];
 
@@ -130,6 +131,8 @@ function listFilter() {
 
   for (let i = 0; i < imgFiles.length; i++) {
     const text = imgFiles[i].src;
+    console.log(text);
+    console.log(text.replace(`http://localhost:${3000}/`, ''));
     arr.push(text.replace(`http://localhost:${3000}/`, ''));
   }
 
@@ -156,4 +159,11 @@ function changeSoldOut(boolean) {
     selectBtn.style.color = 'green';
   }
   selectBtn.value = boolean;
+}
+
+function onChange(event) {
+  const e = event || window.event;
+  const file = e.target.files;
+
+  file.value = '';
 }

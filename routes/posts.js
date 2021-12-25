@@ -133,7 +133,7 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
 
   console.log(pathList);
 
-  let images = req.files
+  let images = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : [];
 
