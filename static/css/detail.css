@@ -23,7 +23,6 @@ li {
   left: 16px;
 
   font-size: 20px;
-
   cursor: pointer;
 }
 
@@ -47,7 +46,16 @@ li {
 }
 
 .menu2 li a {
+  position: relative;
+  top: 2px;
   width: 100%;
+  border: solid 1px;
+  padding: 3px 10px 3px 10px;
+  background-color: #7979d3;
+  color: white;
+  border-radius: 10px;
+  font-size: 14px;
+
 }
 
 /* .menu2 button {
