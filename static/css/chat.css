@@ -179,7 +179,7 @@ footer i {
 
 @media screen and (min-width: 480px) {
   main .other-chat .chat {
-    width: inherit;
+    max-width: inherit;
   }
 
   header .post-info .post-description .status-and-title .title {
