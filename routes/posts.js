@@ -120,12 +120,7 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : [];
 
-  console.log('=======================images', images);
-  console.log('=======================pathList', pathList);
-
   images = pathList.concat(images).slice(0, 5);
-
-  console.log('=======================images', images);
 
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')

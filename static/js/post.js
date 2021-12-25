@@ -73,6 +73,9 @@ function change_btn() {
     for (let i = 0; i < files; i++) {
       createItem(URL.createObjectURL(input.files[i]));
     }
+
+    fileNumberAlert();
+
     fileCounting();
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
@@ -106,31 +109,23 @@ function createItem(path, type) {
 
 function onImageRemove(target) {
   target.remove();
-  // listFilter();
   fileCounting();
 }
 
-// function listFilter() {
-//   const imgFiles = document.querySelectorAll('.img-checking img');
-
-//   let arr = [];
-
-//   for (let i = 0; i < imgFiles.length; i++) {
-//     const text = imgFiles[i].src;
-//     arr.push(text);
-//   }
-
-//   list = arr.filter(el => !el.includes('blob'));
-// }
+function fileNumberAlert() {
+  const input = document.querySelector('.file_input');
+  const imageFiles = document.querySelectorAll('.img-box');
+  console.log(imageFiles.length);
+  for (let i = 0; i < imageFiles.length; i++) {
+    if (i > 4) {
+      imageFiles[i].remove();
+    }
+  }
+  alert('이미지는 최대 5개까지 첨부할 수 있어요');
+}
 
 function fileCounting() {
   const file_counting = document.querySelectorAll('.img-box > .img').length;
-  // const formData = new FormData();
-
-  // pathList.value = list.length ? list : '';
-
-  // formData.append('pathList', pathList);
-
   data.innerText = `${file_counting}/5`;
 }
 
