@@ -391,3 +391,8 @@ li {
 .btn-box .yes {
   background-color: #f75e6a;
 }
+
+.likeNum {
+  margin-left: 2px;
+  font-size: 12px;
+}
