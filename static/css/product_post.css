@@ -122,7 +122,8 @@
   appearance: none;
 }
 
-.category_btn, .sold_btn {
+.category_btn,
+.sold_btn {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
@@ -210,17 +211,14 @@ textarea::placeholder {
   font-size: 16px;
 }
 
-.img-cheking img  {
-  bottom: 1px;
-}
-
-.img-cheking img {
+.img-checking img {
   position: absolute;
-
+  top: 0;
+  bottom: 0;
 }
 
 .img-box .img:hover {
-  filter: brightness(60%); 
+  filter: brightness(60%);
   background-color: rgb(206, 200, 200);
 }
 
@@ -232,5 +230,3 @@ textarea::placeholder {
   cursor: pointer;
   font-size: 14px;
 }
-
-

@@ -87,6 +87,8 @@
 
 .histories__icon {
   margin-right: var(--mb-0-75);
+  width: 32px;
+  text-align: center;
 }
 
 .histories__title {
