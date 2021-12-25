@@ -48,6 +48,7 @@ li {
 .menu2 li a {
   position: relative;
   top: 2px;
+  left: 10px;
   width: 100%;
   border: solid 1px;
   padding: 3px 10px 3px 10px;
