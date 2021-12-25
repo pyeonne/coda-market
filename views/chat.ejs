@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("./layout/head") %>
+
+    <link rel="shortcut icon" href="/img/only-logo.png">
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/chat.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+
+    <title>코다마켓</title>
+</head>
+
+<body>
+  <header>
+    <div class="btn-and-user">
+      <ul class="btn-list">
+        <li class="back-btn">
+          <a href="/posts">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+        </li>
+      </ul>
+
+      <h1>EliceRabbit</h1>
+    </div>
+
+    <div class="post-info">
+      <img src="/img/mac2.jpg" alt="">
+      <div class="post-description">
+        <div class="status-and-title">
+          <span class="status">판매중</span>
+          <span class="title">아이폰12 화이트 128GB 팔아요~ 상태 좋습니다!</span>
+        </div>
+        <span class="price">600,000원</span>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="other-chat">
+      <img src="/img/profile.jpg" alt="other-user-img">
+      <span class="chat">
+        test test test test test test test test test test test test test test test test test test test test test test
+        test test test test test test test test test test test test test test
+      </span>
+      <span class="time">오후 4:01</span>
+    </div>
+
+    <div class="my-chat">
+      <span class="time">오후 4:08</span>
+      <span class="chat">
+        test test test test test test test test test test test test
+      </span>
+    </div>
+
+    <div class="for-bottom-margin"></div>
+  </main>
+
+  <footer>
+    <input id="message" type="text" placeholder="메시지를 입력해주세요:)">
+    <i class="fas fa-arrow-circle-up"></i>
+  </footer>
+</body>
+
+</html>
