@@ -4,11 +4,14 @@ const postImg = document.querySelector('.post_img_line');
 const pathList = document.querySelector('#pathList');
 const form = document.querySelector('#actionForm');
 const post_img_btn = document.querySelector('.post_img_btn');
+let file_input = document.querySelector('.file_input');
 
 let list = [];
 
 function file_btn() {
-  let data = document.querySelector('.file_input').click();
+  // console.log(data.value);
+  // data.value = null;
+  file_input.click();
 }
 
 /* 세자리 마다 숫자 찍기 펑션 */
@@ -85,7 +88,6 @@ function change_btn() {
         onImageRemove(e.target.closest('.img-box')),
       ),
     );
-    input.value = null;
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
@@ -155,4 +157,11 @@ function changeSoldOut(boolean) {
     selectBtn.style.color = 'green';
   }
   selectBtn.value = boolean;
+}
+
+function onChange(event) {
+  const e = event || window.event;
+  const file = e.target.files;
+
+  file.value = '';
 }

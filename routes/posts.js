@@ -130,10 +130,9 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
   const pathList = req.body.pathList ? req.body.pathList.split(',') : [];
+  console.log(req.files);
 
-  console.log(pathList);
-
-  let images = req.files.length
+  let images = req.files
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : [];
 
