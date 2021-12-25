@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function changeSoldOut(value) {
   document.querySelector('.sold_btn').value = value;
 
@@ -62,3 +63,5 @@ function uploadCheck(value, port) {
 
   data.innerText = `${file_counting}/5`;
 }
+=======
+>>>>>>> 0e966b205d4c17a6cc2405efdc1eac100f9b3e3d

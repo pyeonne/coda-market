@@ -1,3 +1,12 @@
+let imageFiles;
+const data = document.querySelector('.img_count_text');
+const postImg = document.querySelector('.post_img_line');
+const pathList = document.querySelector('#pathList');
+const form = document.querySelector('#actionForm');
+const post_img_btn = document.querySelector('.post_img_btn');
+
+let list = [];
+
 function file_btn() {
   let data = document.querySelector('.file_input').click();
 }
@@ -12,7 +21,6 @@ function getNumber(obj) {
   num01 = setComma(num02);
   obj.value = num01;
 }
-
 function setComma(n) {
   var reg = /(^[+-]?\d+)(\d{3})/;
   n += '';
@@ -31,119 +39,120 @@ function getfocus(n) {
   n.value = data.replace(' 원', '');
 }
 
-/* 업로드 펑션 */
+///path list data
+
+function changeCategory(value) {
+  document.querySelector('.category_btn').value = value;
+}
+
+// 이미지 로드
+function uploadCheck(value) {
+  if (!value) return;
+  let img_datas = value.split(',');
+
+  for (let i = 0; i < img_datas.length; i++) {
+    createItem(img_datas[i], 'load');
+    list.push(img_datas[i].replace(`http:localhost:${3000}/`, ''));
+  }
+
+  fileCounting();
+
+  const imageFiles = document.querySelectorAll('.img-box');
+  imageFiles.forEach(file =>
+    file.addEventListener('click', e =>
+      onImageRemove(e.target.closest('.img-box')),
+    ),
+  );
+}
+
+/* 새로 업로드 */
 function change_btn() {
-  let data = document.querySelector('.img_count_text');
-  let input = document.querySelector('.file_input');
-  let fileName = document.querySelector('.file_input').files;
-  let files = document.querySelector('.file_input').files.length;
-  let postImg = document.querySelector('.post_img_line');
-<<<<<<< HEAD
   let file_count = document.querySelectorAll('.img-box > .img ').length;
-
-  if (file_count < 5) {
-    // imgBox.innerHTML = ``;
-
-    for (let i = 0; i < files; i++) {
-      let imgBox = document.createElement('div');
-      imgBox.classList.add('img-box');
-=======
-
-  let file_count = document.querySelectorAll('.img-box > .img ').length;
+  const input = document.querySelector('.file_input');
+  const files = input.files.length;
 
   if (file_count < 5) {
     for (let i = 0; i < files; i++) {
-      let imgBox = document.createElement('div');
-      imgBox.classList.add('img-box');
-      imgBox.innerHTML = ``;
->>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
-      let div = document.createElement('div');
-      let img = document.createElement('img');
-      let button = document.createElement('button');
-      let itag = document.createElement('i');
-      itag.classList.add('fas', 'fa-times-circle');
-      div.classList.add('img');
-      img.src = URL.createObjectURL(input.files[i]);
-      button.type = 'button';
-
-      button.classList.add('img-cheking');
-      button.appendChild(img);
-      div.appendChild(button);
-      imgBox.appendChild(div);
-      imgBox.appendChild(itag);
+      createItem(URL.createObjectURL(input.files[i]));
       console.log(URL.createObjectURL(input.files[i]));
-      postImg.appendChild(imgBox);
     }
-<<<<<<< HEAD
-=======
 
-    let file_counting = document.querySelectorAll('.img-box > .img ').length;
->>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
+    fileCounting();
 
-    let file_counting = document.querySelectorAll('.img-box > .img ').length;
-    data.innerText = `${file_counting}/5`;
-<<<<<<< HEAD
-
-    const images = document.querySelectorAll('.img-box');
-
-    images.forEach(image =>
-      image.addEventListener('click', e => {
-        image.remove();
-        let file_counting = document.querySelectorAll('.img-box > .img').length;
-        data.innerText = `${file_counting}/5`;
-      }),
+    const imageFiles = document.querySelectorAll('.img-box');
+    imageFiles.forEach(file =>
+      file.addEventListener('click', e =>
+        onImageRemove(e.target.closest('.img-box')),
+      ),
     );
-
-    // imgBox.onclick = () => {
-    //   imgBox.parentNode.removeChild(imgBox);
-    //   let file_counting = document.querySelectorAll('.img-box > .img').length;
-    //   data.innerText = `${file_counting}/5`;
-    // };
-=======
->>>>>>> e8a3391e4abc4e3260d4459693e7df0882d3f908
+    input.value = null;
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
 }
 
-function checkings() {
-  let upload_list = document.querySelectorAll('.img-box');
-  let data = document.querySelector('.img_count_text');
+function createItem(path, type) {
+  let imgBox = document.createElement('div');
+  let div = document.createElement('div');
+  let img = document.createElement('img');
+  let button = document.createElement('button');
+  let itag = document.createElement('i');
+  const postImg = document.querySelector('.post_img_line');
 
-  try {
-    upload_list[0].onclick = () => {
-      upload_list[0].parentNode.removeChild(upload_list[0]);
+  itag.classList.add('fas', 'fa-times-circle');
+  div.classList.add('img');
 
-      let file_counting = document.querySelectorAll('.img-box > .img').length;
-      data.innerText = `${file_counting}/5`;
-    };
+  type === 'load' ? (img.src = `/${path}`) : (img.src = `${path}`);
 
-    upload_list[1].onclick = () => {
-      upload_list[1].parentNode.removeChild(upload_list[1]);
+  button.type = 'button';
 
-      let file_counting = document.querySelectorAll('.img-box > .img').length;
-      data.innerText = `${file_counting}/5`;
-    };
+  imgBox.classList.add('img-box');
 
-    upload_list[2].onclick = () => {
-      upload_list[2].parentNode.removeChild(upload_list[2]);
+  button.classList.add('img-checking');
+  button.appendChild(img);
+  div.appendChild(button);
+  imgBox.appendChild(div);
+  imgBox.appendChild(itag);
+  postImg.appendChild(imgBox);
+}
 
-      let file_counting = document.querySelectorAll('.img-box > .img').length;
-      data.innerText = `${file_counting}/5`;
-    };
+function onImageRemove(target) {
+  target.remove();
+  listFilter();
+  fileCounting();
+}
 
-    upload_list[3].onclick = () => {
-      upload_list[3].parentNode.removeChild(upload_list[3]);
+function listFilter() {
+  const imgFiles = document.querySelectorAll('.img-checking img');
 
-      let file_counting = document.querySelectorAll('.img-box > .img').length;
-      data.innerText = `${file_counting}/5`;
-    };
+  let arr = [];
 
-    upload_list[4].onclick = () => {
-      upload_list[4].parentNode.removeChild(upload_list[4]);
+  for (let i = 0; i < imgFiles.length; i++) {
+    const text = imgFiles[i].src;
+    arr.push(text.replace(`http://localhost:${3000}/`, ''));
+  }
 
-      let file_counting = document.querySelectorAll('.img-box > .img').length;
-      data.innerText = `${file_counting}/5`;
-    };
-  } catch (error) {}
+  list = arr.filter(el => !el.includes('blob'));
+}
+
+function fileCounting() {
+  const file_counting = document.querySelectorAll('.img-box > .img').length;
+  const formData = new FormData();
+
+  pathList.value = list.length ? list : '';
+
+  formData.append('pathList', pathList);
+
+  data.innerText = `${file_counting}/5`;
+}
+
+function changeSoldOut(boolean) {
+  const selectBtn = document.querySelector('.sold_btn');
+
+  if (boolean === 'true' || boolean === true) {
+    selectBtn.style.color = 'red';
+  } else {
+    selectBtn.style.color = 'green';
+  }
+  selectBtn.value = boolean;
 }

@@ -3,6 +3,7 @@ import Post from '../models/Post.js';
 import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
+import hashingPassword from '../utils/hash-password.js';
 import { nanoid } from 'nanoid';
 import getCurrentDate from '../utils/getTime.js';
 
@@ -11,66 +12,40 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   let posts = await Post.find({}).sort({ updatedAt: 'desc' });
-  const filteredPosts = await Post.find({ location: user.location }).sort({
-    updatedAt: 'desc',
-  });
-  const heartNum = [];
-  for (let i = 0; i < filteredPosts.length; i++) {
-    heartNum.push(await Cart.countDocuments({ post: filteredPosts[i] }));
-  }
-
   posts = JSON.stringify(posts);
-  res.render('home', {
-    posts,
-    userLocation: user.location,
-    isCategory: false,
-    heartNum,
-  });
+
+  res.render('home', { posts, userLocation: user.location, isCategory: false });
 });
 
 router.get('/search', async (req, res) => {
   const { location, category, input } = req.query;
   let posts;
-  const heartNum = [];
 
   if (location && category) {
     posts = await Post.find({
       location,
       category,
-    }).sort({ updatedAt: 'desc' });
-
-    for (let i = 0; i < posts.length; i++) {
-      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
-    }
+    });
     posts = JSON.stringify(posts);
 
     return res.render('home', {
       posts,
       userLocation: location,
       isCategory: true,
-      heartNum,
     });
   } else if (location && input) {
     posts = await Post.find({
       location,
       title: { $regex: input, $options: 'gi' },
-    }).sort({ updatedAt: 'desc' });
+    });
 
-    for (let i = 0; i < posts.length; i++) {
-      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
-    }
-
-    return res.status(200).json({ posts, userLocation: location, heartNum });
+    return res.status(200).json({ posts, userLocation: location });
   } else if (location) {
     posts = await Post.find({
       location,
-    }).sort({ updatedAt: 'desc' });
+    });
 
-    for (let i = 0; i < posts.length; i++) {
-      heartNum.push(await Cart.countDocuments({ post: posts[i] }));
-    }
-
-    return res.status(200).json({ posts, userLocation: location, heartNum });
+    return res.status(200).json({ posts, userLocation: location });
   }
 });
 
@@ -86,8 +61,6 @@ router.get('/:post_id', async (req, res) => {
   const cart = await Cart.findOne({ user, post });
   const list = await Post.find({ author: post.author });
   const like = await Cart.countDocuments({ post: post._id });
-  console.log('user', user);
-  console.log('post', post);
   res.render('./product/detail', {
     post,
     list,
@@ -100,7 +73,6 @@ router.get('/:post_id', async (req, res) => {
 //게시물 생성
 // localhost:3000/post -post
 router.post('/new', store.array('images', 5), async (req, res, next) => {
-  console.log('게시글 생성 값', req.body);
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
@@ -157,35 +129,39 @@ router.get('/:post_id/edit', async (req, res) => {
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  const thumbnail = req.files.length
+  const pathList = req.body.pathList ? req.body.pathList.split(',') : [];
+
+  console.log(pathList);
+
+  let images = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
-    : '';
-  console.log('thumbnail', thumbnail);
+    : [];
+
+  images = pathList.concat(images);
+
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
     : '';
+
   const option = {
     ...req.body,
-    thumbnail,
+    images,
+    thumbnail: images[0] ? images[0] : '',
     price,
     updatedAt: getCurrentDate(),
   };
 
   const asArray = Object.entries(option);
   const filtered = asArray.filter(
-    ([key, value]) => value !== '' && value !== '1',
+    ([key, value]) => value !== '' && value !== '1' && value !== [],
   );
+
   const filteredOpton = Object.fromEntries(filtered);
-  console.log(filteredOpton);
-  await Post.findOneAndUpdate(
-    { shortId: req.params.post_id },
-    filteredOpton,
-    {},
-  );
+
+  await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
   res.redirect(`/posts/${post.shortId}`);
 });
-
 //판매완료 후 게시물 업데이트
 router.post('/:post_id/soldout?state', async (req, res) => {
   const {
