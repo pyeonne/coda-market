@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("./layout/head") %>
+
+    <link rel="shortcut icon" href="/img/only-logo.png" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/chat.css" />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+
+    <title>코다마켓</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="btn-and-user">
+        <ul class="btn-list">
+          <li class="back-btn">
+            <a href="/posts">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </li>
+        </ul>
+
+        <h1>
+          <% if (room.seller !== undefined) { %> <% if(post.author.shortId ===
+          user.shortId) { %> <%=room.buyer.name%> <% } else {%>
+          <%=room.seller.name%> <% }%> <%} else { %> <%=post.author.name%> <%}%>
+        </h1>
+      </div>
+
+      <div class="post-info">
+        <img src="/img/mac2.jpg" alt="" />
+        <div class="post-description">
+          <div class="status-and-title">
+            <span class="status">
+              <% if(post.isSoldOut) { %> 판매완료 <% } else {%> 판매중 <% }%>
+            </span>
+            <span class="title"><%=post.title%></span>
+          </div>
+          <span class="price"><%=post.price%></span>
+        </div>
+      </div>
+    </header>
+
+    <main role="main" id="messages"></main>
+    <footer>
+      <form onsubmit="send(event);" autocomplete="off">
+        <input id="message" type="text" placeholder="메시지를 입력해주세요:)" />
+        <i class="fas fa-arrow-circle-up"></i>
+      </form>
+    </footer>
+    <script src="/js/time.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io({
+        withCredentials: true,
+        extraHeaders: {
+          'post-id': '<%=post.shortId%>',
+          'user-id': '<%=user.shortId%>',
+        },
+      });
+
+      socket.on('message', message => {
+        addMessage(message);
+        scroll();
+      });
+
+      socket.on('messages', messages => {
+        messages.map(addMessage);
+        scroll();
+      });
+
+      function send(e) {
+        e.preventDefault();
+        const message = document.querySelector('#message');
+        socket.emit('message', message.value);
+        message.value = '';
+        message.focus();
+        scroll();
+      }
+
+      function addMessage({ sender, message, updatedAt }) {
+        const user = '<%=user.shortId%>';
+        const msg = document.createElement('div');
+        console.log(updatedAt);
+        const time = `${getTimeDiff(toDate(updatedAt))} 전`;
+        if (user === sender) {
+          msg.innerHTML = `
+          <div class="my-chat">
+            <span class="time">${time}</span>
+            <span class="chat">
+              ${message}
+            </span>
+          </div>
+        `;
+        } else {
+          msg.innerHTML = `
+          <div class="other-chat">
+            <img src="/img/profile.jpg" alt="other-user-img" />
+            <span class="chat">
+              ${message}
+            </span>
+            <span class="time">${time}</span>
+          </div>
+          `;
+        }
+        document.querySelector('#messages').appendChild(msg);
+      }
+
+      function scroll() {
+        const messages = document.querySelector('#messages');
+        messages.scrollTop = messages.scrollHeight;
+      }
+    </script>
+  </body>
+</html>

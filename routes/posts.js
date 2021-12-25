@@ -86,8 +86,6 @@ router.get('/:post_id', async (req, res) => {
   const cart = await Cart.findOne({ user, post });
   const list = await Post.find({ author: post.author });
   const like = await Cart.countDocuments({ post: post._id });
-  console.log('user', user);
-  console.log('post', post);
   res.render('./product/detail', {
     post,
     list,
@@ -160,7 +158,6 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const thumbnail = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : '';
-  console.log('thumbnail', thumbnail);
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
     : '';
@@ -176,7 +173,6 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     ([key, value]) => value !== '' && value !== '1',
   );
   const filteredOpton = Object.fromEntries(filtered);
-  console.log(filteredOpton);
   await Post.findOneAndUpdate(
     { shortId: req.params.post_id },
     filteredOpton,

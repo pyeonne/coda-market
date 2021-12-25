@@ -1,273 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <%- include("./layout/head") %>
 
-<head>
-  <%- include("./layout/head") %>
-
-    <link rel="shortcut icon" href="/img/only-logo.png">
+    <link rel="shortcut icon" href="/img/only-logo.png" />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/nav-bottom.css" />
-    <link rel="stylesheet" href="/css/chat-list.css">
+    <link rel="stylesheet" href="/css/chat-list.css" />
 
     <title>코다마켓</title>
-</head>
+  </head>
 
-<body>
-  <header>
-    <h1>채팅</h1>
+  <body onload="initChatList();">
+    <header>
+      <h1>채팅</h1>
 
-    <ul class="btn-list">
-      <li class="alarm-btn">
-        <div class="alarm-remain"></div>
-        <i class="far fa-bell"></i>
-      </li>
-    </ul>
-  </header>
+      <ul class="btn-list">
+        <li class="alarm-btn">
+          <div class="alarm-remain"></div>
+          <i class="far fa-bell"></i>
+        </li>
+      </ul>
+    </header>
 
-  <main role="main">
-    <ul>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
+    <main role="main">
+      <ul id="chat-list"></ul>
+    </main>
+
+    <%- include("./layout/nav-bottom") %>
+    <script src="/js/time.js"></script>
+    <script>
+      function initChatList() {
+        let rooms = '<%= rooms %>'.replace(/&#34;/g, '"');
+        rooms = JSON.parse(rooms);
+        let messages = '<%=messages%>'.replace(/&#34;/g, '"');
+        messages = JSON.parse(messages);
+        const user = '<%=user.shortId%>';
+
+        for (let i = 0; i < rooms.length; i++) {
+          const time = `${getTimeDiff(toDate(messages[i].updatedAt))} 전`;
+          const li = document.createElement('li');
+          let name = '';
+          let location = '';
+          if (rooms[i] === user) {
+            name = rooms[i].buyer.name;
+            location = rooms[i].buyer.location;
+          } else {
+            name = rooms[i].seller.name;
+            location = rooms[i].seller.location;
+          }
+          li.innerHTML = `
+          <a href="/chats/${rooms[i].post.shortId}">
+            <div class="left-items">
+              <div class="profile-img"></div>
+              <div class="chat-info">
+                <div class="name-loca-date">
+                  <span class="name">${name}</span>
+                  <span class="loca">${location}</span>
+                  <span class="date">${time}</span>
+                </div>
+                <span class="recent-message">${messages[i].text}</span>
               </div>
-              <span class="recent-message">안녕하세요:)</span>
             </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <div class="left-items">
-            <div class="profile-img"></div>
-            <div class="chat-info">
-              <div class="name-loca-date">
-                <span class="name">테스트봇</span>
-                <span class="loca">서울특별시 · </span>
-                <span class="date">1분 전</span>
-              </div>
-              <span class="recent-message">안녕하세요:)</span>
-            </div>
-          </div>
-
-          <img class="post-img" src="/img/iphone12-mini.jpg" alt="post image">
-        </a>
-      </li>
-    </ul>
-  </main>
-
-  <%- include("./layout/nav-bottom") %>
-</body>
-
+            <img class="post-img" src="${rooms[i].post.thumbnail}" alt="post image">
+          </a>
+          `;
+          document.querySelector('#chat-list').appendChild(li);
+        }
+      }
+    </script>
+  </body>
 </html>

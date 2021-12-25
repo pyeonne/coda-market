@@ -227,9 +227,12 @@
       </div>
     </div>
 
+    <form name="chatTransation"></form>
     <div class="last-menu2">
-      <a href="">채팅으로 거래하기</a>
+      <a href="javascript:chatTransation('<%=post.shortId%>');">채팅으로 거래하기</a>
     </div>
+
+    <form action=""></form>
   </div>
   <script src="/js/jquery-3.3.1.js"></script>
   <script src="/js/owl.carousel.js"></script>
@@ -300,6 +303,12 @@
         }
     });
 
+    function chatTransation(postId) {
+      const f = document.chatTransation;
+      f.action = `/chats/${postId}`;
+      f.method = 'post';
+      f.submit();
+    }
   </script>
 </body>
 

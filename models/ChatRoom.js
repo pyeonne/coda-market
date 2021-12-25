@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 const ChatRoomSchema = new Schema(
   {
     post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
-    buyer: { type: Schema.Types.ObjectId, ref: 'User' },
+    buyer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     seller: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   {

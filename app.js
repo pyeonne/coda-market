@@ -32,7 +32,6 @@ const __dirname = path.resolve();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('socketio', io);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
