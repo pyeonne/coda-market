@@ -227,7 +227,11 @@
     </div>
 
     <div class="last-menu2">
+      <% if(user.shortId === post.author.shortId) { %>
+      <a href="/chat">채팅목록 가기</a>
+      <% } else { %>
       <a href="">채팅으로 거래하기</a>
+      <% } %>
     </div>
   </div>
   <script src="/js/jquery-3.3.1.js"></script>
