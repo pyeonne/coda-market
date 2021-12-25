@@ -12,3 +12,5 @@ router.post('/:chat_id', (req, res) => {
   // 첫 채팅 주고 받을 떄 채팅창 만들기
   // 채팅 주고 받는 것을 DB에 저장하는 곳
 });
+
+export default router;
