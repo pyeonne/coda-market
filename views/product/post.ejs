@@ -19,7 +19,7 @@
 
   </head>
 
-<body onchange="checkings()">
+<body onchange="">
   <form action="/posts/new" method="post" enctype="multipart/form-data">
     <div class="post_nav">
       <ul class="post_menu">
@@ -42,6 +42,7 @@
               <span class="img_count_text">0/5</span>
             </label>
             <input class="file_input" id="input-file" type="file" name="images" style="display: none;" multiple>
+            <input type="hidden" name="pathList" id="pathList"/>
           </div>
         </button>
 
