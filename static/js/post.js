@@ -6,12 +6,17 @@ const form = document.querySelector('#actionForm');
 const post_img_btn = document.querySelector('.post_img_btn');
 let file_input = document.querySelector('.file_input');
 
-let list = [];
-
 function file_btn() {
-  let data = document.querySelector('.file_input');
-  data.click();
-  data.value = '';
+  const imageFiles = document.querySelectorAll('.img-box');
+  const input = document.querySelector('.file_input');
+
+  input.click();
+
+  for (let i = 0; i < imageFiles.length; i++) {
+    imageFiles[i].remove();
+  }
+
+  input.value = null;
 }
 
 /* 세자리 마다 숫자 찍기 펑션 */
@@ -42,8 +47,6 @@ function getfocus(n) {
   n.value = data.replace(' 원', '');
 }
 
-///path list data
-
 function changeCategory(value) {
   document.querySelector('.category_btn').value = value;
 }
@@ -55,17 +58,9 @@ function uploadCheck(value) {
 
   for (let i = 0; i < img_datas.length; i++) {
     createItem(img_datas[i], 'load');
-    list.push(img_datas[i].replace(`http:localhost:${3000}/`, ''));
   }
 
   fileCounting();
-
-  const imageFiles = document.querySelectorAll('.img-box');
-  imageFiles.forEach(file =>
-    file.addEventListener('click', e =>
-      onImageRemove(e.target.closest('.img-box')),
-    ),
-  );
 }
 
 /* 새로 업로드 */
@@ -77,17 +72,8 @@ function change_btn() {
   if (file_count < 5) {
     for (let i = 0; i < files; i++) {
       createItem(URL.createObjectURL(input.files[i]));
-      console.log(URL.createObjectURL(input.files[i]));
     }
-
     fileCounting();
-
-    const imageFiles = document.querySelectorAll('.img-box');
-    imageFiles.forEach(file =>
-      file.addEventListener('click', e =>
-        onImageRemove(e.target.closest('.img-box')),
-      ),
-    );
   } else {
     alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
@@ -120,32 +106,30 @@ function createItem(path, type) {
 
 function onImageRemove(target) {
   target.remove();
-  listFilter();
+  // listFilter();
   fileCounting();
 }
 
-function listFilter() {
-  const imgFiles = document.querySelectorAll('.img-checking img');
+// function listFilter() {
+//   const imgFiles = document.querySelectorAll('.img-checking img');
 
-  let arr = [];
+//   let arr = [];
 
-  for (let i = 0; i < imgFiles.length; i++) {
-    const text = imgFiles[i].src;
-    console.log(text);
-    console.log(text.replace(`http://localhost:${3000}/`, ''));
-    arr.push(text.replace(`http://localhost:${3000}/`, ''));
-  }
+//   for (let i = 0; i < imgFiles.length; i++) {
+//     const text = imgFiles[i].src;
+//     arr.push(text);
+//   }
 
-  list = arr.filter(el => !el.includes('blob'));
-}
+//   list = arr.filter(el => !el.includes('blob'));
+// }
 
 function fileCounting() {
   const file_counting = document.querySelectorAll('.img-box > .img').length;
-  const formData = new FormData();
+  // const formData = new FormData();
 
-  pathList.value = list.length ? list : '';
+  // pathList.value = list.length ? list : '';
 
-  formData.append('pathList', pathList);
+  // formData.append('pathList', pathList);
 
   data.innerText = `${file_counting}/5`;
 }
@@ -159,11 +143,4 @@ function changeSoldOut(boolean) {
     selectBtn.style.color = 'green';
   }
   selectBtn.value = boolean;
-}
-
-function onChange(event) {
-  const e = event || window.event;
-  const file = e.target.files;
-
-  file.value = '';
 }
