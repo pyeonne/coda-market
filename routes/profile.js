@@ -71,7 +71,7 @@ router.get('/carts', async (req, res) => {
     updatedAt: 'desc',
   });
   const list = cart.map(item => item.post);
-  res.json({ list });
+  res.json({ list: list.sort((a, b) => b.updatedAt - a.updatedAt) });
 });
 
 export default router;
