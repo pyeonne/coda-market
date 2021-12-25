@@ -63,7 +63,6 @@ function uploadCheck(value) {
       onImageRemove(e.target.closest('.img-box')),
     ),
   );
-  console.log(imageFiles);
 }
 
 /* 새로 업로드 */
@@ -79,7 +78,7 @@ function change_btn() {
     }
 
     fileCounting();
-    console.log();
+
     const imageFiles = document.querySelectorAll('.img-box');
     imageFiles.forEach(file =>
       file.addEventListener('click', e =>
@@ -134,7 +133,6 @@ function listFilter() {
   }
 
   list = arr.filter(el => !el.includes('blob'));
-  console.log(list);
 }
 
 function fileCounting() {
@@ -150,13 +148,8 @@ function fileCounting() {
 
 function changeSoldOut(boolean) {
   const selectBtn = document.querySelector('.sold_btn');
-  if (typeof boolean === String) {
-    boolean = boolean === 'false' ? false : true;
-  }
 
-  console.log(typeof boolean, boolean);
-
-  if (boolean) {
+  if (boolean === 'true' || boolean === true) {
     selectBtn.style.color = 'red';
   } else {
     selectBtn.style.color = 'green';
