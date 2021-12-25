@@ -17,7 +17,7 @@ import path from 'path';
 import findRouter from './routes/find.js';
 import fs from 'fs';
 import http from 'http';
-import socketio from 'socket.io';
+import createSocketServer from './socket/create-server.js';
 
 passportInit();
 
@@ -26,7 +26,7 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+createSocketServer(server);
 
 const __dirname = path.resolve();
 

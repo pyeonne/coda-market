@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
-
-const { model, Schema } = mongoose;
+const { Schema, model } = mongoose;
 
 const MessageSchema = new Schema(
   {
-    conversation: { type: String, ref: 'Conversation' },
+    chatroom: { type: Schema.Types.ObjectId, ref: 'ChatRoom' },
     sender: { type: Schema.Types.ObjectId, ref: 'User' },
-    text: String,
+    text: { type: String, required: true },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
 
 export default model('Message', MessageSchema);
