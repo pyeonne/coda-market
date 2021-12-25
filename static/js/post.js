@@ -84,10 +84,10 @@ function createItem(path, type) {
   let div = document.createElement('div');
   let img = document.createElement('img');
   let button = document.createElement('button');
-  let itag = document.createElement('i');
+  // let itag = document.createElement('i');
   const postImg = document.querySelector('.post_img_line');
 
-  itag.classList.add('fas', 'fa-times-circle');
+  // itag.classList.add('fas', 'fa-times-circle');
   div.classList.add('img');
 
   type === 'load' ? (img.src = `/${path}`) : (img.src = `${path}`);
@@ -100,7 +100,7 @@ function createItem(path, type) {
   button.appendChild(img);
   div.appendChild(button);
   imgBox.appendChild(div);
-  imgBox.appendChild(itag);
+  // imgBox.appendChild(itag);
   postImg.appendChild(imgBox);
 }
 

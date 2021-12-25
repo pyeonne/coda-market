@@ -221,16 +221,16 @@ textarea::placeholder {
   bottom: 0;
 }
 
-.img-box .img:hover {
+/* .img-box .img:hover {
   filter: brightness(60%);
   background-color: rgb(206, 200, 200);
-}
+} */
 
-.img-box i {
+/* .img-box i {
   position: relative;
   color: red;
   right: 15px;
   bottom: 35px;
   cursor: pointer;
   font-size: 14px;
-}
+} */
