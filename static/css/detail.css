@@ -221,7 +221,7 @@ li {
   max-width: 1800px;
   margin-bottom: 15px;
   justify-content: space-between;
-  padding: 15px 40px 15px 40px;
+  padding: 35px 60px 15px 40px;
 }
 
 .container .product-item {
@@ -250,6 +250,10 @@ li {
 }
 
 .container .product-info a {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   font-size: 18px;
   font-weight: bold;
 }
