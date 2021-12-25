@@ -101,22 +101,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 //게시물 삭제
 //localhost:3000/post/:postId - delete
 router.post('/:post_id/delete', async (req, res) => {
-  //게시물 아이디
-  const { post_id } = req.params;
-  const { password } = req.body;
-  const user = await User.findOne({ shortId: req.user.id });
-
-  // if (password === hashingPassword(user.password)) {
-  //   await Post.findOneAndUpdate(
-  //     { shortId: post_id },
-  //     {
-  //       current_status: 'deleted',
-  //     },
-  //   );
-  //   res.redirect('http://localhost:3000/');
-  // } else {
-  //   throw new Error('비밀번호가 맞지 않습니다.');
-  // }
+  await Post.findOneAndDelete({ shortId: req.params.post_id });
 
   res.redirect('/posts/');
 });
@@ -128,15 +113,19 @@ router.get('/:post_id/edit', async (req, res) => {
 
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-
-  const pathList = req.body.pathList ? req.body.pathList.split(',') : [];
   console.log(req.files);
+  const pathList = req.body.pathList ? req.body.pathList.split(',') : [];
 
-  let images = req.files
+  let images = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : [];
 
-  images = pathList.concat(images);
+  console.log('=======================images', images);
+  console.log('=======================pathList', pathList);
+
+  images = pathList.concat(images).slice(0, 5);
+
+  console.log('=======================images', images);
 
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
@@ -156,6 +145,7 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   );
 
   const filteredOpton = Object.fromEntries(filtered);
+  console.log(filteredOpton);
 
   await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
