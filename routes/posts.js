@@ -5,6 +5,7 @@ import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import hashingPassword from '../utils/hash-password.js';
 import { nanoid } from 'nanoid';
+import getCurrentDate from '../utils/getTime.js';
 
 const router = express.Router();
 
@@ -60,8 +61,13 @@ router.get('/:post_id', async (req, res) => {
   const cart = await Cart.findOne({ user, post });
   const list = await Post.find({ author: post.author });
   const like = await Cart.countDocuments({ post: post._id });
-
-  res.render('./product/detail', { post, list, like, isClick: cart !== null });
+  res.render('./product/detail', {
+    post,
+    list,
+    isClick: cart !== null,
+    like,
+    user,
+  });
 });
 
 //게시물 생성
@@ -123,30 +129,39 @@ router.get('/:post_id/edit', async (req, res) => {
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
 
-  const thumbnail = req.files
+  const pathList = req.body.pathList ? req.body.pathList.split(',') : [];
+
+  console.log(pathList);
+
+  let images = req.files
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
-    : '';
+    : [];
+
+  images = pathList.concat(images);
+
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
     : '';
+
   const option = {
     ...req.body,
-    thumbnail,
+    images,
+    thumbnail: images[0] ? images[0] : '',
     price,
-    timestamps: { createdAt: false, updatedAt: true },
+    updatedAt: getCurrentDate(),
   };
 
   const asArray = Object.entries(option);
   const filtered = asArray.filter(
-    ([key, value]) => value !== '' && value !== '1',
+    ([key, value]) => value !== '' && value !== '1' && value !== [],
   );
+
   const filteredOpton = Object.fromEntries(filtered);
 
   await Post.findOneAndUpdate({ shortId: req.params.post_id }, filteredOpton);
 
   res.redirect(`/posts/${post.shortId}`);
 });
-
 //판매완료 후 게시물 업데이트
 router.post('/:post_id/soldout?state', async (req, res) => {
   const {

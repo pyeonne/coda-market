@@ -27,6 +27,7 @@
 
 /* MAIN */
 /* mypage */
+
 .mypage.section {
   padding: 2rem 0 2rem;
 }
@@ -86,6 +87,8 @@
 
 .histories__icon {
   margin-right: var(--mb-0-75);
+  width: 32px;
+  text-align: center;
 }
 
 .histories__title {
@@ -179,8 +182,6 @@
 .histories__open .histories__arrow {
   transform: rotate(-180deg);
 }
-
-
 
 .pwd {
   width: 100%;

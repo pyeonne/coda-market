@@ -71,7 +71,7 @@
   max-width: 70px;
   height: 70px;
   width: 70px;
-  margin-right: var(--mb-0-5);
+  margin-right: 18px;
 }
 
 .post_img_icon {
@@ -122,7 +122,8 @@
   appearance: none;
 }
 
-.category_btn, .sold_btn {
+.category_btn,
+.sold_btn {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
@@ -208,4 +209,24 @@ textarea::placeholder {
 }
 .post_category > p {
   font-size: 16px;
+}
+
+.img-checking img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.img-box .img:hover {
+  filter: brightness(60%);
+  background-color: rgb(206, 200, 200);
+}
+
+.img-box i {
+  position: relative;
+  color: red;
+  right: 15px;
+  bottom: 35px;
+  cursor: pointer;
+  font-size: 14px;
 }
