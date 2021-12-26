@@ -84,6 +84,7 @@ router.get('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: post_id }).populate('author');
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.findOne({ user, post });
+  console.log(req.params);
   const list = await Post.find({ author: post.author });
   const like = await Cart.countDocuments({ post: post._id });
   console.log('user', user);
@@ -103,11 +104,6 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
   console.log('게시글 생성 값', req.body);
   const { title, content, location, category, price } = req.body;
   const files = req.files;
-
-  // if (!files) {
-  //   const err = new Error('선택된 파일이 없습니다.');
-  //   return next(err);
-  // }
 
   const imageArray = files.map(file => file.path.replace(/\\/g, '/'));
   const user = await User.findOne({ shortId: req.user.id });
@@ -129,22 +125,7 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
 //게시물 삭제
 //localhost:3000/post/:postId - delete
 router.post('/:post_id/delete', async (req, res) => {
-  //게시물 아이디
-  const { post_id } = req.params;
-  const { password } = req.body;
-  const user = await User.findOne({ shortId: req.user.id });
-
-  // if (password === hashingPassword(user.password)) {
-  //   await Post.findOneAndUpdate(
-  //     { shortId: post_id },
-  //     {
-  //       current_status: 'deleted',
-  //     },
-  //   );
-  //   res.redirect('http://localhost:3000/');
-  // } else {
-  //   throw new Error('비밀번호가 맞지 않습니다.');
-  // }
+  await Post.findOneAndDelete({ shortId: req.params.post_id });
 
   res.redirect('/posts/');
 });
@@ -156,16 +137,12 @@ router.get('/:post_id/edit', async (req, res) => {
 
 router.post('/:post_id/edit', store.array('images'), async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
-
   const pathList = req.body.pathList ? req.body.pathList.split(',') : [];
-  console.log(req.files);
 
-  let images = req.files
+  let images = req.files.length
     ? req.files.map(img => img.path.replace(/\\/g, '/'))
     : [];
-
-  images = pathList.concat(images);
-
+  images = pathList.concat(images).slice(0, 5);
   const price = req.body.price
     ? req.body.price.replace(' 원', '').replace(/,/gi, '')
     : '';

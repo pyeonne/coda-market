@@ -35,7 +35,7 @@ backBtn.addEventListener('click', () => {
   selectLocation();
 });
 
-function setLocation(isCategory, userLoca, posts, heartNum) {
+function setLocation(userLoca, isCategory, posts, heartNum) {
   locaSelectBoxOptions.forEach(optionTag => {
     if (optionTag.value === userLoca) {
       optionTag.setAttribute('selected', 'selected');
@@ -68,7 +68,6 @@ function selectLocation() {
     'selected',
     'selected',
   );
-
   reqResHandler(`/posts/search?location=${locaSelectBox.value}`);
 }
 
@@ -107,7 +106,7 @@ function removePostList() {
 // DB에서 받아온 post들을 홈 화면에 띄워주는 함수
 function makePostList(posts, heartNum) {
   let i = 0;
-
+  console.log(heartNum);
   posts.forEach(post => {
     const li = document.createElement('li');
     postList.appendChild(li);
@@ -121,7 +120,7 @@ function makePostList(posts, heartNum) {
     anchor.appendChild(postInfo);
 
     const postImg = document.createElement('img');
-    postImg.setAttribute('src', `${post.thumbnail}`);
+    postImg.setAttribute('src', `/${post.thumbnail}`);
     postImg.setAttribute('alt', 'post-image');
     postInfo.appendChild(postImg);
 

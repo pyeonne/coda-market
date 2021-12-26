@@ -4,13 +4,20 @@ const postImg = document.querySelector('.post_img_line');
 const pathList = document.querySelector('#pathList');
 const form = document.querySelector('#actionForm');
 const post_img_btn = document.querySelector('.post_img_btn');
-
+let file_input = document.querySelector('.file_input');
 let list = [];
 
 function file_btn() {
-  let data = document.querySelector('.file_input');
-  data.click();
-  data.value = '';
+  const imageFiles = document.querySelectorAll('.img-box');
+  const input = document.querySelector('.file_input');
+
+  input.click();
+
+  for (let i = 0; i < imageFiles.length; i++) {
+    imageFiles[i].remove();
+  }
+  list = [];
+  input.value = null;
 }
 
 /* 세자리 마다 숫자 찍기 펑션 */
@@ -41,8 +48,6 @@ function getfocus(n) {
   n.value = data.replace(' 원', '');
 }
 
-///path list data
-
 function changeCategory(value) {
   document.querySelector('.category_btn').value = value;
 }
@@ -51,45 +56,26 @@ function changeCategory(value) {
 function uploadCheck(value) {
   if (!value) return;
   let img_datas = value.split(',');
-
+  console.log(img_datas);
   for (let i = 0; i < img_datas.length; i++) {
     createItem(img_datas[i], 'load');
-    list.push(img_datas[i].replace(`http:localhost:${3000}/`, ''));
+    list.push(img_datas[i]);
   }
 
   fileCounting();
-
-  const imageFiles = document.querySelectorAll('.img-box');
-  imageFiles.forEach(file =>
-    file.addEventListener('click', e =>
-      onImageRemove(e.target.closest('.img-box')),
-    ),
-  );
 }
 
 /* 새로 업로드 */
 function change_btn() {
-  let file_count = document.querySelectorAll('.img-box > .img ').length;
   const input = document.querySelector('.file_input');
   const files = input.files.length;
 
-  if (file_count < 5) {
-    for (let i = 0; i < files; i++) {
-      createItem(URL.createObjectURL(input.files[i]));
-      console.log(URL.createObjectURL(input.files[i]));
-    }
-
-    fileCounting();
-
-    const imageFiles = document.querySelectorAll('.img-box');
-    imageFiles.forEach(file =>
-      file.addEventListener('click', e =>
-        onImageRemove(e.target.closest('.img-box')),
-      ),
-    );
-  } else {
-    alert('이미지는 최대 5개까지 첨부할 수 있어요');
+  for (let i = 0; i < files; i++) {
+    createItem(URL.createObjectURL(input.files[i]));
   }
+  fileNumberAlert();
+
+  fileCounting();
 }
 
 function createItem(path, type) {
@@ -97,10 +83,10 @@ function createItem(path, type) {
   let div = document.createElement('div');
   let img = document.createElement('img');
   let button = document.createElement('button');
-  let itag = document.createElement('i');
+  // let itag = document.createElement('i');
   const postImg = document.querySelector('.post_img_line');
 
-  itag.classList.add('fas', 'fa-times-circle');
+  // itag.classList.add('fas', 'fa-times-circle');
   div.classList.add('img');
 
   type === 'load' ? (img.src = `/${path}`) : (img.src = `${path}`);
@@ -113,31 +99,25 @@ function createItem(path, type) {
   button.appendChild(img);
   div.appendChild(button);
   imgBox.appendChild(div);
-  imgBox.appendChild(itag);
   postImg.appendChild(imgBox);
 }
 
-function onImageRemove(target) {
-  target.remove();
-  listFilter();
-  fileCounting();
-}
-
-function listFilter() {
-  const imgFiles = document.querySelectorAll('.img-checking img');
-
-  let arr = [];
-
-  for (let i = 0; i < imgFiles.length; i++) {
-    const text = imgFiles[i].src;
-    arr.push(text.replace(`http://localhost:${3000}/`, ''));
+function fileNumberAlert() {
+  const imageFiles = document.querySelectorAll('.img-box');
+  const files = document.querySelector('.file_input').files;
+  if (files.length > 5) {
+    for (let i = 0; i < files.length; i++) {
+      if (i > 4) {
+        imageFiles[i].remove();
+      }
+    }
+    alert('이미지는 최대 5개까지 첨부할 수 있어요');
   }
-
-  list = arr.filter(el => !el.includes('blob'));
 }
 
 function fileCounting() {
   const file_counting = document.querySelectorAll('.img-box > .img').length;
+
   const formData = new FormData();
 
   pathList.value = list.length ? list : '';

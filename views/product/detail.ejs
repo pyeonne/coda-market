@@ -178,7 +178,7 @@
       </div>
 
       <div class="content-bottom">
-        <p><i class="fas fa-heart"></i><span class="likeNum"><%= like %></span></p>
+        <p><i style="color: red; font-size: 12px;" class="fas fa-heart"></i><span class="likeNum"><%= like %></span></p>
       </div>
     </div>
     <hr style="border: solid 1px #f3eeee">
@@ -198,7 +198,7 @@
             <a href="/posts/<%= list[j].shortId%>/"><img src="<%= list[j].thumbnail ? `/${list[j].thumbnail}` : `/img/detail-default-logo.png`%>"></a>
             <div class="product-info">
               <a href="/posts/<%= list[j].shortId%>/" class="product-title"><%= list[j].title%></a>
-              <span class="product-price"><%= list[j].price%>원</span>
+              <span class="product-price"><%= list[j].price.toLocaleString('ko-KR')%>원</span>
             </div>
           </div>
         <% } %>
@@ -222,14 +222,20 @@
           <span id="ds-pice">
             <%= post.price %>원
           </span>
-          <span id="ds-option">가격 제안 불가</span>
         </div>
       </div>
     </div>
 
+    <form name="chatTransation"></form>
     <div class="last-menu2">
-      <a href="">채팅으로 거래하기</a>
+      <% if(user.shortId === post.author.shortId) { %>
+      <a href="/chats">채팅 목록 보기</a>
+      <% } else { %>
+        <a href="javascript:chatTransation('<%=post.shortId%>', '<%=user.shortId%>');">채팅으로 거래하기</a>
+      <% } %>
     </div>
+
+    <form action=""></form>
   </div>
   <script src="/js/jquery-3.3.1.js"></script>
   <script src="/js/owl.carousel.js"></script>
@@ -265,7 +271,6 @@
 
     document.querySelector('#delete-btn').addEventListener('click', e => {
       modal();
-      console.log('ddd');
     });
 
     document.querySelector('#pwd__form').addEventListener('submit', () => {
@@ -300,6 +305,12 @@
         }
     });
 
+    function chatTransation(postId, userId) {
+      const f = document.chatTransation;
+      f.action = `/chats/${postId}?user=${userId}`;
+      f.method = 'post';
+      f.submit();
+    }
   </script>
 </body>
 

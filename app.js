@@ -7,9 +7,8 @@ import authRouter from './routes/auth.js';
 import postRouter from './routes/posts.js';
 import cartRouter from './routes/cart.js';
 import homeRouter from './routes/home.js';
-import conversationRouter from './routes/conversation.js';
 import profileRouter from './routes/profile.js';
-import messagesRouter from './routes/messages.js';
+import chatsRouter from './routes/chats.js';
 import passport from 'passport';
 import passportInit from './passport/index.js';
 import getUserFromJwt from './passport/middlewares/get-user-from-jwt.js';
@@ -18,9 +17,7 @@ import path from 'path';
 import findRouter from './routes/find.js';
 import fs from 'fs';
 import http from 'http';
-import { Server } from 'socket.io';
-import { formatMessage } from './utils/messages.js';
-import { getCurrentUser, userJoin, userLeave } from './utils/users.js';
+import createSocketServer from './socket/create-server.js';
 
 passportInit();
 
@@ -29,13 +26,12 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+createSocketServer(server);
 
 const __dirname = path.resolve();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.set('socketio', io);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -53,47 +49,8 @@ app.use('/posts', postRouter);
 app.use('/profile', profileRouter);
 app.use('/cart', cartRouter);
 app.use('/find', findRouter);
-app.use('/messages', messagesRouter);
-app.use('/conversation', conversationRouter);
-
-//socket io 통신
-io.on('connection', socket => {
-  console.log('socket io 통신 ');
-  socket.on('joinRoom', ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
-    socket.join('게시물 이름');
-
-    socket.emit(
-      'message',
-      formatMessage(
-        'ChatBot',
-        '"상대방에 대한 비방 및 욕설 시 형사적으로 처벌을 받을 수 있습니다.',
-      ),
-    );
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        'message',
-        formatMessage('ChatBot', `${user.username}님이 들어왔습니다.`),
-      );
-  });
-  socket.on('disconnect', () => {
-    const user = userLeave(socket.id);
-    if (user) {
-      io.to(user.room).emit(
-        'message',
-        formatMessage('ChatBot', `${user.username}님이 나가셨습니다.`),
-      );
-    }
-  });
-
-  socket.on('chatMessage', msg => {
-    const user = getCurrentUser(socket.id);
-    io.to(user.room).emit('message', formatMessage(user.username, msg));
-  });
-});
-
-//////////////
+app.use('/chats', chatsRouter);
+// app.use('/conversation', conversationRouter);
 
 /* server */
 const start = () => {
