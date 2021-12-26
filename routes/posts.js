@@ -5,6 +5,7 @@ import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import { nanoid } from 'nanoid';
 import getCurrentDate from '../utils/getTime.js';
+import ChatRoom from '../models/ChatRoom.js';
 
 const router = express.Router();
 
@@ -15,16 +16,18 @@ router.get('/', async (req, res) => {
     updatedAt: 'desc',
   });
   const heartNum = [];
+  const chatNum = [];
   for (let i = 0; i < filteredPosts.length; i++) {
     heartNum.push(await Cart.countDocuments({ post: filteredPosts[i] }));
+    chatNum.push(await ChatRoom.countDocuments({ post: filteredPosts[i] }));
   }
-
   posts = JSON.stringify(posts);
   res.render('home', {
     posts,
     userLocation: user.location,
     isCategory: false,
     heartNum,
+    chatNum,
   });
 });
 
@@ -32,7 +35,7 @@ router.get('/search', async (req, res) => {
   const { location, category, input } = req.query;
   let posts;
   const heartNum = [];
-
+  const chatNum = [];
   if (location && category) {
     posts = await Post.find({
       location,
@@ -41,6 +44,7 @@ router.get('/search', async (req, res) => {
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+      chatNum.push(await ChatRoom.countDocuments({ post: posts[i] }));
     }
     posts = JSON.stringify(posts);
 
@@ -49,6 +53,7 @@ router.get('/search', async (req, res) => {
       userLocation: location,
       isCategory: true,
       heartNum,
+      chatNum,
     });
   } else if (location && input) {
     posts = await Post.find({
@@ -58,9 +63,12 @@ router.get('/search', async (req, res) => {
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+      chatNum.push(await ChatRoom.countDocuments({ post: posts[i] }));
     }
 
-    return res.status(200).json({ posts, userLocation: location, heartNum });
+    return res
+      .status(200)
+      .json({ posts, userLocation: location, heartNum, chatNum });
   } else if (location) {
     posts = await Post.find({
       location,
@@ -68,9 +76,12 @@ router.get('/search', async (req, res) => {
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
+      chatNum.push(await ChatRoom.countDocuments({ post: posts[i] }));
     }
 
-    return res.status(200).json({ posts, userLocation: location, heartNum });
+    return res
+      .status(200)
+      .json({ posts, userLocation: location, heartNum, chatNum });
   }
 });
 

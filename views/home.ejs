@@ -27,9 +27,10 @@
       const getPosts = '<%= posts %>'.replace(/&#34;/g, '"');
       const posts = JSON.parse(getPosts);
       const heartNum = '<%= heartNum %>'.split(',');
+      const chatNum = '<%= chatNum %>'.split(',');
 
       window.onload = function () {
-        setLocation(userLoca, isCategory, posts, heartNum);
+        setLocation(userLoca, isCategory, posts, heartNum, chatNum);
       };
     </script>
     <title>코다마켓</title>

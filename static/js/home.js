@@ -35,7 +35,7 @@ backBtn.addEventListener('click', () => {
   selectLocation();
 });
 
-function setLocation(userLoca, isCategory, posts, heartNum) {
+function setLocation(userLoca, isCategory, posts, heartNum, chatNum) {
   locaSelectBoxOptions.forEach(optionTag => {
     if (optionTag.value === userLoca) {
       optionTag.setAttribute('selected', 'selected');
@@ -49,7 +49,7 @@ function setLocation(userLoca, isCategory, posts, heartNum) {
     noResultMsg.classList.add('none');
 
     if (posts.length > 0) {
-      makePostList(posts, heartNum);
+      makePostList(posts, heartNum, chatNum);
     } else {
       noResultMsg.classList.remove('none');
     }
@@ -84,12 +84,13 @@ function reqResHandler(url) {
   axios.get(url).then(res => {
     const posts = res.data.posts;
     const heartNum = res.data.heartNum;
+    const chatNum = res.data.chatNum;
 
     removePostList();
     noResultMsg.classList.add('none');
 
     if (posts.length > 0) {
-      makePostList(posts, heartNum);
+      makePostList(posts, heartNum, chatNum);
     } else {
       noResultMsg.classList.remove('none');
     }
@@ -104,9 +105,9 @@ function removePostList() {
 }
 
 // DB에서 받아온 post들을 홈 화면에 띄워주는 함수
-function makePostList(posts, heartNum) {
+function makePostList(posts, heartNum, chatNums) {
   let i = 0;
-  console.log(heartNum);
+
   posts.forEach(post => {
     const li = document.createElement('li');
     postList.appendChild(li);
@@ -165,8 +166,7 @@ function makePostList(posts, heartNum) {
     chatNum.appendChild(chatIcon);
 
     const chatSpan = document.createElement('span');
-    chatSpan.innerText = 3;
-    // chatSpan.innerText = post.chat_num; => DB 수정 후 윗줄 삭제 및 주석 제거
+    chatSpan.innerText = chatNums[i];
     chatNum.appendChild(chatSpan);
 
     const likeNum = document.createElement('div');
@@ -178,7 +178,6 @@ function makePostList(posts, heartNum) {
     likeNum.appendChild(likeIcon);
 
     const likeSpan = document.createElement('span');
-    likeSpan.innerText = 3;
     likeSpan.innerText = heartNum[i++];
     likeNum.appendChild(likeSpan);
   });
