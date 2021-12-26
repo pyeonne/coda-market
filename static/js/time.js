@@ -21,6 +21,17 @@ function toDate(date_str) {
 
 // (현재 시간 - Post의 마지막 업데이트 시간)을 리턴해주는 함수
 // 년, 월, 일, 시, 분, 초 중 하나를 리턴
+function getCurrentTime(updatedTime) {
+  const currTime = new Date();
+
+  const year = updatedTime.getFullYear();
+  const month = Number(updatedTime.getMonth()) + 1;
+  const date = updatedTime.getDate();
+  const hours = updatedTime.getHours();
+  const minutes = updatedTime.getMinutes();
+  return `${year}/${month}/${date}/${hours}:${minutes}`;
+}
+
 function getTimeDiff(updatedTime) {
   const currTime = new Date();
 

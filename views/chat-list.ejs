@@ -42,12 +42,15 @@
           const li = document.createElement('li');
           let name = '';
           let location = '';
-          if (rooms[i] === user) {
+          let userThumbnail = '';
+          if (rooms[i].seller.shortId === user) {
             name = rooms[i].buyer.name;
             location = rooms[i].buyer.location;
+            userThumbnail = rooms[i].buyer.thumbnail;
           } else {
             name = rooms[i].seller.name;
             location = rooms[i].seller.location;
+            userThumbnail = rooms[i].seller.thumbnail;
           }
           li.innerHTML = `
           <a href="/chats/${rooms[i].post.shortId}">
@@ -65,6 +68,9 @@
             <img class="post-img" src="${rooms[i].post.thumbnail}" alt="post image">
           </a>
           `;
+          li.querySelector('.profile-img').style.backgroundImage = userThumbnail
+            ? `url(/${userThumbnail})`
+            : "url('../img/profile.png')";
           document.querySelector('#chat-list').appendChild(li);
         }
       }

@@ -39,6 +39,7 @@ router.get('/:post_id', async (req, res) => {
     'author',
   );
   const chatroom = await ChatRoom.findOne({ post })
+    .populate('post')
     .populate('buyer')
     .populate('seller');
   const user = await User.findOne({ shortId: req.user.id });
