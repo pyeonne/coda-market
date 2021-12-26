@@ -7,8 +7,6 @@ const post_img_btn = document.querySelector('.post_img_btn');
 let file_input = document.querySelector('.file_input');
 let list = [];
 
-let list = [];
-
 function file_btn() {
   const imageFiles = document.querySelectorAll('.img-box');
   const input = document.querySelector('.file_input');

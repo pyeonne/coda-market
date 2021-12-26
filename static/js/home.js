@@ -35,13 +35,16 @@ backBtn.addEventListener('click', () => {
   selectLocation();
 });
 
-function setLocation(isCategory, userLoca, posts, heartNum) {
+function setLocation(userLoca, isCategory, posts, heartNum) {
   locaSelectBoxOptions.forEach(optionTag => {
     if (optionTag.value === userLoca) {
       optionTag.setAttribute('selected', 'selected');
     }
   });
-
+  console.log('isCate:', isCategory);
+  console.log('userLoca:', userLoca);
+  console.log('posts:', posts);
+  console.log('heartNum:', heartNum);
   if (!isCategory) {
     reqResHandler(`/posts/search?location=${userLoca}`);
   } else {
@@ -68,7 +71,6 @@ function selectLocation() {
     'selected',
     'selected',
   );
-
   reqResHandler(`/posts/search?location=${locaSelectBox.value}`);
 }
 
@@ -121,7 +123,7 @@ function makePostList(posts, heartNum) {
     anchor.appendChild(postInfo);
 
     const postImg = document.createElement('img');
-    postImg.setAttribute('src', `${post.thumbnail}`);
+    postImg.setAttribute('src', `/${post.thumbnail}`);
     postImg.setAttribute('alt', 'post-image');
     postInfo.appendChild(postImg);
 
