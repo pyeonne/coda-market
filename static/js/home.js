@@ -107,7 +107,7 @@ function removePostList() {
 // DB에서 받아온 post들을 홈 화면에 띄워주는 함수
 function makePostList(posts, heartNum) {
   let i = 0;
-
+  console.log(heartNum);
   posts.forEach(post => {
     const li = document.createElement('li');
     postList.appendChild(li);

@@ -229,9 +229,9 @@
     <form name="chatTransation"></form>
     <div class="last-menu2">
       <% if(user.shortId === post.author.shortId) { %>
-      <a href="/chat">채팅 목록 보기</a>
+      <a href="/chats">채팅 목록 보기</a>
       <% } else { %>
-      <a href="">채팅으로 거래하기</a>
+        <a href="javascript:chatTransation('<%=post.shortId%>', '<%=user.shortId%>');">채팅으로 거래하기</a>
       <% } %>
     </div>
 
