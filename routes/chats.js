@@ -43,7 +43,15 @@ router.get('/:post_id', async (req, res) => {
     .populate('buyer')
     .populate('seller');
   const user = await User.findOne({ shortId: req.user.id });
-  res.render('./chat', { post, user, room: chatroom });
+  res.render('./chat', {
+    post,
+    user,
+    seller: {
+      name: chatroom.seller ? chatroom.seller.name : undefined,
+      thumbnail: chatroom.seller ? chatroom.seller.thumbnail : undefined,
+    },
+    buyer: chatroom.buyer,
+  });
 });
 
 router.post('/:post_id', async (req, res) => {

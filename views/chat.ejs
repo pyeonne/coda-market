@@ -28,9 +28,8 @@
         </ul>
 
         <h1>
-          <% if (room.seller !== undefined) { %> <% if(post.author.shortId ===
-          user.shortId) { %> <%=room.buyer.name%> <% } else {%>
-          <%=room.seller.name%> <% }%> <%} else { %> <%=post.author.name%> <%}%>
+          <% if(post.author.shortId === user.shortId) { %> <%=buyer.name%> <% }
+          else {%> <%=post.author.name%> <% }%>
         </h1>
       </div>
 
@@ -93,7 +92,6 @@
       function addMessage({ sender, message, updatedAt }) {
         const user = '<%=user.shortId%>';
         const msg = document.createElement('div');
-        const room = '<%=room%>';
         const time = `${getCurrentTime(toDate(updatedAt))}`;
         if (user === sender) {
           msg.innerHTML = `
@@ -115,17 +113,15 @@
           </div>
           `;
           if (
-            room !== undefined &&
             '<%=post.author.shortId%>' === user &&
-            room.buyer.thumbnail !== undefined
+            '<%=buyer.thumbnail%>' !== undefined
           ) {
-            msg.querySelector('img').src = `/${room.buyer.thumbnail}`;
+            msg.querySelector('img').src = `/<%=buyer.thumbnail%>`;
           } else if (
-            room !== undefined &&
             '<%=post.author.shortId%>' !== user &&
-            room.seller.thumbnail !== undefined
+            '<%=seller.thumbnail%>' !== undefined
           ) {
-            msg.querySelector('img').src = `/${room.seller.thumbnail}`;
+            msg.querySelector('img').src = `/<%=seller.thumbnail%>`;
           }
         }
         document.querySelector('#messages-container').appendChild(msg);
