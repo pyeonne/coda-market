@@ -4,9 +4,10 @@
 <head>
   <%- include("../layout/head") %>
 
+    <link rel="shortcut icon" href="/img/only-logo.png">
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/login.css" />
-    <title>Login</title>
+    <title>코다마켓</title>
 </head>
 
 <body>
@@ -23,7 +24,10 @@
         <input type="checkbox" name="xxx" value="yyy" checked />
         <a href="#">로그인 유지</a>
       </div>
-      <a href="/find/id">아이디/비밀번호 찾기</a>
+      <div class="find">
+        <a href="/find/id">아이디</a>
+        <a href="/find/password">비밀번호 찾기</a>
+      </div>
     </div>
 
     <% if (locals.loginFailed) { %>

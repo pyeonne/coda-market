@@ -8,8 +8,8 @@ const router = express.Router();
 router.post('/:post_id', async (req, res) => {
   const post = await Post.findOne({ shortId: req.params.post_id });
   const user = await User.findOne({ shortId: req.user.id });
-  let cart = await Cart.findOne({ user, post }).populate('post');
-  
+  const cart = await Cart.findOne({ user, post });
+
   if (cart === null) {
     await Cart.create({
       user,
@@ -21,14 +21,6 @@ router.post('/:post_id', async (req, res) => {
       post,
     });
   }
-  res.json({ isClick: cart === null });
-});
-
-// 찜 목록 리스트
-router.get('/', async (req, res) => {
-  const user = await User.findOne({ shortId: req.user.id });
-  const cart = await Cart.findOne({ user: user }).populate('post');
-  res.json({ cart: cart });
 });
 
 export default router;
