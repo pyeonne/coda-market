@@ -34,14 +34,15 @@ router.get('/', async (req, res) => {
 
 router.get('/:post_id', async (req, res) => {
   // 구매자와 판매자 개별 채팅창
-  // const rooms = await ChatRoom.find;
   const post = await Post.findOne({ shortId: req.params.post_id }).populate(
     'author',
   );
-  const chatroom = await ChatRoom.findOne({ post })
+  const shortId = req.params.post_id + req.query.user;
+  const chatroom = await ChatRoom.findOne({ shortId })
     .populate('post')
     .populate('buyer')
     .populate('seller');
+
   const user = await User.findOne({ shortId: req.user.id });
   res.render('./chat', {
     post,
@@ -59,14 +60,16 @@ router.post('/:post_id', async (req, res) => {
   // 채팅 주고 받는 것을 DB에 저장하는 곳
   const user = await User.findOne({ shortId: req.user.id });
   const post = await Post.findOne({ shortId: req.params.post_id });
-  const chatroom = await ChatRoom.findOne({ post });
+  const shortId = post.shortId + req.query.user;
+  const chatroom = await ChatRoom.findOne({ shortId });
   if (!chatroom) {
     await ChatRoom.create({
+      shortId,
       post,
       buyer: user,
     });
   }
-  res.redirect(`/chats/${post.shortId}`);
+  res.redirect(`/chats/${post.shortId}?user=${req.query.user}`);
 });
 
 export default router;

@@ -52,8 +52,9 @@
             location = rooms[i].seller.location;
             userThumbnail = rooms[i].seller.thumbnail;
           }
+          console.log(rooms[i].buyer.shortId);
           li.innerHTML = `
-          <a href="/chats/${rooms[i].post.shortId}">
+          <a href="/chats/${rooms[i].post.shortId}?user=${rooms[i].buyer.shortId}">
             <div class="left-items">
               <div class="profile-img"></div>
               <div class="chat-info">

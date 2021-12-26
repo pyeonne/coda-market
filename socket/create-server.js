@@ -24,11 +24,15 @@ export default server => {
     const userId = socket.request.headers['user-id'];
     const user = await User.findOne({ shortId: userId });
 
+    const buyerId = socket.request.headers['buyer-id'];
+
     const postId = socket.request.headers['post-id'];
     const post = await Post.findOne({ shortId: postId });
-    const chatroom = await ChatRoom.findOne({ post }).populate('post');
+    const shortId = postId + buyerId;
 
-    socket.join(chatroom.post.shortId);
+    const chatroom = await ChatRoom.findOne({ shortId }).populate('post');
+
+    socket.join(chatroom.shortId);
     await initMessages(socket, chatroom);
 
     socket.on('message', async message => {
@@ -38,7 +42,7 @@ export default server => {
         text: message,
       });
 
-      io.to(chatroom.post.shortId).emit(
+      io.to(chatroom.shortId).emit(
         'message',
         formatMessage(user.shortId, message, msg.updatedAt),
       );
@@ -46,7 +50,7 @@ export default server => {
       if (chatroom.seller === undefined) {
         await ChatRoom.updateOne(
           {
-            post,
+            shortId,
           },
           {
             seller: post.author,
@@ -56,7 +60,7 @@ export default server => {
     });
 
     socket.on('disconnect', async () => {
-      const room = await ChatRoom.findOne({ post });
+      const room = await ChatRoom.findOne({ shortId });
     });
   });
 };
