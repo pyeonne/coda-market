@@ -41,10 +41,7 @@ function setLocation(userLoca, isCategory, posts, heartNum) {
       optionTag.setAttribute('selected', 'selected');
     }
   });
-  console.log('isCate:', isCategory);
-  console.log('userLoca:', userLoca);
-  console.log('posts:', posts);
-  console.log('heartNum:', heartNum);
+
   if (!isCategory) {
     reqResHandler(`/posts/search?location=${userLoca}`);
   } else {
