@@ -13,8 +13,12 @@ router.post('/', async (req, res) => {
 
   const idCheck = await User.findOne({ shortId: id });
   const emailCheck = await User.findOne({ email });
-  if (id !== undefined && idCheck === null && 
-    email !== undefined && emailCheck === null) {
+  if (
+    id !== undefined &&
+    idCheck === null &&
+    email !== undefined &&
+    emailCheck === null
+  ) {
     await User.create({
       shortId: id,
       password: getHash(pwd),
@@ -22,7 +26,7 @@ router.post('/', async (req, res) => {
       location,
       email,
     });
-  
+
     res.redirect('/login');
     return;
   }
@@ -32,17 +36,16 @@ router.post('/', async (req, res) => {
   }
 
   if (id === undefined && emailCheck === null) {
-    res.json({existedUserEmail: false});
+    res.json({ existedUserEmail: false });
   }
-  
+
   if (email === undefined && idCheck !== null) {
-    res.json({existedUserId: true});
+    res.json({ existedUserId: true });
   }
 
   if (email !== undefined && emailCheck !== null) {
-    res.json({existedUserEmail: true});
+    res.json({ existedUserEmail: true });
   }
-
 });
 
 export default router;

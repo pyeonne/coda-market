@@ -1,4 +1,5 @@
 import multer from 'multer';
+import { nanoid } from 'nanoid';
 
 //set storage
 const storage = multer.diskStorage({
@@ -7,7 +8,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const ext = file.originalname.substr(file.originalname.lastIndexOf('.'));
-    cb(null, file.fieldname + '-' + Date.now() + ext);
+    cb(null, file.fieldname + '-' + nanoid() + ext);
   },
 });
 

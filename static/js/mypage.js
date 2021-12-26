@@ -39,12 +39,18 @@ async function toggleHistories() {
                     </h3>
                     <span class="histories__time">${
                       data.list[i].location
-                    } · ${timeForToday(data.list[i].updatedAt)}</span>
+                    } · ${timeForToday(data.list[i].updatedTime)}</span>
                     <div class="histories__info">
-                      <div class="button histories__status progress">
+                      <div class="button histories__status ${
+                        data.list[i].isSoldOut === '판매완료'
+                          ? 'done'
+                          : 'progress'
+                      }">
                         ${data.list[i].isSoldOut}
                       </div>
-                      <h3 class="histories__price">${data.list[i].price}원</h3>
+                      <h3 class="histories__price">${data.list[
+                        i
+                      ].price.toLocaleString('ko-KR')}원</h3>
                     </div>
                   </div>
                 </div>
@@ -62,8 +68,10 @@ async function toggleHistories() {
         .then(data => console.log(data));
     }
 
-    if ($(this).hasClass('cart-list') && 
-    document.querySelector('.cart-list .histories__list').innerHTML === '') {
+    if (
+      $(this).hasClass('cart-list') &&
+      document.querySelector('.cart-list .histories__list').innerHTML === ''
+    ) {
       await fetch(`/profile/carts`, {
         method: 'get',
       })
@@ -75,6 +83,9 @@ async function toggleHistories() {
               data.list[i].isSoldOut = '판매중';
             } else {
               data.list[i].isSoldOut = '판매완료';
+              document
+                .querySelector('.histories__status')
+                .classList.add('done');
             }
 
             document.querySelector('.cart-list .histories__list').innerHTML += `
@@ -93,12 +104,14 @@ async function toggleHistories() {
                     </h3>
                     <span class="histories__time">${
                       data.list[i].location
-                    } · ${timeForToday(data.list[i].updatedAt)}</span>
+                    } · ${timeForToday(data.list[i].updatedTime)}</span>
                     <div class="histories__info">
                       <div class="button histories__status progress">
                         ${data.list[i].isSoldOut}
                       </div>
-                      <h3 class="histories__price">${data.list[i].price}원</h3>
+                      <h3 class="histories__price">${data.list[
+                        i
+                      ].price.toLocaleString('ko-KR')}원</h3>
                     </div>
                   </div>
                 </div>
