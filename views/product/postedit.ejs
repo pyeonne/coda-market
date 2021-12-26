@@ -3,13 +3,11 @@
 
 <head>
 
-  <title>코다마켓</title>
+  <title>Post Page</title>
   <link rel="stylesheet" href="">
 
   <head>
     <%- include("../layout/head") %>
-
-      <link rel="shortcut icon" href="/img/only-logo.png">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous" />
       <link rel="stylesheet" href="/css/base.css" />
@@ -17,12 +15,11 @@
       <link rel="stylesheet" href="/css/nav-bottom.css" />
       <link rel="stylesheet" href="/css/product_post.css" />
 
-      <script src="/js/post.js" defer></script>
   </head>
 
-<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)" onchange=checkings()>
+<body onload="changeSoldOut(`<%= post.isSoldOut %>`), changeCategory(`<%= post.category %>`), uploadCheck(`<%= post.images %>`, `<%= process.env.PORT %>`)">
   
-  <form action="/posts/<%= post.shortId %>/edit" method="post" enctype="multipart/form-data">
+  <form id="actionForm" action="/posts/<%= post.shortId %>/edit" method="post" enctype="multipart/form-data">
     <div class="post_nav">
       <ul class="post_menu">
         <li><a href="/"><i class="fas fa-times"></a></i></li>
@@ -44,9 +41,10 @@
               <span class="img_count_text">0/5</span>
             </label>
             <input class="file_input" id="input-file" type="file" name="images" style="display: none;" multiple>
+            <input type="hidden" name="pathList" id="pathList"/>
           </div>
         </button>
-
+      
       </div>
       <hr style="border: solid 1px #E5E5E5;">
 
@@ -54,9 +52,8 @@
         <input type="text" name="title" value="<%- post.title %>" placeholder="상품 이름">
       </div>
       <hr style="border: solid 1px #E5E5E5;">
-
       <div class="post_category">
-        <select name="isSoldOut" class="sold_btn" onchange="selec_change()" style="color: black;">
+        <select name="isSoldOut" class="sold_btn" onchange="changeSoldOut(this.value)" style="color: black;">
           <option value="1" selected="selected">상품상태</option>
           <option value="false" style="color: green;">판매중</option>
           <option value="true" style="color: red;">판매완료</option>
@@ -107,7 +104,6 @@
 
   <%- include("../layout/nav-bottom") %>
     <script src="/js/post.js"></script>
-    <script src="/js/postedit.js"></script>
 </body>
 
 </html>
