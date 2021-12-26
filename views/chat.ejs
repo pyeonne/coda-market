@@ -89,6 +89,8 @@
         scroll();
       }
 
+      const buyerThumbnail = '<%=buyer.thumbnail%>';
+      const sellerThumbnail = '<%=seller.thumbnail%>';
       function addMessage({ sender, message, updatedAt }) {
         const user = '<%=user.shortId%>';
         const msg = document.createElement('div');
@@ -112,16 +114,14 @@
             <span class="time">${time}</span>
           </div>
           `;
-          if (
-            '<%=post.author.shortId%>' === user &&
-            '<%=buyer.thumbnail%>' !== undefined
-          ) {
-            msg.querySelector('img').src = `/<%=buyer.thumbnail%>`;
-          } else if (
-            '<%=post.author.shortId%>' !== user &&
-            '<%=seller.thumbnail%>' !== undefined
-          ) {
-            msg.querySelector('img').src = `/<%=seller.thumbnail%>`;
+          if ('<%=post.author.shortId%>' === user) {
+            msg.querySelector('img').src = `/${
+              buyerThumbnail ? buyerThumbnail : 'img/profile.png'
+            }`;
+          } else {
+            msg.querySelector('img').src = `/${
+              sellerThumbnail ? sellerThumbnail : 'img/profile.png'
+            }`;
           }
         }
         document.querySelector('#messages-container').appendChild(msg);
