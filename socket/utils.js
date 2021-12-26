@@ -1,7 +1,7 @@
-export default (sender, message, updatedAt) => {
+export default (sender, message, updatedTime) => {
   return {
     sender,
     message,
-    updatedAt,
+    updatedTime,
   };
 };

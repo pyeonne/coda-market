@@ -39,7 +39,7 @@ async function toggleHistories() {
                     </h3>
                     <span class="histories__time">${
                       data.list[i].location
-                    } · ${timeForToday(data.list[i].updatedAt)}</span>
+                    } · ${timeForToday(data.list[i].updatedTime)}</span>
                     <div class="histories__info">
                       <div class="button histories__status ${
                         data.list[i].isSoldOut === '판매완료'
@@ -48,7 +48,9 @@ async function toggleHistories() {
                       }">
                         ${data.list[i].isSoldOut}
                       </div>
-                      <h3 class="histories__price">${data.list[i].price.toLocaleString('ko-KR')}원</h3>
+                      <h3 class="histories__price">${data.list[
+                        i
+                      ].price.toLocaleString('ko-KR')}원</h3>
                     </div>
                   </div>
                 </div>
@@ -102,12 +104,20 @@ async function toggleHistories() {
                     </h3>
                     <span class="histories__time">${
                       data.list[i].location
-                    } · ${timeForToday(data.list[i].updatedAt)}</span>
+                    } · ${timeForToday(data.list[i].updatedTime)}</span>
                     <div class="histories__info">
                       <div class="button histories__status progress">
                         ${data.list[i].isSoldOut}
                       </div>
-                      <h3 class="histories__price">${data.list[i].price.toLocaleString('ko-KR')}원</h3>
+<<<<<<< HEAD
+                      <h3 class="histories__price">${data.list[
+                        i
+                      ].price.toLocaleString('ko-KR')}원</h3>
+=======
+                      <h3 class="histories__price">${data.list[
+                        i
+                      ].price.toLocaleString('ko-KR')}원</h3>
+>>>>>>> origin/time
                     </div>
                   </div>
                 </div>

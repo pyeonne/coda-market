@@ -4,18 +4,19 @@ import formatMessage from './utils.js';
 import User from '../models/User.js';
 import Post from '../models/Post.js';
 import Message from '../models/Message.js';
+import moment from 'moment';
 
 export default server => {
   const io = new Server(server, { credentials: true });
   async function initMessages(socket, chatroom) {
     const messages = await Message.find({ chatroom }).populate('sender').sort({
-      createdAt: 1,
+      createdTime: 1,
     });
 
     socket.emit(
       'messages',
-      messages.map(({ sender, text, updatedAt }) =>
-        formatMessage(sender.shortId, text, updatedAt),
+      messages.map(({ sender, text, updatedTime }) =>
+        formatMessage(sender.shortId, text, updatedTime),
       ),
     );
   }
@@ -40,11 +41,12 @@ export default server => {
         chatroom,
         sender: user,
         text: message,
+        updatedTime: moment(new Date()).format(),
       });
 
       io.to(chatroom.shortId).emit(
         'message',
-        formatMessage(user.shortId, message, msg.updatedAt),
+        formatMessage(user.shortId, message, msg.updatedTime),
       );
 
       if (chatroom.seller === undefined) {

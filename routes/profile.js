@@ -60,7 +60,7 @@ router.post('/edit', store.single('image'), async (req, res) => {
 router.get('/tranactions', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const posts = await Post.find({ author: user }).sort({
-    updatedAt: 'desc',
+    updatedTime: 'desc',
   });
   res.json({ list: posts });
 });
@@ -68,10 +68,10 @@ router.get('/tranactions', async (req, res) => {
 router.get('/carts', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
   const cart = await Cart.find({ user }).populate('post').sort({
-    updatedAt: 'desc',
+    updatedTime: 'desc',
   });
   const list = cart.map(item => item.post);
-  res.json({ list: list.sort((a, b) => b.updatedAt - a.updatedAt) });
+  res.json({ list: list.sort((a, b) => b.updatedTime - a.updatedTime) });
 });
 
 export default router;

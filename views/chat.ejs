@@ -92,10 +92,10 @@
 
       const buyerThumbnail = '<%=buyer.thumbnail%>';
       const sellerThumbnail = '<%=seller.thumbnail%>';
-      function addMessage({ sender, message, updatedAt }) {
+      function addMessage({ sender, message, updatedTime }) {
         const user = '<%=user.shortId%>';
         const msg = document.createElement('div');
-        const time = `${getCurrentTime(toDate(updatedAt))}`;
+        const time = `${getCurrentTime(toDate(updatedTime))}`;
         if (user === sender) {
           msg.innerHTML = `
           <div class="my-chat">

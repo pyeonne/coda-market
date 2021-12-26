@@ -115,7 +115,8 @@
       function timeForToday(value) {
         const today = new Date();
         const timeValue = new Date(value);
-      
+       
+
         const betweenTime = Math.floor(
           (today.getTime() - timeValue.getTime()) / 1000 / 60,
         );
@@ -149,7 +150,7 @@
           <div>
             <a href="/" class="category-text">
               <%= post.category %>
-            </a> · <span id="get_times"><%= timeForToday(post.updatedAt)%></span>
+            </a> · <span id="get_times"><%= timeForToday(post.updatedTime)%></span>
           </div>
 
           <div class='sold-out-box'>

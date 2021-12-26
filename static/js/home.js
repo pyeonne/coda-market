@@ -145,7 +145,7 @@ function makePostList(posts, heartNum, chatNums) {
 
     const date = document.createElement('span');
     date.setAttribute('class', 'date');
-    date.innerText = `${getTimeDiff(toDate(post.updatedAt))} 전`;
+    date.innerText = `${getTimeDiff(toDate(post.updatedTime))} 전`;
     locaAndDate.appendChild(date);
 
     const price = document.createElement('span');

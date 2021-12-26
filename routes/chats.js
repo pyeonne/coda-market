@@ -17,11 +17,13 @@ router.get('/', async (req, res) => {
     .populate('post')
     .populate('buyer')
     .populate('seller')
-    .sort({ updatedAt: 'desc' });
+    .sort({ updatedTime: 'desc' });
   const messages = [];
   for (let i = 0; i < rooms.length; i++) {
     messages.push(
-      await Message.findOne({ chatroom: rooms[i] }).sort({ updatedAt: 'desc' }),
+      await Message.findOne({ chatroom: rooms[i] }).sort({
+        updatedTime: 'desc',
+      }),
     );
   }
 

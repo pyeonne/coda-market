@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import getCurrentDate from '../utils/getTime.js';
 
 const { Schema, model } = mongoose;
 
@@ -20,8 +19,8 @@ const PostSchema = new Schema({
   isSoldOut: { type: Boolean, default: false },
   thumbnail: { type: String },
   current_status: { type: String, default: 'posted' },
-  createdAt: { type: Date, default: getCurrentDate() },
-  updatedAt: { type: Date, default: getCurrentDate() },
+  createdTime: { type: String },
+  updatedTime: { type: Date },
 });
 
 export default model('Post', PostSchema);

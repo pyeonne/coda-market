@@ -6,14 +6,15 @@ import store from '../passport/middlewares/multer.js';
 import { nanoid } from 'nanoid';
 import getCurrentDate from '../utils/getTime.js';
 import ChatRoom from '../models/ChatRoom.js';
+import moment from 'moment';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   const user = await User.findOne({ shortId: req.user.id });
-  let posts = await Post.find({}).sort({ updatedAt: 'desc' });
+  let posts = await Post.find({}).sort({ updatedTime: 'desc' });
   const filteredPosts = await Post.find({ location: user.location }).sort({
-    updatedAt: 'desc',
+    updatedTime: 'desc',
   });
   const heartNum = [];
   const chatNum = [];
@@ -40,7 +41,7 @@ router.get('/search', async (req, res) => {
     posts = await Post.find({
       location,
       category,
-    }).sort({ updatedAt: 'desc' });
+    }).sort({ updatedTime: 'desc' });
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
@@ -59,7 +60,7 @@ router.get('/search', async (req, res) => {
     posts = await Post.find({
       location,
       title: { $regex: input, $options: 'gi' },
-    }).sort({ updatedAt: 'desc' });
+    }).sort({ updatedTime: 'desc' });
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
@@ -72,7 +73,7 @@ router.get('/search', async (req, res) => {
   } else if (location) {
     posts = await Post.find({
       location,
-    }).sort({ updatedAt: 'desc' });
+    }).sort({ updatedTime: 'desc' });
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
@@ -128,6 +129,8 @@ router.post('/new', store.array('images', 5), async (req, res, next) => {
     author: user,
     thumbnail: imageArray[0],
     shortId: nanoid(),
+    createdTime: moment(new Date()).format(),
+    updatedTime: moment(new Date()).format(),
   });
 
   res.redirect(`/posts/${post.shortId}`);
@@ -163,7 +166,7 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     images,
     thumbnail: images[0] ? images[0] : '',
     price,
-    updatedAt: getCurrentDate(),
+    updatedTime: moment(new Date()).format(),
   };
 
   const asArray = Object.entries(option);
@@ -191,7 +194,7 @@ router.post('/:post_id/soldout?state', async (req, res) => {
     {
       new: true,
       upsert: true,
-      timestamps: { createdAt: false, updatedAt: true },
+      timestamps: { createdTime: false, updatedTime: true },
     },
   );
 

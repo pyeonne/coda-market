@@ -38,7 +38,7 @@
         const user = '<%=user.shortId%>';
 
         for (let i = 0; i < rooms.length; i++) {
-          const time = `${getTimeDiff(toDate(messages[i].updatedAt))} 전`;
+          const time = `${getTimeDiff(toDate(messages[i].updatedTime))} 전`;
           const li = document.createElement('li');
           let name = '';
           let location = '';
