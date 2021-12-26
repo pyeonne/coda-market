@@ -208,7 +208,7 @@ function toDate(date_str) {
 // 년, 월, 일, 시, 분, 초 중 하나를 리턴
 function getTimeDiff(updatedTime) {
   const currTime = new Date();
-
+  console.log(updatedTime);
   if (currTime.getFullYear() !== updatedTime.getFullYear()) {
     return `${currTime.getFullYear() - updatedTime.getFullYear()}년`;
   }

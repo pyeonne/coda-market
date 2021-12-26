@@ -4,7 +4,6 @@ import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import { nanoid } from 'nanoid';
-import getCurrentDate from '../utils/getTime.js';
 import ChatRoom from '../models/ChatRoom.js';
 import moment from 'moment';
 

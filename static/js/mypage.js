@@ -109,15 +109,9 @@ async function toggleHistories() {
                       <div class="button histories__status progress">
                         ${data.list[i].isSoldOut}
                       </div>
-<<<<<<< HEAD
                       <h3 class="histories__price">${data.list[
                         i
                       ].price.toLocaleString('ko-KR')}원</h3>
-=======
-                      <h3 class="histories__price">${data.list[
-                        i
-                      ].price.toLocaleString('ko-KR')}원</h3>
->>>>>>> origin/time
                     </div>
                   </div>
                 </div>

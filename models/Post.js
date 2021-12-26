@@ -20,7 +20,7 @@ const PostSchema = new Schema({
   thumbnail: { type: String },
   current_status: { type: String, default: 'posted' },
   createdTime: { type: String },
-  updatedTime: { type: Date },
+  updatedTime: { type: String },
 });
 
 export default model('Post', PostSchema);
