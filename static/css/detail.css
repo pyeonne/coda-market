@@ -56,7 +56,6 @@ li {
   color: white;
   border-radius: 10px;
   font-size: 14px;
-
 }
 
 /* .menu2 button {
@@ -311,7 +310,6 @@ li {
   color: black;
   position: relative;
   top: 4px;
-
 }
 
 .menu1-item #ds-option {
@@ -320,16 +318,17 @@ li {
 
 .last-menu2 {
   text-align: center;
-  margin-right: 20px;
+  align-items: center;
+  margin-right: -80px;
   margin-top: 10px;
   width: 140px;
   height: 25px;
   border-radius: 7px;
   background-color: #7979d3;
-  align-items: center;
-  position: relative;
-  bottom: 4px;
-  left: 10px;
+
+  position: absolute;
+  bottom: 10px;
+  right: 100px;
 }
 
 .last-menu2 a {
