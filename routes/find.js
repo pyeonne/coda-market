@@ -2,6 +2,8 @@ import express from 'express';
 import nodemailer from 'nodemailer';
 import User from '../models/User.js';
 import { nanoid } from 'nanoid';
+import hashingPassword from '../utils/hash-password.js';
+import SMTPTransport from 'nodemailer-smtp-transport';
 
 const router = express.Router();
 
@@ -16,16 +18,16 @@ router.post('/id', async (req, res) => {
     email: receiverEmail,
   });
 
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: {
-      user: 'clsrns1111@gmail.com',
-      pass: 'dyddus11!',
-    },
-  });
+  let transporter = nodemailer.createTransport(
+    SMTPTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      auth: {
+        user: 'clsrns1111@gmail.com',
+        pass: process.env.emailPassword,
+      },
+    }),
+  );
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
@@ -33,17 +35,10 @@ router.post('/id', async (req, res) => {
     to: user.email,
     subject: '코다마켓 - 아이디찾기 결과',
     text: 'test1123',
-    html: `<b>코다마켓에서 보낸 이메일입니다.</b><p>아이디는 ${user.name} 입니다.</p>`,
+    html: `<b>코다마켓에서 보낸 이메일입니다.</b><p>아이디는 ${user.shortId} 입니다.</p>`,
   });
 
-  console.log('Message sent: %s', info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  res.json({
-    status: 'Success',
-    code: 200,
-    message: 'Sent Auth Email',
-  });
+  res.redirect('login');
 });
 
 router.post('/password', async (req, res) => {
@@ -53,7 +48,7 @@ router.post('/password', async (req, res) => {
     email: receiverEmail,
     shortId: receiveruserId,
   });
-
+  console.log(user);
   const newPwd = nanoid();
 
   await User.findOneAndUpdate(
@@ -61,7 +56,7 @@ router.post('/password', async (req, res) => {
       $and: [{ email: receiverEmail }, { id: receiveruserId }],
     },
     {
-      pwd: newPwd,
+      password: hashingPassword(newPwd),
     },
     { new: true },
   );
@@ -69,11 +64,9 @@ router.post('/password', async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
     auth: {
       user: 'clsrns1111@gmail.com',
-      pass: 'dyddus11!',
+      pass: process.env.emailPassword,
     },
   });
 
@@ -84,18 +77,11 @@ router.post('/password', async (req, res) => {
     subject: '코다마켓 - 비밀번호찾기 결과',
     text: 'test1123',
     html: `<b>(주)코다마켓에서 보낸 이메일입니다.</b><p>비밀번호는 ${newPwd} 입니다. </p>
-    <a href='http://localhost:3000'> ▶ 코다마켓으로 바로가기 </a>
+    <a href='http://elice-kdt-sw-1st-vm09.koreacentral.cloudapp.azure.com/'> ▶ 코다마켓으로 바로가기 </a>
     `,
   });
 
-  console.log('Message sent: %s', info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  res.json({
-    status: 'Success',
-    code: 200,
-    message: 'Sent Auth Email',
-  });
+  res.redirect('/login');
 });
 
 export default router;
