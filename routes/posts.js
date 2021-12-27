@@ -111,12 +111,14 @@ router.get('/:post_id', async (req, res) => {
 
 //게시물 생성
 // localhost:3000/post -post
-router.post('/new', store.array('images', 5), async (req, res, next) => {
-  console.log('게시글 생성 값', req.body);
+router.post('/new', store.array('images'), async (req, res, next) => {
   const { title, content, location, category, price } = req.body;
   const files = req.files;
 
-  const imageArray = files.map(file => file.path.replace(/\\/g, '/'));
+  let imageArray = files.map(file => file.path.replace(/\\/g, '/'));
+
+  imageArray = imageArray.slice(0, 5);
+
   const user = await User.findOne({ shortId: req.user.id });
   const post = await Post.create({
     images: imageArray,
