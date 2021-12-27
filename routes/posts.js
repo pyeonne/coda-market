@@ -4,7 +4,6 @@ import User from '../models/User.js';
 import Cart from '../models/Cart.js';
 import store from '../passport/middlewares/multer.js';
 import { nanoid } from 'nanoid';
-import getCurrentDate from '../utils/getTime.js';
 import ChatRoom from '../models/ChatRoom.js';
 import moment from 'moment';
 
@@ -73,7 +72,7 @@ router.get('/search', async (req, res) => {
   } else if (location) {
     posts = await Post.find({
       location,
-    }).sort({ update: 'desc' });
+    }).sort({ updatedTime: 'desc' });
 
     for (let i = 0; i < posts.length; i++) {
       heartNum.push(await Cart.countDocuments({ post: posts[i] }));
@@ -166,7 +165,7 @@ router.post('/:post_id/edit', store.array('images'), async (req, res) => {
     images,
     thumbnail: images[0] ? images[0] : '',
     price,
-    updatedTime: getCurrentDate(),
+    updatedTime: moment(new Date()).format(),
   };
 
   const asArray = Object.entries(option);

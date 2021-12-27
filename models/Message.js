@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import getCurrentDate from '../utils/getTime.js';
 
 const { Schema, model } = mongoose;
 
