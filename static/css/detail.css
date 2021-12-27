@@ -138,6 +138,7 @@ li {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .imfo-box {
@@ -392,4 +393,24 @@ li {
 
 .btn-box .yes {
   background-color: #f75e6a;
+}
+
+.owl-item {
+  max-height: 960px;
+  position: relative;
+  overflow: hidden;
+}
+
+.owl-item img {
+  height: 960px;
+}
+
+@media screen and (max-width: 700px) {
+  .owl-item {
+    max-height: 360px;
+  }
+
+  .owl-item img {
+    height: 360px;
+  }
 }
