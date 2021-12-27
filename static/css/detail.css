@@ -23,7 +23,6 @@ li {
   left: 16px;
 
   font-size: 20px;
-
   cursor: pointer;
 }
 
@@ -47,7 +46,16 @@ li {
 }
 
 .menu2 li a {
+  position: relative;
+  top: 2px;
+  left: 10px;
   width: 100%;
+  border: solid 1px;
+  padding: 3px 10px 3px 10px;
+  background-color: #7979d3;
+  color: white;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 /* .menu2 button {
@@ -75,12 +83,15 @@ li {
 }
 
 @media (min-width: 700px) {
-  .detail-img {
+  #main_slider {
     text-align: center;
+    width: 100%;
+    height: 480px;
   }
 
   .detail-img img {
     width: 700px;
+    height: 100%;
     text-align: center;
   }
 }
@@ -91,7 +102,7 @@ li {
   position: relative;
 
   width: 100%;
-  height: 280px;
+  height: 100%;
   margin-top: 50px;
 }
 
@@ -127,6 +138,7 @@ li {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .imfo-box {
@@ -168,6 +180,7 @@ li {
 .sold-out-box {
   position: relative;
   bottom: 8px;
+  right: 14px;
 }
 
 .content-info a {
@@ -220,6 +233,7 @@ li {
   max-width: 1800px;
   margin-bottom: 15px;
   justify-content: space-between;
+  padding: 35px 60px 15px 40px;
 }
 
 .container .product-item {
@@ -248,6 +262,10 @@ li {
 }
 
 .container .product-info a {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   font-size: 18px;
   font-weight: bold;
 }
@@ -294,6 +312,8 @@ li {
   font-size: 18px;
   font-weight: bold;
   color: black;
+  position: relative;
+  top: 4px;
 }
 
 .menu1-item #ds-option {
@@ -309,6 +329,9 @@ li {
   border-radius: 7px;
   background-color: #7979d3;
   align-items: center;
+  position: relative;
+  bottom: 4px;
+  left: 10px;
 }
 
 .last-menu2 a {
@@ -369,4 +392,24 @@ li {
 
 .btn-box .yes {
   background-color: #f75e6a;
+}
+
+.owl-item {
+  max-height: 960px;
+  position: relative;
+  overflow: hidden;
+}
+
+.owl-item img {
+  height: 960px;
+}
+
+@media screen and (max-width: 700px) {
+  .owl-item {
+    max-height: 360px;
+  }
+
+  .owl-item img {
+    height: 360px;
+  }
 }
